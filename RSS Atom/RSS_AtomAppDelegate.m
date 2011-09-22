@@ -17,8 +17,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [General loadFonts];
     // Override point for customization after application launch.
-    [General load]; 
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
     return YES;

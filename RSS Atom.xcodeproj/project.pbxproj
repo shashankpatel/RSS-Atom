@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		98427F83142B9F5C0048C0B5 /* General.m in Sources */ = {isa = PBXBuildFile; fileRef = 98427F82142B9F5C0048C0B5 /* General.m */; };
-		98427F86142BA0C20048C0B5 /* segoeui.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 98427F84142BA0C20048C0B5 /* segoeui.ttf */; };
-		98427F87142BA0C20048C0B5 /* segoeuib.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 98427F85142BA0C20048C0B5 /* segoeuib.ttf */; };
+		98427F92142BA6580048C0B5 /* segoeui.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 98427F90142BA6580048C0B5 /* segoeui.ttf */; };
+		98427F93142BA6580048C0B5 /* segoeuib.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 98427F91142BA6580048C0B5 /* segoeuib.ttf */; };
 		98D62A46142B528800481EF9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98D62A45142B528800481EF9 /* UIKit.framework */; };
 		98D62A48142B528800481EF9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98D62A47142B528800481EF9 /* Foundation.framework */; };
 		98D62A4A142B528800481EF9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98D62A49142B528800481EF9 /* CoreGraphics.framework */; };
@@ -31,8 +31,8 @@
 /* Begin PBXFileReference section */
 		98427F81142B9F5C0048C0B5 /* General.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = General.h; sourceTree = "<group>"; };
 		98427F82142B9F5C0048C0B5 /* General.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = General.m; sourceTree = "<group>"; };
-		98427F84142BA0C20048C0B5 /* segoeui.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = segoeui.ttf; sourceTree = "<group>"; };
-		98427F85142BA0C20048C0B5 /* segoeuib.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = segoeuib.ttf; sourceTree = "<group>"; };
+		98427F90142BA6580048C0B5 /* segoeui.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = segoeui.ttf; sourceTree = "<group>"; };
+		98427F91142BA6580048C0B5 /* segoeuib.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = segoeuib.ttf; sourceTree = "<group>"; };
 		98D62A41142B528800481EF9 /* RSS Atom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RSS Atom.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		98D62A45142B528800481EF9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		98D62A47142B528800481EF9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -124,8 +124,8 @@
 		98D62A4C142B528800481EF9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				98427F84142BA0C20048C0B5 /* segoeui.ttf */,
-				98427F85142BA0C20048C0B5 /* segoeuib.ttf */,
+				98427F90142BA6580048C0B5 /* segoeui.ttf */,
+				98427F91142BA6580048C0B5 /* segoeuib.ttf */,
 				98D62A6D142B5B3A00481EF9 /* Icons */,
 				98D62A4D142B528800481EF9 /* RSS Atom-Info.plist */,
 				98D62A4E142B528800481EF9 /* InfoPlist.strings */,
@@ -203,8 +203,8 @@
 				98D62A71142B5BC400481EF9 /* blackSteel.jpg in Resources */,
 				98D62A73142B5CA600481EF9 /* wrenchIcon.png in Resources */,
 				98D62A8F142B66C900481EF9 /* FeedSelectorViewController.xib in Resources */,
-				98427F86142BA0C20048C0B5 /* segoeui.ttf in Resources */,
-				98427F87142BA0C20048C0B5 /* segoeuib.ttf in Resources */,
+				98427F92142BA6580048C0B5 /* segoeui.ttf in Resources */,
+				98427F93142BA6580048C0B5 /* segoeuib.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,7 +7,7 @@
 //
 
 #import "FeedSelectorViewController.h"
-
+#import "General.h"
 @implementation FeedSelectorViewController
 
 @synthesize delegate;
@@ -16,7 +16,8 @@
 
 - (void)viewDidLoad
 {
-    feedURLs=[[NSMutableArray alloc] initWithObjects:@"Gizmodo",@"Techcrunch",@"Meshable",@"Daring Fireball",nil];
+    //[UIFont fontWithName: @"SegoeUI" size: 17];
+    feedURLs=[[NSMutableArray alloc] initWithObjects:@"Gizmodo",@"Techcrunch",@"Mashable",@"Daring Fireball",nil];
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
@@ -30,8 +31,11 @@
     UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:FeedCell];
     if (!cell) {
         cell=[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:FeedCell];
+        cell.textLabel.font=[General selectedFontRegular];
+        cell.textLabel.textColor=[UIColor whiteColor];
     }
     cell.textLabel.text=[feedURLs objectAtIndex:indexPath.row];
+    cell.imageView.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@.png",[feedURLs objectAtIndex:indexPath.row]]];
     return cell;
 }
 

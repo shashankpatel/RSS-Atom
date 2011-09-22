@@ -12,7 +12,7 @@
 
 static UIFont *selectedFontRegular,*selectedFontLarge,*retractedLabelFont,*regularLabelFont,*descriptionFont;
 
-+(void) load{
++(void) loadFonts{
     selectedFontRegular= [[UIFont fontWithName: @"SegoeUI" size: 17] retain];
     selectedFontLarge= [[UIFont fontWithName: @"SegoeUI-Bold" size: 25] retain];
     retractedLabelFont=[[UIFont fontWithName: @"SegoeUI-Bold" size: 11] retain];

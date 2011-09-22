@@ -11,7 +11,7 @@
 
 @interface General : NSObject
 
-+(void) load;
++(void) loadFonts;
 +(UIFont*) selectedFontRegular;
 +(UIFont*) selectedFontLarge;
 +(UIFont*) retractedLabelFont;
