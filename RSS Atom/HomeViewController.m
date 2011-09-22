@@ -17,7 +17,7 @@
     feedSelector.delegate=self;
     feedSelector.view.alpha=0;
     [self.view addSubview:feedSelector.view];
-    currentView=table;
+    currentView=detachableView;
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
@@ -52,11 +52,11 @@
 }
 
 -(IBAction)feedSelectorPressed:(id)sender{
-    [self popFromView:table toView:feedSelector.view];
+    [self popFromView:currentView toView:feedSelector.view];
 }
 
 -(void) feedSelectedForURLString:(NSString*) urlString{
-    [self pushFromView:currentView toView:table];
+    [self pushFromView:currentView toView:detachableView];
 }
 
 

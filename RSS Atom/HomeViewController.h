@@ -12,6 +12,7 @@
 @interface HomeViewController : UIViewController<FeedSelectorDelegate>{
     FeedSelectorViewController *feedSelector;
     IBOutlet UITableView *table;
+    IBOutlet UIView *detachableView;
     UIView *currentView;
 }
 

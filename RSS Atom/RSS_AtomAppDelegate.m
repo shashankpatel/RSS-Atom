@@ -7,8 +7,8 @@
 //
 
 #import "RSS_AtomAppDelegate.h"
-
 #import "RSS_AtomViewController.h"
+#import "General.h"
 
 @implementation RSS_AtomAppDelegate
 
@@ -18,7 +18,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-     
+    [General load]; 
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
     return YES;
