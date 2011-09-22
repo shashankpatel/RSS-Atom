@@ -1,0 +1,291 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		98D62A46142B528800481EF9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98D62A45142B528800481EF9 /* UIKit.framework */; };
+		98D62A48142B528800481EF9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98D62A47142B528800481EF9 /* Foundation.framework */; };
+		98D62A4A142B528800481EF9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98D62A49142B528800481EF9 /* CoreGraphics.framework */; };
+		98D62A50142B528800481EF9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 98D62A4E142B528800481EF9 /* InfoPlist.strings */; };
+		98D62A52142B528800481EF9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 98D62A51142B528800481EF9 /* main.m */; };
+		98D62A56142B528800481EF9 /* RSS_AtomAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 98D62A55142B528800481EF9 /* RSS_AtomAppDelegate.m */; };
+		98D62A59142B528800481EF9 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98D62A57142B528800481EF9 /* MainWindow.xib */; };
+		98D62A5C142B528800481EF9 /* RSS_AtomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98D62A5B142B528800481EF9 /* RSS_AtomViewController.m */; };
+		98D62A5F142B528800481EF9 /* RSS_AtomViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98D62A5D142B528800481EF9 /* RSS_AtomViewController.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		98D62A41142B528800481EF9 /* RSS Atom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RSS Atom.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		98D62A45142B528800481EF9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		98D62A47142B528800481EF9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		98D62A49142B528800481EF9 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		98D62A4D142B528800481EF9 /* RSS Atom-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RSS Atom-Info.plist"; sourceTree = "<group>"; };
+		98D62A4F142B528800481EF9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		98D62A51142B528800481EF9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		98D62A53142B528800481EF9 /* RSS Atom-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RSS Atom-Prefix.pch"; sourceTree = "<group>"; };
+		98D62A54142B528800481EF9 /* RSS_AtomAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RSS_AtomAppDelegate.h; sourceTree = "<group>"; };
+		98D62A55142B528800481EF9 /* RSS_AtomAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RSS_AtomAppDelegate.m; sourceTree = "<group>"; };
+		98D62A58142B528800481EF9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		98D62A5A142B528800481EF9 /* RSS_AtomViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RSS_AtomViewController.h; sourceTree = "<group>"; };
+		98D62A5B142B528800481EF9 /* RSS_AtomViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RSS_AtomViewController.m; sourceTree = "<group>"; };
+		98D62A5E142B528800481EF9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/RSS_AtomViewController.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		98D62A3E142B528800481EF9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				98D62A46142B528800481EF9 /* UIKit.framework in Frameworks */,
+				98D62A48142B528800481EF9 /* Foundation.framework in Frameworks */,
+				98D62A4A142B528800481EF9 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		98D62A36142B528800481EF9 = {
+			isa = PBXGroup;
+			children = (
+				98D62A4B142B528800481EF9 /* RSS Atom */,
+				98D62A44142B528800481EF9 /* Frameworks */,
+				98D62A42142B528800481EF9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		98D62A42142B528800481EF9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				98D62A41142B528800481EF9 /* RSS Atom.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		98D62A44142B528800481EF9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				98D62A45142B528800481EF9 /* UIKit.framework */,
+				98D62A47142B528800481EF9 /* Foundation.framework */,
+				98D62A49142B528800481EF9 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		98D62A4B142B528800481EF9 /* RSS Atom */ = {
+			isa = PBXGroup;
+			children = (
+				98D62A54142B528800481EF9 /* RSS_AtomAppDelegate.h */,
+				98D62A55142B528800481EF9 /* RSS_AtomAppDelegate.m */,
+				98D62A57142B528800481EF9 /* MainWindow.xib */,
+				98D62A5A142B528800481EF9 /* RSS_AtomViewController.h */,
+				98D62A5B142B528800481EF9 /* RSS_AtomViewController.m */,
+				98D62A5D142B528800481EF9 /* RSS_AtomViewController.xib */,
+				98D62A4C142B528800481EF9 /* Supporting Files */,
+			);
+			path = "RSS Atom";
+			sourceTree = "<group>";
+		};
+		98D62A4C142B528800481EF9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				98D62A4D142B528800481EF9 /* RSS Atom-Info.plist */,
+				98D62A4E142B528800481EF9 /* InfoPlist.strings */,
+				98D62A51142B528800481EF9 /* main.m */,
+				98D62A53142B528800481EF9 /* RSS Atom-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		98D62A40142B528800481EF9 /* RSS Atom */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 98D62A62142B528800481EF9 /* Build configuration list for PBXNativeTarget "RSS Atom" */;
+			buildPhases = (
+				98D62A3D142B528800481EF9 /* Sources */,
+				98D62A3E142B528800481EF9 /* Frameworks */,
+				98D62A3F142B528800481EF9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "RSS Atom";
+			productName = "RSS Atom";
+			productReference = 98D62A41142B528800481EF9 /* RSS Atom.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		98D62A38142B528800481EF9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = "Not Applicable";
+			};
+			buildConfigurationList = 98D62A3B142B528800481EF9 /* Build configuration list for PBXProject "RSS Atom" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 98D62A36142B528800481EF9;
+			productRefGroup = 98D62A42142B528800481EF9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				98D62A40142B528800481EF9 /* RSS Atom */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		98D62A3F142B528800481EF9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				98D62A50142B528800481EF9 /* InfoPlist.strings in Resources */,
+				98D62A59142B528800481EF9 /* MainWindow.xib in Resources */,
+				98D62A5F142B528800481EF9 /* RSS_AtomViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		98D62A3D142B528800481EF9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				98D62A52142B528800481EF9 /* main.m in Sources */,
+				98D62A56142B528800481EF9 /* RSS_AtomAppDelegate.m in Sources */,
+				98D62A5C142B528800481EF9 /* RSS_AtomViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		98D62A4E142B528800481EF9 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				98D62A4F142B528800481EF9 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		98D62A57142B528800481EF9 /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				98D62A58142B528800481EF9 /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+		98D62A5D142B528800481EF9 /* RSS_AtomViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				98D62A5E142B528800481EF9 /* en */,
+			);
+			name = RSS_AtomViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		98D62A60142B528800481EF9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		98D62A61142B528800481EF9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		98D62A63142B528800481EF9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RSS Atom/RSS Atom-Prefix.pch";
+				INFOPLIST_FILE = "RSS Atom/RSS Atom-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		98D62A64142B528800481EF9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RSS Atom/RSS Atom-Prefix.pch";
+				INFOPLIST_FILE = "RSS Atom/RSS Atom-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		98D62A3B142B528800481EF9 /* Build configuration list for PBXProject "RSS Atom" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				98D62A60142B528800481EF9 /* Debug */,
+				98D62A61142B528800481EF9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		98D62A62142B528800481EF9 /* Build configuration list for PBXNativeTarget "RSS Atom" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				98D62A63142B528800481EF9 /* Debug */,
+				98D62A64142B528800481EF9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 98D62A38142B528800481EF9 /* Project object */;
+}
