@@ -16,6 +16,13 @@
 		98D62A59142B528800481EF9 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98D62A57142B528800481EF9 /* MainWindow.xib */; };
 		98D62A5C142B528800481EF9 /* RSS_AtomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98D62A5B142B528800481EF9 /* RSS_AtomViewController.m */; };
 		98D62A5F142B528800481EF9 /* RSS_AtomViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98D62A5D142B528800481EF9 /* RSS_AtomViewController.xib */; };
+		98D62A68142B550B00481EF9 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98D62A66142B550B00481EF9 /* HomeViewController.m */; };
+		98D62A69142B550B00481EF9 /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98D62A67142B550B00481EF9 /* HomeViewController.xib */; };
+		98D62A6F142B5B5600481EF9 /* gridIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D62A6E142B5B5600481EF9 /* gridIcon.png */; };
+		98D62A71142B5BC400481EF9 /* blackSteel.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 98D62A70142B5BC400481EF9 /* blackSteel.jpg */; };
+		98D62A73142B5CA600481EF9 /* wrenchIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D62A72142B5CA600481EF9 /* wrenchIcon.png */; };
+		98D62A8E142B66C900481EF9 /* FeedSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98D62A8C142B66C900481EF9 /* FeedSelectorViewController.m */; };
+		98D62A8F142B66C900481EF9 /* FeedSelectorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98D62A8D142B66C900481EF9 /* FeedSelectorViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +40,15 @@
 		98D62A5A142B528800481EF9 /* RSS_AtomViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RSS_AtomViewController.h; sourceTree = "<group>"; };
 		98D62A5B142B528800481EF9 /* RSS_AtomViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RSS_AtomViewController.m; sourceTree = "<group>"; };
 		98D62A5E142B528800481EF9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/RSS_AtomViewController.xib; sourceTree = "<group>"; };
+		98D62A65142B550B00481EF9 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		98D62A66142B550B00481EF9 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		98D62A67142B550B00481EF9 /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
+		98D62A6E142B5B5600481EF9 /* gridIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gridIcon.png; sourceTree = "<group>"; };
+		98D62A70142B5BC400481EF9 /* blackSteel.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = blackSteel.jpg; sourceTree = "<group>"; };
+		98D62A72142B5CA600481EF9 /* wrenchIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wrenchIcon.png; sourceTree = "<group>"; };
+		98D62A8B142B66C900481EF9 /* FeedSelectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedSelectorViewController.h; sourceTree = "<group>"; };
+		98D62A8C142B66C900481EF9 /* FeedSelectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedSelectorViewController.m; sourceTree = "<group>"; };
+		98D62A8D142B66C900481EF9 /* FeedSelectorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedSelectorViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +101,12 @@
 				98D62A5A142B528800481EF9 /* RSS_AtomViewController.h */,
 				98D62A5B142B528800481EF9 /* RSS_AtomViewController.m */,
 				98D62A5D142B528800481EF9 /* RSS_AtomViewController.xib */,
+				98D62A65142B550B00481EF9 /* HomeViewController.h */,
+				98D62A66142B550B00481EF9 /* HomeViewController.m */,
+				98D62A67142B550B00481EF9 /* HomeViewController.xib */,
+				98D62A8B142B66C900481EF9 /* FeedSelectorViewController.h */,
+				98D62A8C142B66C900481EF9 /* FeedSelectorViewController.m */,
+				98D62A8D142B66C900481EF9 /* FeedSelectorViewController.xib */,
 				98D62A4C142B528800481EF9 /* Supporting Files */,
 			);
 			path = "RSS Atom";
@@ -93,12 +115,23 @@
 		98D62A4C142B528800481EF9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				98D62A6D142B5B3A00481EF9 /* Icons */,
 				98D62A4D142B528800481EF9 /* RSS Atom-Info.plist */,
 				98D62A4E142B528800481EF9 /* InfoPlist.strings */,
 				98D62A51142B528800481EF9 /* main.m */,
 				98D62A53142B528800481EF9 /* RSS Atom-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		98D62A6D142B5B3A00481EF9 /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				98D62A72142B5CA600481EF9 /* wrenchIcon.png */,
+				98D62A70142B5BC400481EF9 /* blackSteel.jpg */,
+				98D62A6E142B5B5600481EF9 /* gridIcon.png */,
+			);
+			name = Icons;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -154,6 +187,11 @@
 				98D62A50142B528800481EF9 /* InfoPlist.strings in Resources */,
 				98D62A59142B528800481EF9 /* MainWindow.xib in Resources */,
 				98D62A5F142B528800481EF9 /* RSS_AtomViewController.xib in Resources */,
+				98D62A69142B550B00481EF9 /* HomeViewController.xib in Resources */,
+				98D62A6F142B5B5600481EF9 /* gridIcon.png in Resources */,
+				98D62A71142B5BC400481EF9 /* blackSteel.jpg in Resources */,
+				98D62A73142B5CA600481EF9 /* wrenchIcon.png in Resources */,
+				98D62A8F142B66C900481EF9 /* FeedSelectorViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,6 +205,8 @@
 				98D62A52142B528800481EF9 /* main.m in Sources */,
 				98D62A56142B528800481EF9 /* RSS_AtomAppDelegate.m in Sources */,
 				98D62A5C142B528800481EF9 /* RSS_AtomViewController.m in Sources */,
+				98D62A68142B550B00481EF9 /* HomeViewController.m in Sources */,
+				98D62A8E142B66C900481EF9 /* FeedSelectorViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
