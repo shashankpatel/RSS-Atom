@@ -7,7 +7,6 @@
 //
 
 #import "RSS_AtomViewController.h"
-#import "HomeViewController.h"
 
 @implementation RSS_AtomViewController
 
@@ -17,8 +16,8 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
-    HomeViewController *vc=[[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
-    [self.view addSubview:vc.view];
+    homeViewController=[[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
+    [self.view addSubview:homeViewController.view];
     [super viewDidLoad];
 }
 
