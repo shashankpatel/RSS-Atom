@@ -17,6 +17,7 @@
     feedSelector.delegate=self;
     feedSelector.view.alpha=0;
     [self.view addSubview:feedSelector.view];
+    
     currentView=detachableView;
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.

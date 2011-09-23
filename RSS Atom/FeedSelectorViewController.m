@@ -8,6 +8,8 @@
 
 #import "FeedSelectorViewController.h"
 #import "General.h"
+#import "AMImageView.h"
+
 @implementation FeedSelectorViewController
 
 @synthesize delegate;
@@ -17,7 +19,7 @@
 - (void)viewDidLoad
 {
     //[UIFont fontWithName: @"SegoeUI" size: 17];
-    feedURLs=[[NSMutableArray alloc] initWithObjects:@"Gizmodo",@"Techcrunch",@"Mashable",@"Daring Fireball",nil];
+    feedURLs=[[NSMutableArray alloc] initWithObjects:@"Gizmodo",@"Techcrunch",@"Mashable",@"Daring Fireball",@"Wired",nil];
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
@@ -37,8 +39,22 @@
         cell.contentView.backgroundColor=[UIColor clearColor];
     }
     cell.textLabel.text=[feedURLs objectAtIndex:indexPath.row];
-    cell.imageView.image=[UIImage imageNamed:[NSString stringWithFormat:@"%@.png",[feedURLs objectAtIndex:indexPath.row]]];
+    NSString *urlString=[NSString stringWithFormat:@"http://www.google.com/s2/favicons?domain=www.%@.com",[[feedURLs objectAtIndex:indexPath.row] stringByReplacingOccurrencesOfString:@" " withString:@""]];
+//    NSData *faviconData=[NSData dataWithContentsOfURL:[NSURL URLWithString:urlString]];
+//    UIImage *favicon=[UIImage imageWithData:faviconData];
+//    //cell.imageView.image=favicon;
+
+    AMImageView *amiv=[[AMImageView alloc] init];
+    [cell addSubview:amiv];
+    [amiv setImageWithContentsOfURLString:urlString];
+    amiv.frame=CGRectMake(20, 15, 16, 16);
+    [amiv release];
+    
     return cell;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 3;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -54,7 +70,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 50;
+    return 44;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{

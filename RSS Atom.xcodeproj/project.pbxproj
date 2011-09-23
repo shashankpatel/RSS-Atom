@@ -14,6 +14,8 @@
 		98427FA1142C475C0048C0B5 /* gizmodo.png in Resources */ = {isa = PBXBuildFile; fileRef = 98427F9D142C475C0048C0B5 /* gizmodo.png */; };
 		98427FA2142C475C0048C0B5 /* mashable.png in Resources */ = {isa = PBXBuildFile; fileRef = 98427F9E142C475C0048C0B5 /* mashable.png */; };
 		98427FA3142C475C0048C0B5 /* Techcrunch.png in Resources */ = {isa = PBXBuildFile; fileRef = 98427F9F142C475C0048C0B5 /* Techcrunch.png */; };
+		98427FAD142C61FF0048C0B5 /* AMImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 98427FAC142C61FE0048C0B5 /* AMImageView.m */; };
+		98B1F788142C700C003A4B0D /* Serializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 98B1F787142C700C003A4B0D /* Serializer.m */; };
 		98D62A46142B528800481EF9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98D62A45142B528800481EF9 /* UIKit.framework */; };
 		98D62A48142B528800481EF9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98D62A47142B528800481EF9 /* Foundation.framework */; };
 		98D62A4A142B528800481EF9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98D62A49142B528800481EF9 /* CoreGraphics.framework */; };
@@ -41,6 +43,10 @@
 		98427F9D142C475C0048C0B5 /* gizmodo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gizmodo.png; sourceTree = "<group>"; };
 		98427F9E142C475C0048C0B5 /* mashable.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mashable.png; sourceTree = "<group>"; };
 		98427F9F142C475C0048C0B5 /* Techcrunch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Techcrunch.png; sourceTree = "<group>"; };
+		98427FAB142C61FE0048C0B5 /* AMImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMImageView.h; sourceTree = "<group>"; };
+		98427FAC142C61FE0048C0B5 /* AMImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMImageView.m; sourceTree = "<group>"; };
+		98B1F786142C700C003A4B0D /* Serializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Serializer.h; sourceTree = "<group>"; };
+		98B1F787142C700C003A4B0D /* Serializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Serializer.m; sourceTree = "<group>"; };
 		98D62A41142B528800481EF9 /* RSS Atom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RSS Atom.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		98D62A45142B528800481EF9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		98D62A47142B528800481EF9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -83,6 +89,10 @@
 		98D62A36142B528800481EF9 = {
 			isa = PBXGroup;
 			children = (
+				98B1F786142C700C003A4B0D /* Serializer.h */,
+				98B1F787142C700C003A4B0D /* Serializer.m */,
+				98427FAB142C61FE0048C0B5 /* AMImageView.h */,
+				98427FAC142C61FE0048C0B5 /* AMImageView.m */,
 				98D62A4B142B528800481EF9 /* RSS Atom */,
 				98D62A44142B528800481EF9 /* Frameworks */,
 				98D62A42142B528800481EF9 /* Products */,
@@ -237,6 +247,8 @@
 				98D62A68142B550B00481EF9 /* HomeViewController.m in Sources */,
 				98D62A8E142B66C900481EF9 /* FeedSelectorViewController.m in Sources */,
 				98427F83142B9F5C0048C0B5 /* General.m in Sources */,
+				98427FAD142C61FF0048C0B5 /* AMImageView.m in Sources */,
+				98B1F788142C700C003A4B0D /* Serializer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
