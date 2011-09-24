@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "FeedSelectorViewController.h"
+#import "FeedViewController.h"
 
-@interface HomeViewController : UIViewController<FeedSelectorDelegate>{
+@interface HomeViewController : UIViewController<FeedSelectorDelegate,FeedViewDelegate>{
     FeedSelectorViewController *feedSelector;
+    FeedViewController *feedViewController;
     IBOutlet UITableView *table;
     IBOutlet UIView *detachableView;
     UIView *currentView;

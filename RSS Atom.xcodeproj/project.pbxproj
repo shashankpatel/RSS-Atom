@@ -16,6 +16,11 @@
 		98427FA3142C475C0048C0B5 /* Techcrunch.png in Resources */ = {isa = PBXBuildFile; fileRef = 98427F9F142C475C0048C0B5 /* Techcrunch.png */; };
 		98427FAD142C61FF0048C0B5 /* AMImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 98427FAC142C61FE0048C0B5 /* AMImageView.m */; };
 		98B1F788142C700C003A4B0D /* Serializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 98B1F787142C700C003A4B0D /* Serializer.m */; };
+		98B1F78C142C7F0A003A4B0D /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98B1F78A142C7F0A003A4B0D /* FeedViewController.m */; };
+		98B1F78D142C7F0A003A4B0D /* FeedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98B1F78B142C7F0A003A4B0D /* FeedViewController.xib */; };
+		98B1F794142E5FE7003A4B0D /* listIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B1F793142E5FE7003A4B0D /* listIcon.png */; };
+		98B1F798142E66EE003A4B0D /* facebookIconSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B1F797142E66EE003A4B0D /* facebookIconSmall.png */; };
+		98B1F79A142E68CB003A4B0D /* twitterIconSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B1F799142E68CB003A4B0D /* twitterIconSmall.png */; };
 		98D62A46142B528800481EF9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98D62A45142B528800481EF9 /* UIKit.framework */; };
 		98D62A48142B528800481EF9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98D62A47142B528800481EF9 /* Foundation.framework */; };
 		98D62A4A142B528800481EF9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98D62A49142B528800481EF9 /* CoreGraphics.framework */; };
@@ -47,6 +52,12 @@
 		98427FAC142C61FE0048C0B5 /* AMImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMImageView.m; sourceTree = "<group>"; };
 		98B1F786142C700C003A4B0D /* Serializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Serializer.h; sourceTree = "<group>"; };
 		98B1F787142C700C003A4B0D /* Serializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Serializer.m; sourceTree = "<group>"; };
+		98B1F789142C7F0A003A4B0D /* FeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedViewController.h; sourceTree = "<group>"; };
+		98B1F78A142C7F0A003A4B0D /* FeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedViewController.m; sourceTree = "<group>"; };
+		98B1F78B142C7F0A003A4B0D /* FeedViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedViewController.xib; sourceTree = "<group>"; };
+		98B1F793142E5FE7003A4B0D /* listIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = listIcon.png; sourceTree = "<group>"; };
+		98B1F797142E66EE003A4B0D /* facebookIconSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebookIconSmall.png; sourceTree = "<group>"; };
+		98B1F799142E68CB003A4B0D /* twitterIconSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitterIconSmall.png; sourceTree = "<group>"; };
 		98D62A41142B528800481EF9 /* RSS Atom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RSS Atom.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		98D62A45142B528800481EF9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		98D62A47142B528800481EF9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -135,6 +146,9 @@
 				98D62A4C142B528800481EF9 /* Supporting Files */,
 				98427F81142B9F5C0048C0B5 /* General.h */,
 				98427F82142B9F5C0048C0B5 /* General.m */,
+				98B1F789142C7F0A003A4B0D /* FeedViewController.h */,
+				98B1F78A142C7F0A003A4B0D /* FeedViewController.m */,
+				98B1F78B142C7F0A003A4B0D /* FeedViewController.xib */,
 			);
 			path = "RSS Atom";
 			sourceTree = "<group>";
@@ -160,6 +174,9 @@
 		98D62A6D142B5B3A00481EF9 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				98B1F799142E68CB003A4B0D /* twitterIconSmall.png */,
+				98B1F797142E66EE003A4B0D /* facebookIconSmall.png */,
+				98B1F793142E5FE7003A4B0D /* listIcon.png */,
 				98D62A72142B5CA600481EF9 /* wrenchIcon.png */,
 				98D62A70142B5BC400481EF9 /* blackSteel.jpg */,
 				98D62A6E142B5B5600481EF9 /* gridIcon.png */,
@@ -231,6 +248,10 @@
 				98427FA1142C475C0048C0B5 /* gizmodo.png in Resources */,
 				98427FA2142C475C0048C0B5 /* mashable.png in Resources */,
 				98427FA3142C475C0048C0B5 /* Techcrunch.png in Resources */,
+				98B1F78D142C7F0A003A4B0D /* FeedViewController.xib in Resources */,
+				98B1F794142E5FE7003A4B0D /* listIcon.png in Resources */,
+				98B1F798142E66EE003A4B0D /* facebookIconSmall.png in Resources */,
+				98B1F79A142E68CB003A4B0D /* twitterIconSmall.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,6 +270,7 @@
 				98427F83142B9F5C0048C0B5 /* General.m in Sources */,
 				98427FAD142C61FF0048C0B5 /* AMImageView.m in Sources */,
 				98B1F788142C700C003A4B0D /* Serializer.m in Sources */,
+				98B1F78C142C7F0A003A4B0D /* FeedViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,6 +356,7 @@
 				GCC_PREFIX_HEADER = "RSS Atom/RSS Atom-Prefix.pch";
 				INFOPLIST_FILE = "RSS Atom/RSS Atom-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -345,6 +368,7 @@
 				GCC_PREFIX_HEADER = "RSS Atom/RSS Atom-Prefix.pch";
 				INFOPLIST_FILE = "RSS Atom/RSS Atom-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

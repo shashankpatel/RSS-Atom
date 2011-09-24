@@ -18,10 +18,8 @@
 
 - (void)viewDidLoad
 {
-    //[UIFont fontWithName: @"SegoeUI" size: 17];
-    feedURLs=[[NSMutableArray alloc] initWithObjects:@"Gizmodo",@"Techcrunch",@"Mashable",@"Daring Fireball",@"Wired",nil];
+    feedURLs=[[NSMutableArray alloc] initWithObjects:@"Gizmodo",@"Techcrunch",@"Mashable",@"Daring Fireball",@"Wired",@"Engadget",nil];
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -40,16 +38,12 @@
     }
     cell.textLabel.text=[feedURLs objectAtIndex:indexPath.row];
     NSString *urlString=[NSString stringWithFormat:@"http://www.google.com/s2/favicons?domain=www.%@.com",[[feedURLs objectAtIndex:indexPath.row] stringByReplacingOccurrencesOfString:@" " withString:@""]];
-//    NSData *faviconData=[NSData dataWithContentsOfURL:[NSURL URLWithString:urlString]];
-//    UIImage *favicon=[UIImage imageWithData:faviconData];
-//    //cell.imageView.image=favicon;
 
     AMImageView *amiv=[[AMImageView alloc] init];
     [cell addSubview:amiv];
     [amiv setImageWithContentsOfURLString:urlString];
     amiv.frame=CGRectMake(20, 15, 16, 16);
     [amiv release];
-    
     return cell;
 }
 

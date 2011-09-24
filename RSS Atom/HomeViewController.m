@@ -7,6 +7,7 @@
 //
 
 #import "HomeViewController.h"
+#import "General.h"
 
 @implementation HomeViewController
 #pragma mark - View lifecycle
@@ -17,6 +18,11 @@
     feedSelector.delegate=self;
     feedSelector.view.alpha=0;
     [self.view addSubview:feedSelector.view];
+    
+    feedViewController=[[FeedViewController alloc] initWithNibName:@"FeedViewController" bundle:nil];
+    feedViewController.delegate=self;
+    feedViewController.view.alpha=0;
+    [self.view addSubview:feedViewController.view];
     
     currentView=detachableView;
     [super viewDidLoad];
@@ -60,5 +66,37 @@
     [self pushFromView:currentView toView:detachableView];
 }
 
+-(void) btnListPressed{
+    [self popFromView:currentView toView:detachableView];
+}
+
+#pragma UITableViewDataSource and UITableViewDelegate methods
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 5;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *FeedCell=@"CELL";
+    UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:FeedCell];
+    if (!cell) {
+        cell=[[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:FeedCell] autorelease];
+        cell.textLabel.font=[General selectedFontRegular];
+        cell.textLabel.textColor=[UIColor whiteColor];
+        cell.backgroundColor=[UIColor clearColor];
+        cell.contentView.backgroundColor=[UIColor clearColor];
+    }
+    cell.textLabel.text=@"Hello";
+    return cell;
+}
+
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self pushFromView:currentView toView:feedViewController.view];
+}
 
 @end
