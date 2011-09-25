@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AMViewController.h"
 
 @protocol FeedViewDelegate <NSObject>
 
@@ -14,7 +15,7 @@
 
 @end
 
-@interface FeedViewController : UIViewController<UIGestureRecognizerDelegate,UIWebViewDelegate>{
+@interface FeedViewController : AMViewController<UIGestureRecognizerDelegate,UIWebViewDelegate>{
     NSObject<FeedViewDelegate> *delegate;
     IBOutlet UIWebView *webView;
 }

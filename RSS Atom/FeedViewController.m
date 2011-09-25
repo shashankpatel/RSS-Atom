@@ -57,7 +57,7 @@
 }
 
 -(IBAction) btnListPressed:(id)sender{
-    [delegate btnListPressed];
+    [self.zoomController popToIndex:2];
 }
 
 #pragma UIWebViewDelegate methods

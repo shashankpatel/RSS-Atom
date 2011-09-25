@@ -9,14 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "FeedSelectorViewController.h"
 #import "FeedViewController.h"
+#import "AMViewController.h"
 
-@interface HomeViewController : UIViewController<FeedSelectorDelegate,FeedViewDelegate>{
+@interface HomeViewController : AMViewController<FeedSelectorDelegate,FeedViewDelegate>{
     FeedSelectorViewController *feedSelector;
     FeedViewController *feedViewController;
     IBOutlet UITableView *table;
     IBOutlet UIView *detachableView;
     UIView *currentView;
 }
+
+@property(nonatomic,retain) UIView *currentView;
 
 -(void) pushFromView:(UIView*) source toView:(UIView*) target;
 -(void) popFromView:(UIView*) source toView:(UIView*) target;

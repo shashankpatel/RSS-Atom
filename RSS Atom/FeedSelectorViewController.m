@@ -9,6 +9,7 @@
 #import "FeedSelectorViewController.h"
 #import "General.h"
 #import "AMImageView.h"
+#import "HomeViewController.h"
 
 @implementation FeedSelectorViewController
 
@@ -77,6 +78,10 @@
     label.text=@"Technology";
     [headerView addSubview:label];
     return  headerView;
+}
+
+-(IBAction) addFeedPressed:(id)sender{
+    [self.zoomController popToIndex:0];
 }
 
 -(void) dealloc{

@@ -10,10 +10,14 @@
 #import "General.h"
 
 @implementation HomeViewController
+
+@synthesize currentView;
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
+    /*
     feedSelector=[[FeedSelectorViewController alloc] initWithNibName:@"FeedSelectorViewController" bundle:nil];
     feedSelector.delegate=self;
     feedSelector.view.alpha=0;
@@ -24,12 +28,15 @@
     feedViewController.view.alpha=0;
     [self.view addSubview:feedViewController.view];
     
-    currentView=detachableView;
+    currentView=detachableView;*/
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
 
 -(void) pushFromView:(UIView*) source toView:(UIView*) target {
+    if ([target superview]!=self.view) {
+        [self.view addSubview:target];
+    }
     target.transform=CGAffineTransformMakeScale(0.5, 0.5);
     target.alpha=0;
     [UIView beginAnimations:@"PushView" context:nil];
@@ -45,6 +52,9 @@
 }
 
 -(void) popFromView:(UIView*) source toView:(UIView*) target{
+    if ([target superview]!=self.view) {
+        [self.view addSubview:target];
+    }
     source.transform=CGAffineTransformIdentity;
     target.transform=CGAffineTransformMakeScale(2, 2);
     [UIView beginAnimations:@"PushView" context:nil];
@@ -59,14 +69,17 @@
 }
 
 -(IBAction)feedSelectorPressed:(id)sender{
+    [self.zoomController popToIndex:1];
     [self popFromView:currentView toView:feedSelector.view];
 }
 
 -(void) feedSelectedForURLString:(NSString*) urlString{
-    [self pushFromView:currentView toView:detachableView];
+    //Some loading functionality for feed goes here
+    [self.zoomController pushToIndex:2];
 }
 
 -(void) btnListPressed{
+    return;
     [self popFromView:currentView toView:detachableView];
 }
 
@@ -96,7 +109,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [self pushFromView:currentView toView:feedViewController.view];
+    [self.zoomController pushToIndex:3];
 }
 
 @end

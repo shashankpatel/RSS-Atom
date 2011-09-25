@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AMViewController.h"
 
 @protocol FeedSelectorDelegate <NSObject>
 
@@ -14,12 +15,14 @@
 
 @end
 
-@interface FeedSelectorViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>{
+@interface FeedSelectorViewController : AMViewController<UITableViewDataSource,UITableViewDelegate>{
     IBOutlet UITableView *table;
     NSMutableArray *feedURLs;
     NSObject<FeedSelectorDelegate> *delegate;
 }
 
 @property(nonatomic,retain) NSObject<FeedSelectorDelegate> *delegate;
+
+-(IBAction) addFeedPressed:(id)sender;
 
 @end
