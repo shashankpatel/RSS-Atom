@@ -42,7 +42,8 @@
     [fvc release];
     
     
-    AMZoomViewController *zvc=[[AMZoomViewController alloc] initWithViewControllers:controllers startIndex:2];
+    zvc=[[AMZoomViewController alloc] initWithViewControllers:controllers startIndex:2];
+    [controllers release];
     [zvc pushToIndex:2];
     [self.view addSubview:zvc.view];
     [super viewDidLoad];

@@ -42,6 +42,8 @@
 
 -(void) pushToIndex:(int) newIndex {
     UIViewController *targetViewController=[viewControllers objectAtIndex:newIndex];
+    [targetViewController viewWillAppear:YES];
+    [currentViewController viewWillDisappear:YES];
     UIView *target=targetViewController.view;
     UIView *source=currentViewController.view;
     currentIndex=newIndex;
@@ -63,6 +65,8 @@
 
 -(void) popToIndex:(int) newIndex{
     UIViewController *targetViewController=[viewControllers objectAtIndex:newIndex];
+    [targetViewController viewWillAppear:YES];
+    [currentViewController viewWillDisappear:YES];
     UIView *target=targetViewController.view;
     UIView *source=currentViewController.view;
     currentIndex=newIndex;

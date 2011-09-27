@@ -8,11 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Serializer : NSObject
+@interface AMSerializer : NSObject
 
 +(void) loadSerializer;
 +(NSString*) cache;
 +(UIImage*) imageForURLString:(NSString*) urlString;
++(NSData*) dataForURLString:(NSString*) urlString;
 +(void) serializeImage:(UIImage*) image forURLString:(NSString*) urlString;
 +(void) serializeData:(NSData*) data forURLString:(NSString*) urlString;
 

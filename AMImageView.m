@@ -7,7 +7,7 @@
 //
 
 #import "AMImageView.h"
-#import "Serializer.h"
+#import "AMSerializer.h"
 
 @implementation AMImageView
 
@@ -30,8 +30,7 @@
         [connection cancel];
     }
     
-    if ((self.image=[Serializer imageForURLString:urlString])) {
-        NSLog(@"Found from cache");
+    if ((self.image=[AMSerializer imageForURLString:urlString])) {
         return;
     }
     
@@ -39,7 +38,6 @@
     NSURLRequest *request=[NSURLRequest requestWithURL:url];
     connection=[[NSURLConnection alloc] initWithRequest:request delegate:self];
     if (connection) {
-        NSLog(@"Connection opened");
     }
 }
 
@@ -55,7 +53,7 @@
 - (void)connectionDidFinishLoading:(NSURLConnection *)_connection{
     NSData *imageData=[NSData dataWithData:receievedData];
     self.image=[UIImage imageWithData:imageData];
-    [Serializer serializeData:imageData forURLString:urlString];
+    [AMSerializer serializeData:imageData forURLString:urlString];
     [receievedData setLength:0];
     if (connection)[connection release];
     [delegate imageSuccessfullyLoaded];

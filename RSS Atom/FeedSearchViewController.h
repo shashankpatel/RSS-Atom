@@ -8,7 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import "AMViewController.h"
+#import "AMFeedSearcher.h"
 
-@interface FeedSearchViewController : AMViewController
+@interface FeedSearchViewController : AMViewController<UITextFieldDelegate,AMFeedSearcherDelegate>{
+    AMFeedSearcher *feedSearcher;
+    IBOutlet UITableView *table;
+    NSMutableArray *feedInfos;
+    IBOutlet UIView *loadingView;
+    NSMutableArray *selectedURLsArray;
+    IBOutlet UITextField *searchBar;
+}
+
+-(void) addButtonPressed:(UIButton*) addButton;
+-(IBAction) backButtonPressed:(id)sender;
 
 @end

@@ -9,7 +9,7 @@
 #import "RSS_AtomAppDelegate.h"
 #import "RSS_AtomViewController.h"
 #import "General.h"
-#import "Serializer.h"
+#import "AMSerializer.h"
 
 @implementation RSS_AtomAppDelegate
 
@@ -19,7 +19,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [General loadFonts];
-    [Serializer loadSerializer];
+    [AMSerializer loadSerializer];
     // Override point for customization after application launch.
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];

@@ -6,9 +6,9 @@
 //  Copyright 2011 Not Applicable. All rights reserved.
 //
 
-#import "Serializer.h"
+#import "AMSerializer.h"
 
-@implementation Serializer
+@implementation AMSerializer
 
 static NSMutableDictionary *cacheDictionary;
 static NSString *cacheDictPath;
@@ -17,8 +17,8 @@ static NSString *cacheDictPath;
     [super load];
     NSLog(@"Searializer loaded");
     if(!cacheDictionary) {
-        cacheDictPath=[[[Serializer cache] stringByAppendingPathComponent:@"cacheDict.plist"] retain];
-        if([[NSFileManager defaultManager] createDirectoryAtPath:[Serializer cache]
+        cacheDictPath=[[[AMSerializer cache] stringByAppendingPathComponent:@"cacheDict.plist"] retain];
+        if([[NSFileManager defaultManager] createDirectoryAtPath:[AMSerializer cache]
                                      withIntermediateDirectories:NO
                                                       attributes:nil
                                                            error:nil])NSLog(@"Dir created");
@@ -37,22 +37,31 @@ static NSString *cacheDictPath;
 
 +(UIImage*) imageForURLString:(NSString*) urlString{
     NSString *imageFileName=[cacheDictionary objectForKey:urlString];
-    NSString *imageFilePath=[[Serializer cache] stringByAppendingPathComponent:imageFileName];
+    NSString *imageFilePath=[[AMSerializer cache] stringByAppendingPathComponent:imageFileName];
     return [UIImage imageWithContentsOfFile:imageFilePath];
+}
+
++(NSData*) dataForURLString:(NSString*) urlString{
+    NSString *dataFileName=[cacheDictionary objectForKey:urlString];
+    NSString *dataFilePath=[[AMSerializer cache] stringByAppendingPathComponent:dataFileName];
+    return [NSData dataWithContentsOfFile:dataFilePath];
 }
 
 +(void) serializeImage:(UIImage*) image forURLString:(NSString*) urlString{
     NSData *imageData=UIImagePNGRepresentation(image);
     NSString *imageFileName=[NSString stringWithFormat:@"%f.png",[[NSDate date] timeInterval]];
-    NSString *imageFilePath=[[Serializer cache] stringByAppendingPathComponent:imageFileName];
+    NSString *imageFilePath=[[AMSerializer cache] stringByAppendingPathComponent:imageFileName];
     [imageData writeToFile:imageFilePath atomically:YES];
     [cacheDictionary setObject:imageFileName forKey:urlString];
     [cacheDictionary writeToFile:cacheDictPath atomically:YES];
 }
 
 +(void) serializeData:(NSData*) data forURLString:(NSString*) urlString{
+    if ([data length]==0) {
+        return;
+    }
     NSString *imageFileName=[NSString stringWithFormat:@"%f.data",[[NSDate date] timeIntervalSince1970]];
-    NSString *imageFilePath=[[Serializer cache] stringByAppendingPathComponent:imageFileName];
+    NSString *imageFilePath=[[AMSerializer cache] stringByAppendingPathComponent:imageFileName];
     [data writeToFile:imageFilePath atomically:YES];
     [cacheDictionary setObject:imageFileName forKey:urlString];
     [cacheDictionary writeToFile:cacheDictPath atomically:YES];
