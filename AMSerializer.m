@@ -31,8 +31,12 @@ static NSString *cacheDictPath;
 }
 
 +(NSString*) cache{
+    return [[AMSerializer documents] stringByAppendingPathComponent:@"cache"];
+}
+
++(NSString*) documents{
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    return [[paths objectAtIndex:0] stringByAppendingPathComponent:@"cache"];
+    return [paths objectAtIndex:0];
 }
 
 +(UIImage*) imageForURLString:(NSString*) urlString{

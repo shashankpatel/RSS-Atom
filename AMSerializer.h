@@ -12,6 +12,7 @@
 
 +(void) loadSerializer;
 +(NSString*) cache;
++(NSString*) documents;
 +(UIImage*) imageForURLString:(NSString*) urlString;
 +(NSData*) dataForURLString:(NSString*) urlString;
 +(void) serializeImage:(UIImage*) image forURLString:(NSString*) urlString;

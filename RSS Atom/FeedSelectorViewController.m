@@ -10,21 +10,29 @@
 #import "General.h"
 #import "AMImageView.h"
 #import "HomeViewController.h"
+#import "AMFeedManager.h"
+#import "NSString+HTML.h"
 
 @implementation FeedSelectorViewController
 
 @synthesize delegate;
+@synthesize feedInfos;
 
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
-    feedURLs=[[NSMutableArray alloc] initWithObjects:@"Gizmodo",@"Techcrunch",@"Mashable",@"Daring Fireball",@"Wired",@"Engadget",nil];
     [super viewDidLoad];
 }
 
+-(void) viewWillAppear:(BOOL)animated{
+    self.feedInfos=[AMFeedManager allFeeds];
+    [table reloadData];
+    [super viewWillAppear:animated];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return [feedURLs count];
+    return [feedInfos count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -36,15 +44,31 @@
         cell.textLabel.textColor=[UIColor whiteColor];
         cell.backgroundColor=[UIColor clearColor];
         cell.contentView.backgroundColor=[UIColor clearColor];
+        
+        AMImageView *amiv=[[AMImageView alloc] init];
+        amiv.tag=2222;
+        [cell addSubview:amiv];
+        amiv.frame=CGRectMake(20, 15, 16, 16);
+        [amiv release];
     }
-    cell.textLabel.text=[feedURLs objectAtIndex:indexPath.row];
-    NSString *urlString=[NSString stringWithFormat:@"http://www.google.com/s2/favicons?domain=www.%@.com",[[feedURLs objectAtIndex:indexPath.row] stringByReplacingOccurrencesOfString:@" " withString:@""]];
+    
+    AMFeedInfo *feedInfo=[feedInfos objectAtIndex:indexPath.row];
+    cell.textLabel.text=[feedInfo.title stringByConvertingHTMLToPlainText];
+    NSRange startRange,endRange;
+    NSString *domain=feedInfo.link;
+    startRange=[domain rangeOfString:@"//"];
+    if (startRange.location==NSNotFound) {
+        domain=@"helloworld/";
+    }
+    startRange.location=startRange.location+2;
+    domain=[domain substringFromIndex:startRange.location];
+    endRange=[domain rangeOfString:@"/"];
+    domain=[domain substringToIndex:endRange.location];
+    domain=[domain stringByReplacingOccurrencesOfString:@"www." withString:@""];
+    NSString *urlString=[[NSString stringWithFormat:@"http://www.google.com/s2/favicons?domain=%@",domain] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
-    AMImageView *amiv=[[AMImageView alloc] init];
-    [cell addSubview:amiv];
+    AMImageView *amiv=(AMImageView*) [cell viewWithTag:2222];
     [amiv setImageWithContentsOfURLString:urlString];
-    amiv.frame=CGRectMake(20, 15, 16, 16);
-    [amiv release];
     return cell;
 }
 
@@ -57,7 +81,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [delegate feedSelectedForURLString:nil];
+    [delegate feedInfoSelected:[feedInfos objectAtIndex:indexPath.row]];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -85,7 +109,7 @@
 }
 
 -(void) dealloc{
-    [feedURLs release];
+    [feedInfos release];
     [delegate release];
     [super dealloc];
 }

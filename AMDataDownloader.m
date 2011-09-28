@@ -62,7 +62,9 @@
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)_connection{
     NSData *data=[NSData dataWithData:receievedData];
-    [AMSerializer serializeData:data forURLString:urlString];
+    if (shouldCache) {
+        [AMSerializer serializeData:data forURLString:urlString];
+    }
     [receievedData setLength:0];
     [connection release];
     connection=nil;

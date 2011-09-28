@@ -8,29 +8,45 @@
 
 #import "HomeViewController.h"
 #import "General.h"
+#import "NSString+HTML.h"
 
 @implementation HomeViewController
 
 @synthesize currentView;
+@synthesize feedInfo;
 
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
-    /*
-    feedSelector=[[FeedSelectorViewController alloc] initWithNibName:@"FeedSelectorViewController" bundle:nil];
-    feedSelector.delegate=self;
-    feedSelector.view.alpha=0;
-    [self.view addSubview:feedSelector.view];
-    
-    feedViewController=[[FeedViewController alloc] initWithNibName:@"FeedViewController" bundle:nil];
-    feedViewController.delegate=self;
-    feedViewController.view.alpha=0;
-    [self.view addSubview:feedViewController.view];
-    
-    currentView=detachableView;*/
+    feeds=[[NSMutableArray alloc] init];
+    feedParser=[[MWFeedParser alloc] initWithFeedURL:nil];
+    feedParser.delegate=self;
+    feedParser.connectionType=ConnectionTypeAsynchronously;
+    parsingMode=kParsingModeDocuments;
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+}
+
+-(void) viewWillDisappear:(BOOL)animated{
+    stopIssued=YES;
+    [feedParser stopParsing];
+    [feeds removeAllObjects];
+    [table reloadData];
+    [super viewWillDisappear:animated];
+}
+
+-(void) viewWillAppear:(BOOL)animated{
+    [feedParser setUrl:feedInfo.urlString];
+    if (parsingMode==kParsingModeDocuments) {
+        if(![feedParser parseFromDocuments]){
+            parsingMode=kParsingModeLive;
+            [feedParser parse];
+        }
+    }else{
+        [feedParser parse];
+    }
+    [super viewWillAppear:animated];
 }
 
 -(void) pushFromView:(UIView*) source toView:(UIView*) target {
@@ -73,9 +89,27 @@
     [self popFromView:currentView toView:feedSelector.view];
 }
 
--(void) feedSelectedForURLString:(NSString*) urlString{
+-(void) feedInfoSelected:(AMFeedInfo*) _feedInfo{
     //Some loading functionality for feed goes here
+    self.feedInfo=_feedInfo;
     [self.zoomController pushToIndex:2];
+    [feedParser setUrl:feedInfo.urlString];
+    if (parsingMode==kParsingModeDocuments) {
+        if(![feedParser parseFromDocuments]){
+            parsingMode=kParsingModeLive;
+            [feedParser parse];
+        }
+    }else{
+        [feedParser parse];
+    }
+    
+    //[feedParser parse];
+    
+}
+
+-(void) feedsReceived:(NSArray*) _feeds{
+    [feeds addObjectsFromArray:_feeds];
+    [table reloadData];
 }
 
 -(void) btnListPressed{
@@ -86,20 +120,27 @@
 #pragma UITableViewDataSource and UITableViewDelegate methods
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 5;
+    return [feeds count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *FeedCell=@"CELL";
     UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:FeedCell];
     if (!cell) {
-        cell=[[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:FeedCell] autorelease];
-        cell.textLabel.font=[General selectedFontRegular];
+        cell=[[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:FeedCell] autorelease];
+        cell.textLabel.font=[General regularLabelFont];
         cell.textLabel.textColor=[UIColor whiteColor];
+        cell.textLabel.numberOfLines=1;
+        cell.detailTextLabel.font=[General descriptionFont];
+        cell.detailTextLabel.textColor=[UIColor whiteColor];
+        cell.detailTextLabel.numberOfLines=3;
         cell.backgroundColor=[UIColor clearColor];
         cell.contentView.backgroundColor=[UIColor clearColor];
     }
-    cell.textLabel.text=@"Hello";
+    
+    MWFeedItem *feed=[feeds objectAtIndex:indexPath.row];
+    cell.textLabel.text=feed.title;
+    cell.detailTextLabel.text=[feed.summary stringByConvertingHTMLToPlainText];
     return cell;
 }
 
@@ -110,6 +151,40 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self.zoomController pushToIndex:3];
+}
+
+#pragma MWFeedParserDelegate methods
+
+- (void)feedParserDidStart:(MWFeedParser *)parser{
+    NSLog(@"Parsing started");
+    [feeds removeAllObjects];
+}
+
+- (void)feedParser:(MWFeedParser *)parser didParseFeedInfo:(MWFeedInfo *)info{
+    
+}
+
+- (void)feedParser:(MWFeedParser *)parser didParseFeedItem:(MWFeedItem *)item{
+    [feeds addObject:item];
+}
+
+- (void)feedParserDidFinish:(MWFeedParser *)parser{
+    if (stopIssued) {
+        stopIssued=NO;
+        return;
+    }
+    NSLog(@"Parsing finished");
+    [table reloadData];
+    if (parsingMode==kParsingModeDocuments) {
+        parsingMode=kParsingModeLive;
+        [feedParser parse];
+    }else{
+        parsingMode=kParsingModeDocuments;
+    }
+}
+
+- (void)feedParser:(MWFeedParser *)parser didFailWithError:(NSError *)error{
+    
 }
 
 @end

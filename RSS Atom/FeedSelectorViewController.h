@@ -8,20 +8,22 @@
 
 #import <UIKit/UIKit.h>
 #import "AMViewController.h"
+#import "AMFeedInfo.h"
 
 @protocol FeedSelectorDelegate <NSObject>
 
--(void) feedSelectedForURLString:(NSString*) urlString;
+-(void) feedInfoSelected:(AMFeedInfo*) feedInfo;
 
 @end
 
 @interface FeedSelectorViewController : AMViewController<UITableViewDataSource,UITableViewDelegate>{
     IBOutlet UITableView *table;
-    NSMutableArray *feedURLs;
+    NSArray *feedInfos;
     NSObject<FeedSelectorDelegate> *delegate;
 }
 
 @property(nonatomic,retain) NSObject<FeedSelectorDelegate> *delegate;
+@property(nonatomic,retain) NSArray *feedInfos;
 
 -(IBAction) addFeedPressed:(id)sender;
 

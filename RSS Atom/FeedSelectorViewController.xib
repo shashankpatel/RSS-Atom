@@ -159,6 +159,14 @@
 					</object>
 					<int key="connectionID">11</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">table</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="442274715"/>
+					</object>
+					<int key="connectionID">12</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -248,7 +256,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">11</int>
+			<int key="maxID">12</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -263,7 +271,7 @@
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">FeedSelectorViewController</string>
-					<string key="superclassName">UIViewController</string>
+					<string key="superclassName">AMViewController</string>
 					<object class="NSMutableDictionary" key="actions">
 						<string key="NS.key.0">addFeedPressed:</string>
 						<string key="NS.object.0">id</string>

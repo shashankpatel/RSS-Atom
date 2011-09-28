@@ -10,6 +10,7 @@
 #import "RSS_AtomViewController.h"
 #import "General.h"
 #import "AMSerializer.h"
+#import "AMFeedManager.h"
 
 @implementation RSS_AtomAppDelegate
 
@@ -20,6 +21,7 @@
 {
     [General loadFonts];
     [AMSerializer loadSerializer];
+    [AMFeedManager loadFeedManager];
     // Override point for customization after application launch.
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];

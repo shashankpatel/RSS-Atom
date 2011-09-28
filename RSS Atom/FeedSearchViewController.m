@@ -11,6 +11,7 @@
 #import "AMImageView.h"
 #import "General.h"
 #import "NSString+HTML.h"
+#import "AMFeedManager.h"
 
 @implementation FeedSearchViewController
 
@@ -21,7 +22,13 @@
     feedInfos=[[NSMutableArray alloc] init];
     feedSearcher=[[AMFeedSearcher alloc] init];
     feedSearcher.delegate=self;
+    NSArray *storedFeedInfos=[AMFeedManager allFeeds];
     selectedURLsArray=[[NSMutableArray alloc] init];
+    for (AMFeedInfo *feedInfo in storedFeedInfos) {
+        [selectedURLsArray addObject:feedInfo.urlString];
+    }
+    
+    [searchBar becomeFirstResponder];
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
@@ -48,14 +55,17 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     [feedInfos removeAllObjects];
     [table reloadData];
+    [textField resignFirstResponder];
+    if ([textField.text length]==0){
+        return YES;
+    }
+    
     [self.view addSubview:loadingView];
     [feedSearcher searchForText:textField.text];
-    [textField resignFirstResponder];
     return YES;
 }
 
 -(void) feedInfosReceived:(NSArray*) _feedInfos{
-    [feedInfos addObjectsFromArray:_feedInfos];
     [feedInfos addObjectsFromArray:_feedInfos];
     [table reloadData];
     [loadingView removeFromSuperview];
@@ -67,9 +77,15 @@
     if ([selectedURLsArray indexOfObject:feedURLString]!=NSNotFound){
         [selectedURLsArray removeObject:feedURLString];
     }else{
+        UITableViewCell *cell=(UITableViewCell*)[addButton superview];
+        while (![cell isKindOfClass:[UITableViewCell class]]) {
+            cell=(UITableViewCell*)[cell superview];
+        }
+        NSIndexPath *indexPath=[table indexPathForCell:cell];
+        [AMFeedManager addFeedInfo:[feedInfos objectAtIndex:indexPath.row]];
         [selectedURLsArray addObject:feedURLString];
     }
-    
+         
     for (int i=0; i<[feedInfos count]; i++) {
         AMFeedInfo *feedInfo=[feedInfos objectAtIndex:i];
         if ([feedInfo.urlString isEqualToString:feedURLString]) {
@@ -108,6 +124,12 @@
         addButton.frame=CGRectMake(0, 0, 44, 44);
         cell.accessoryView=addButton;
         [addButton addTarget:self action:@selector(addButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        
+        AMImageView *amiv=[[AMImageView alloc] init];
+        amiv.tag=2222;
+        [cell addSubview:amiv];
+        amiv.frame=CGRectMake(20, 15, 16, 16);
+        [amiv release];
     }
     UIButton *addButton= (UIButton*)cell.accessoryView;
     AMFeedInfo *feedInfo=[feedInfos objectAtIndex:indexPath.row];
@@ -135,11 +157,8 @@
     domain=[domain substringToIndex:endRange.location];
     domain=[domain stringByReplacingOccurrencesOfString:@"www." withString:@""];
     NSString *urlString=[[NSString stringWithFormat:@"http://www.google.com/s2/favicons?domain=%@",domain] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    AMImageView *amiv=[[AMImageView alloc] init];
-    [cell addSubview:amiv];
+    AMImageView *amiv=(AMImageView*) [cell viewWithTag:2222];
     [amiv setImageWithContentsOfURLString:urlString];
-    amiv.frame=CGRectMake(20, 15, 16, 16);
-    [amiv release];
     
     return cell;
 }

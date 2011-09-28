@@ -55,7 +55,8 @@
     self.image=[UIImage imageWithData:imageData];
     [AMSerializer serializeData:imageData forURLString:urlString];
     [receievedData setLength:0];
-    if (connection)[connection release];
+    [connection release];
+    connection=nil;
     [delegate imageSuccessfullyLoaded];
 }
 
