@@ -7,7 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AMImageView.h"
 
-@interface AMFeedCell : UITableViewCell
+@interface AMFeedCell : UITableViewCell<AMImageViewDelegate>{
+    IBOutlet UILabel *titleLabel,*descriptionLabel;
+    IBOutlet AMImageView *feedImage;
+    CGRect titleFrame,descriptionFrame,feedImageFrame;
+    CGRect descriptionFrameRet,feedImageFrameRet;
+}
+
+@property(nonatomic,retain) IBOutlet UILabel *titleLabel,*descriptionLabel;
+@property(nonatomic,retain) IBOutlet AMImageView *feedImage;
+
++(id) cell;
+-(void) loadFeedCell;
+-(void) loadImageFromURLString:(NSString*) urlString;
 
 @end

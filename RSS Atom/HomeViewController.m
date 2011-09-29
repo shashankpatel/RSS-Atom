@@ -9,6 +9,9 @@
 #import "HomeViewController.h"
 #import "General.h"
 #import "NSString+HTML.h"
+#import "AMFeedManager.h"
+#import "ElementParser.h"
+#import "AMFeedCell.h"
 
 @implementation HomeViewController
 
@@ -19,25 +22,40 @@
 
 - (void)viewDidLoad
 {
-    feeds=[[NSMutableArray alloc] init];
-    feedParser=[[MWFeedParser alloc] initWithFeedURL:nil];
-    feedParser.delegate=self;
-    feedParser.connectionType=ConnectionTypeAsynchronously;
-    parsingMode=kParsingModeDocuments;
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+}
+
+static BOOL initialized=NO;
+
+-(void) initController{
+    feeds=[[NSMutableArray alloc] init];
+    parsingMode=kParsingModeDocuments;
+    NSArray *allfeedInfos=[AMFeedManager allFeedInfos];
+    if ([allfeedInfos count]!=0) {
+        self.feedInfo=[allfeedInfos objectAtIndex:0];
+    }
+    feedParser=[[MWFeedParser alloc] initWithFeedURL:feedInfo.urlString];
+    feedParser.connectionType=ConnectionTypeAsynchronously;
+    feedParser.delegate=self;
+    initialized=YES;
 }
 
 -(void) viewWillDisappear:(BOOL)animated{
     stopIssued=YES;
     [feedParser stopParsing];
+    [feedParser reset];
     [feeds removeAllObjects];
     [table reloadData];
     [super viewWillDisappear:animated];
 }
 
 -(void) viewWillAppear:(BOOL)animated{
-    [feedParser setUrl:feedInfo.urlString];
+    if (!initialized) {
+        [self initController];
+    }
+    stopIssued=NO;
+    //[feedParser setUrl:feedInfo.urlString];
     if (parsingMode==kParsingModeDocuments) {
         if(![feedParser parseFromDocuments]){
             parsingMode=kParsingModeLive;
@@ -49,51 +67,16 @@
     [super viewWillAppear:animated];
 }
 
--(void) pushFromView:(UIView*) source toView:(UIView*) target {
-    if ([target superview]!=self.view) {
-        [self.view addSubview:target];
-    }
-    target.transform=CGAffineTransformMakeScale(0.5, 0.5);
-    target.alpha=0;
-    [UIView beginAnimations:@"PushView" context:nil];
-    [UIView setAnimationDuration:0.2];
-    [UIView setAnimationCurve:UIViewAnimationCurveLinear];
-    source.transform=CGAffineTransformMakeScale(1.5,1.5);
-    source.alpha=0;
-    target.transform=CGAffineTransformIdentity;
-    target.alpha=1;
-    [UIView commitAnimations];
-    currentView=target;
-    
-}
-
--(void) popFromView:(UIView*) source toView:(UIView*) target{
-    if ([target superview]!=self.view) {
-        [self.view addSubview:target];
-    }
-    source.transform=CGAffineTransformIdentity;
-    target.transform=CGAffineTransformMakeScale(2, 2);
-    [UIView beginAnimations:@"PushView" context:nil];
-    [UIView setAnimationDuration:0.2];
-    [UIView setAnimationCurve:UIViewAnimationCurveLinear];
-    target.transform=CGAffineTransformIdentity;
-    target.alpha=1;
-    source.transform=CGAffineTransformMakeScale(0.5, 0.5);
-    source.alpha=0;
-    [UIView commitAnimations];
-    currentView=target;
-}
-
 -(IBAction)feedSelectorPressed:(id)sender{
     [self.zoomController popToIndex:1];
-    [self popFromView:currentView toView:feedSelector.view];
 }
 
 -(void) feedInfoSelected:(AMFeedInfo*) _feedInfo{
     //Some loading functionality for feed goes here
     self.feedInfo=_feedInfo;
-    [self.zoomController pushToIndex:2];
     [feedParser setUrl:feedInfo.urlString];
+    [self.zoomController pushToIndex:2];
+    return;
     if (parsingMode==kParsingModeDocuments) {
         if(![feedParser parseFromDocuments]){
             parsingMode=kParsingModeLive;
@@ -114,7 +97,6 @@
 
 -(void) btnListPressed{
     return;
-    [self popFromView:currentView toView:detachableView];
 }
 
 #pragma UITableViewDataSource and UITableViewDelegate methods
@@ -125,22 +107,52 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *FeedCell=@"CELL";
-    UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:FeedCell];
+    AMFeedCell *cell=(AMFeedCell*) [tableView dequeueReusableCellWithIdentifier:FeedCell];
     if (!cell) {
-        cell=[[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:FeedCell] autorelease];
-        cell.textLabel.font=[General regularLabelFont];
-        cell.textLabel.textColor=[UIColor whiteColor];
-        cell.textLabel.numberOfLines=1;
-        cell.detailTextLabel.font=[General descriptionFont];
-        cell.detailTextLabel.textColor=[UIColor whiteColor];
-        cell.detailTextLabel.numberOfLines=3;
-        cell.backgroundColor=[UIColor clearColor];
-        cell.contentView.backgroundColor=[UIColor clearColor];
+        cell=[AMFeedCell cell];
+//        cell.titleLabel.font=[General regularLabelFont];
+//        cell.titleLabel.textColor=[UIColor whiteColor];
+        cell.titleLabel.numberOfLines=1;
+//        cell.descriptionLabel.font=[General descriptionFont];
+//        cell.descriptionLabel.textColor=[UIColor whiteColor];
+        cell.descriptionLabel.numberOfLines=3;
+        //cell.backgroundColor=[UIColor clearColor];
+        //cell.contentView.backgroundColor=[UIColor clearColor];
     }
     
     MWFeedItem *feed=[feeds objectAtIndex:indexPath.row];
-    cell.textLabel.text=feed.title;
-    cell.detailTextLabel.text=[feed.summary stringByConvertingHTMLToPlainText];
+    cell.titleLabel.text=feed.title;
+    cell.descriptionLabel.text=[feed.summary stringByConvertingHTMLToPlainText];
+    
+	if (feed.iconLink==nil && feed.summary!=nil) {
+		NSString *iconLink=nil;
+		NSString *feedSummery=[NSString stringWithString:feed.summary];
+		
+		Element* root = [Element parseHTML:feedSummery];
+		NSArray* imageElements = [root selectElements: @"img"];
+		
+		if (imageElements!=nil && [imageElements count]>0) {
+			Element* imageElement =[imageElements objectAtIndex:0];
+			iconLink=[imageElement attribute:@"src"];
+		}
+		if (iconLink==nil || [iconLink length]==0) {
+			if (feed.content!=nil && [feed.content length]!=0) {
+				feedSummery=[[NSString alloc] initWithString:feed.content];
+				root = [Element parseHTML: feedSummery];
+				[feedSummery release];
+				imageElements = [root selectElements: @"img"];
+				
+				Element* imageElement =[imageElements objectAtIndex:0];
+				iconLink=[imageElement attribute:@"src"];
+			}
+		}
+		if (iconLink==nil) {
+			iconLink=@"";
+		}
+		feed.iconLink=iconLink;
+	}
+    [cell loadImageFromURLString:feed.iconLink];
+    
     return cell;
 }
 
@@ -171,10 +183,12 @@
 - (void)feedParserDidFinish:(MWFeedParser *)parser{
     if (stopIssued) {
         stopIssued=NO;
+        parsingMode=kParsingModeDocuments;
         return;
     }
     NSLog(@"Parsing finished");
     [table reloadData];
+    
     if (parsingMode==kParsingModeDocuments) {
         parsingMode=kParsingModeLive;
         [feedParser parse];

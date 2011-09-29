@@ -26,7 +26,7 @@
 }
 
 -(void) viewWillAppear:(BOOL)animated{
-    self.feedInfos=[AMFeedManager allFeeds];
+    self.feedInfos=[AMFeedManager allFeedInfos];
     [table reloadData];
     [super viewWillAppear:animated];
 }

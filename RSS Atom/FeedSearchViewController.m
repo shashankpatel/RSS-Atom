@@ -22,7 +22,7 @@
     feedInfos=[[NSMutableArray alloc] init];
     feedSearcher=[[AMFeedSearcher alloc] init];
     feedSearcher.delegate=self;
-    NSArray *storedFeedInfos=[AMFeedManager allFeeds];
+    NSArray *storedFeedInfos=[AMFeedManager allFeedInfos];
     selectedURLsArray=[[NSMutableArray alloc] init];
     for (AMFeedInfo *feedInfo in storedFeedInfos) {
         [selectedURLsArray addObject:feedInfo.urlString];

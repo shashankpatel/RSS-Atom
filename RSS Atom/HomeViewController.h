@@ -31,8 +31,7 @@
 @property(nonatomic,retain) UIView *currentView;
 @property(nonatomic,retain) AMFeedInfo *feedInfo;
 
--(void) pushFromView:(UIView*) source toView:(UIView*) target;
--(void) popFromView:(UIView*) source toView:(UIView*) target;
+-(void) initController;
 -(IBAction)feedSelectorPressed:(id)sender;
 
 @end

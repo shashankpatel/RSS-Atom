@@ -10,7 +10,8 @@
 
 @protocol AMImageViewDelegate <NSObject>
 
--(void) imageSuccessfullyLoaded;
+-(void) imageSuccessfullyLoadedLive;
+-(void) imageSuccessfullyLoadedLocally;
 -(void) imageFailedToLoad;
 
 @end
@@ -18,7 +19,7 @@
 @interface AMImageView : UIImageView {
     NSURLConnection *connection;
     NSMutableData *receievedData;
-    NSObject<AMImageViewDelegate> *delegate;
+    IBOutlet NSObject<AMImageViewDelegate> *delegate;
     NSString *urlString;
 }
 

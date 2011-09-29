@@ -119,4 +119,6 @@ typedef enum { FeedTypeUnknown, FeedTypeRSS, FeedTypeRSS1, FeedTypeAtom } FeedTy
 
 -(BOOL) parseFromDocuments;
 
+-(void) reset;
+
 @end

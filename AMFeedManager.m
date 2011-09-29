@@ -33,7 +33,7 @@ static sqlite3 *feedDB;
     }
 }
 
-+(NSMutableArray*) allFeeds{
++(NSMutableArray*) allFeedInfos{
     NSString *allFeedsQuery=@"SELECT * FROM feedURLs";
 	sqlite3_stmt *stmt;
 	int ret = sqlite3_prepare_v2 (feedDB, [allFeedsQuery UTF8String], [allFeedsQuery length], &stmt, NULL);

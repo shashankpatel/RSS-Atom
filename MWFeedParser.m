@@ -104,7 +104,7 @@
 -(BOOL) parseFromDocuments{
 	NSData *data = [AMSerializer dataForURLString:url];
 	if (data!=nil && [data length]!=0) {
-        NSLog(@"Parsing locally");
+        NSLog(@"Parsing locally, length:%d",[data length]);
 		parsing = YES;
 		[self reset];
 		[self startParsingData:data];
@@ -186,7 +186,6 @@
 		
 	// Debug Log
 	MWLog(@"MWFeedParser: Parsing stopped");
-	
 	// Inform delegate of stop only if it hasn't already finished
 	if (!parsingComplete) {
 		if ([delegate respondsToSelector:@selector(feedParserDidFinish:)])
@@ -517,6 +516,7 @@
 				
 				break;
 			}
+                
 		}
 	}
 	

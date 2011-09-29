@@ -15,6 +15,6 @@
 
 + (void)loadFeedManager;
 +(void) addFeedInfo:(AMFeedInfo*) feedInfo;
-+(NSMutableArray*) allFeeds;
++(NSMutableArray*) allFeedInfos;
 
 @end

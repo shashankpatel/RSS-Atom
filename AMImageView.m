@@ -31,6 +31,7 @@
     }
     
     if ((self.image=[AMSerializer imageForURLString:urlString])) {
+        [delegate imageSuccessfullyLoadedLocally];
         return;
     }
     
@@ -57,7 +58,7 @@
     [receievedData setLength:0];
     [connection release];
     connection=nil;
-    [delegate imageSuccessfullyLoaded];
+    [delegate imageSuccessfullyLoadedLive];
 }
 
 - (void)connection:(NSURLConnection *)_connection didFailWithError:(NSError *)error{
