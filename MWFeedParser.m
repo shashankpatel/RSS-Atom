@@ -224,7 +224,7 @@
 		
 		// Create NSXMLParser
 		feedParser = [[NSXMLParser alloc] initWithData:data];
-		if (feedParser) { 
+		if (feedParser && [feedParser isKindOfClass:[NSXMLParser class]]) { 
 			
 			// Parse!
 			feedParser.delegate = self;

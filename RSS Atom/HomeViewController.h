@@ -40,6 +40,7 @@
 
 @property(nonatomic,retain) UIView *currentView;
 @property(nonatomic,retain) AMFeedInfo *feedInfo;
+@property(nonatomic,retain) FeedViewController *feedViewController;
 
 @property (nonatomic, retain) UIView *refreshHeaderView;
 @property (nonatomic, retain) UILabel *refreshLabel;

@@ -11,8 +11,23 @@
 @implementation FeedViewController
 
 @synthesize delegate;
+@synthesize feed;
+
+static NSString *htmlWrapper;
 
 #pragma mark - View lifecycle
+
+-(id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+    self=[super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        NSString *htmlFilePath=[[NSBundle mainBundle] pathForResource:@"HTMLWrapper" 
+                                                               ofType:@"html"];
+        htmlWrapper=[[NSString stringWithContentsOfFile:htmlFilePath 
+                                               encoding:NSUTF8StringEncoding 
+                                                  error:nil] retain];
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
@@ -23,12 +38,11 @@
     [self.view addGestureRecognizer:singleFingerDTap];
     [singleFingerDTap release];
     
-    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.google.com"]]];
-    
     [self processWebView];
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
+
 
 -(void) processWebView{
     UIScrollView *webScroll=[[webView subviews] objectAtIndex:0];
@@ -47,6 +61,17 @@
     return YES;
 }
 
+-(void) viewWillAppear:(BOOL)animated{
+    [self performSelectorInBackground:@selector(loadDescription) withObject:nil];
+    [super viewWillAppear:animated];
+}
+
+-(void) loadDescription{
+    NSAutoreleasePool *pool=[[NSAutoreleasePool alloc] init];
+    NSString *htmlDescription=[NSString stringWithFormat:htmlWrapper,feed.title,feed.date,feed.author,feed.summary];
+    [webView loadHTMLString:htmlDescription baseURL:nil];
+    [pool release];
+}
 
 -(void) doubleTapReceived:(id) sender{
     NSLog(@"Double tap");
@@ -63,7 +88,6 @@
 #pragma UIWebViewDelegate methods
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
-    NSLog(@"should do");
     return YES;
 }
 

@@ -23,5 +23,6 @@
 
 -(void) pushToIndex:(int) newIndex;
 -(void) popToIndex:(int) newIndex;
+-(void) animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;
 
 @end

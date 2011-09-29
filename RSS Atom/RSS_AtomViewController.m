@@ -38,6 +38,7 @@
     [hvc release];
     
     FeedViewController *fvc=[[FeedViewController alloc] initWithNibName:@"FeedViewController" bundle:nil];
+    hvc.feedViewController=fvc;
     [controllers addObject:fvc];
     [fvc release];
     

@@ -18,6 +18,7 @@
 
 @synthesize currentView;
 @synthesize feedInfo;
+@synthesize feedViewController;
 @synthesize textPull, textRelease, textLoading, refreshHeaderView, refreshLabel, refreshArrow, refreshSpinner;
 #define REFRESH_HEADER_HEIGHT 52.0f
 
@@ -26,6 +27,7 @@
 - (void)viewDidLoad
 {
     [self addPullToRefreshHeader];
+    [self initController];
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
@@ -55,9 +57,11 @@ static BOOL initialized=NO;
 }
 
 -(void) viewWillAppear:(BOOL)animated{
-    if (!initialized) {
-        [self initController];
-    }
+    
+    [super viewWillAppear:animated];
+}
+
+-(void) viewDidAppear:(BOOL)animated{
     stopIssued=NO;
     //[feedParser setUrl:feedInfo.urlString];
     if (parsingMode==kParsingModeDocuments) {
@@ -68,7 +72,11 @@ static BOOL initialized=NO;
     }else{
         [feedParser parse];
     }
-    [super viewWillAppear:animated];
+    [super viewDidAppear:animated];
+}
+
+-(void) loadFeed{
+    
 }
 
 -(IBAction)feedSelectorPressed:(id)sender{
@@ -103,7 +111,7 @@ static BOOL initialized=NO;
     return;
 }
 
-#pragma UITableViewDataSource and UITableViewDelegate methods
+#pragma mark - UITableViewDataSource and UITableViewDelegate methods
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return [feeds count];
@@ -165,10 +173,11 @@ static BOOL initialized=NO;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    feedViewController.feed=[feeds objectAtIndex:indexPath.row];
     [self.zoomController pushToIndex:3];
 }
 
-#pragma MWFeedParserDelegate methods
+#pragma mark -MWFeedParserDelegate methods
 
 - (void)feedParserDidStart:(MWFeedParser *)parser{
     NSLog(@"Parsing started");

@@ -80,6 +80,7 @@
 		98F005CD1434C85D0013B44D /* URLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 98F005BC1434C85D0013B44D /* URLParser.m */; };
 		98F67FD31434FC6000B8C615 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98F67FD21434FC6000B8C615 /* QuartzCore.framework */; };
 		98F67FD61434FD0700B8C615 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 98F67FD51434FD0700B8C615 /* arrow.png */; };
+		98F67FD81435021100B8C615 /* HTMLWrapper.html in Resources */ = {isa = PBXBuildFile; fileRef = 98F67FD71435021100B8C615 /* HTMLWrapper.html */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -205,6 +206,7 @@
 		98F005BC1434C85D0013B44D /* URLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLParser.m; sourceTree = "<group>"; };
 		98F67FD21434FC6000B8C615 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		98F67FD51434FD0700B8C615 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
+		98F67FD71435021100B8C615 /* HTMLWrapper.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = HTMLWrapper.html; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -352,6 +354,7 @@
 		98D62A4C142B528800481EF9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				98F67FD71435021100B8C615 /* HTMLWrapper.html */,
 				98D25E531432EF910049235B /* feedDB.db */,
 				98427F90142BA6580048C0B5 /* segoeui.ttf */,
 				98427F91142BA6580048C0B5 /* segoeuib.ttf */,
@@ -497,6 +500,7 @@
 				98D25E541432EF910049235B /* feedDB.db in Resources */,
 				98F005951434BFB90013B44D /* AMFeedCell.xib in Resources */,
 				98F67FD61434FD0700B8C615 /* arrow.png in Resources */,
+				98F67FD81435021100B8C615 /* HTMLWrapper.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

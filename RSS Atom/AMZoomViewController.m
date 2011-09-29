@@ -34,6 +34,8 @@
         self.currentViewController=[controllers objectAtIndex:startIndex];
         for (AMViewController *vc in self.viewControllers) {
             vc.zoomController=self;
+            [self.view addSubview:vc.view];
+            [vc.view removeFromSuperview];
         }
         currentIndex=startIndex;
     }
@@ -56,6 +58,8 @@
     [UIView beginAnimations:@"PushView" context:nil];
     [UIView setAnimationDuration:0.2];
     [UIView setAnimationCurve:UIViewAnimationCurveLinear];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
     source.transform=CGAffineTransformMakeScale(1.5,1.5);
     source.alpha=0;
     target.transform=CGAffineTransformIdentity;
@@ -79,11 +83,17 @@
     [UIView beginAnimations:@"PushView" context:nil];
     [UIView setAnimationDuration:0.2];
     [UIView setAnimationCurve:UIViewAnimationCurveLinear];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
     target.transform=CGAffineTransformIdentity;
     target.alpha=1;
     source.transform=CGAffineTransformMakeScale(0.5, 0.5);
     source.alpha=0;
     [UIView commitAnimations];
+}
+
+-(void) animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context{
+    [currentViewController viewDidAppear:YES];
 }
 
 - (void)viewDidLoad
