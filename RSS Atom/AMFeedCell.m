@@ -29,8 +29,8 @@
     descriptionFrameRet=descriptionLabel.frame;
     feedImageFrame=feedImage.frame;
     
-    descriptionFrame=CGRectMake(0, 25, 280, 50);
-    feedImageFrameRet=CGRectMake(0, 25, 0, 50);
+    descriptionFrame=CGRectMake(0, 30, 280, 50);
+    feedImageFrameRet=CGRectMake(0, 30, 0, 50);
 }
 
 -(void) loadImageFromURLString:(NSString*) urlString{

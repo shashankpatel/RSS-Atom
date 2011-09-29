@@ -94,10 +94,8 @@
                 UIButton *_addButton= (UIButton*)cell.accessoryView;
                 if ([selectedURLsArray indexOfObject:feedURLString]!=NSNotFound) {
                     [_addButton setImage:[UIImage imageNamed:@"checkMarkIconSmall.png"] forState:UIControlStateNormal];
-                    cell.backgroundColor=[UIColor colorWithWhite:0 alpha:0.5];
                 }else{
                     [_addButton setImage:[UIImage imageNamed:@"addIconSmall.png"] forState:UIControlStateNormal];
-                    cell.backgroundColor=[UIColor clearColor];
                 }
                 
             } 
@@ -118,8 +116,7 @@
         cell.textLabel.textColor=[UIColor whiteColor];
         cell.detailTextLabel.font=[General descriptionFont];
         cell.detailTextLabel.textColor=[UIColor whiteColor];
-        cell.backgroundColor=[UIColor clearColor];
-        cell.contentView.backgroundColor=[UIColor clearColor];
+        cell.backgroundColor=[UIColor colorWithWhite:0 alpha:0.5];
         UIButton *addButton=[UIButton buttonWithType:UIButtonTypeCustom];
         addButton.frame=CGRectMake(0, 0, 44, 44);
         cell.accessoryView=addButton;
@@ -135,10 +132,8 @@
     AMFeedInfo *feedInfo=[feedInfos objectAtIndex:indexPath.row];
     if ([selectedURLsArray indexOfObject:feedInfo.urlString]!=NSNotFound) {
         [addButton setImage:[UIImage imageNamed:@"checkMarkIconSmall.png"] forState:UIControlStateNormal];
-        cell.backgroundColor=[UIColor colorWithWhite:0 alpha:0.5];
     }else{
         [addButton setImage:[UIImage imageNamed:@"addIconSmall.png"] forState:UIControlStateNormal];
-        cell.backgroundColor=[UIColor clearColor];
     }
     [addButton setTitle:feedInfo.urlString forState:UIControlStateNormal];
     cell.textLabel.text=[feedInfo.title stringByConvertingHTMLToPlainText];

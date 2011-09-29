@@ -78,6 +78,8 @@
 		98F005CB1434C85D0013B44D /* TagChunk.m in Sources */ = {isa = PBXBuildFile; fileRef = 98F005B81434C85D0013B44D /* TagChunk.m */; };
 		98F005CC1434C85D0013B44D /* TxtChunk.m in Sources */ = {isa = PBXBuildFile; fileRef = 98F005BA1434C85D0013B44D /* TxtChunk.m */; };
 		98F005CD1434C85D0013B44D /* URLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 98F005BC1434C85D0013B44D /* URLParser.m */; };
+		98F67FD31434FC6000B8C615 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98F67FD21434FC6000B8C615 /* QuartzCore.framework */; };
+		98F67FD61434FD0700B8C615 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 98F67FD51434FD0700B8C615 /* arrow.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -201,6 +203,8 @@
 		98F005BA1434C85D0013B44D /* TxtChunk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TxtChunk.m; sourceTree = "<group>"; };
 		98F005BB1434C85D0013B44D /* URLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLParser.h; sourceTree = "<group>"; };
 		98F005BC1434C85D0013B44D /* URLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLParser.m; sourceTree = "<group>"; };
+		98F67FD21434FC6000B8C615 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		98F67FD51434FD0700B8C615 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,6 +212,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98F67FD31434FC6000B8C615 /* QuartzCore.framework in Frameworks */,
 				98D25E461432E4B20049235B /* libsqlite3.dylib in Frameworks */,
 				98D62A46142B528800481EF9 /* UIKit.framework in Frameworks */,
 				98D62A48142B528800481EF9 /* Foundation.framework in Frameworks */,
@@ -286,6 +291,7 @@
 		98D62A36142B528800481EF9 = {
 			isa = PBXGroup;
 			children = (
+				98F67FD21434FC6000B8C615 /* QuartzCore.framework */,
 				98D25E451432E4B20049235B /* libsqlite3.dylib */,
 				98C89D4614324DCF000D8F27 /* Supporting Frameworks */,
 				98D62A4B142B528800481EF9 /* RSS Atom */,
@@ -361,6 +367,7 @@
 		98D62A6D142B5B3A00481EF9 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				98F67FD51434FD0700B8C615 /* arrow.png */,
 				98D25E3B143277EF0049235B /* backIconSmall.png */,
 				98C89D691432664C000D8F27 /* checkMarkIconSmall.png */,
 				9896A09B142F118D006CE433 /* addIconSmall.png */,
@@ -489,6 +496,7 @@
 				98D25E3C143277EF0049235B /* backIconSmall.png in Resources */,
 				98D25E541432EF910049235B /* feedDB.db in Resources */,
 				98F005951434BFB90013B44D /* AMFeedCell.xib in Resources */,
+				98F67FD61434FD0700B8C615 /* arrow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
