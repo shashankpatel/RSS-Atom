@@ -14,6 +14,7 @@
 @synthesize viewControllers;
 @synthesize currentViewController;
 @synthesize currentIndex;
+@synthesize transitionType;
 
 #pragma mark - View lifecycle
 
@@ -43,6 +44,7 @@
 }
 
 -(void) pushToIndex:(int) newIndex {
+    self.transitionType=kTransitionTypePush;
     UIViewController *targetViewController=[viewControllers objectAtIndex:newIndex];
     [targetViewController viewWillAppear:YES];
     [currentViewController viewWillDisappear:YES];
@@ -68,6 +70,7 @@
 }
 
 -(void) popToIndex:(int) newIndex{
+    self.transitionType=kTransitionTypePop;
     UIViewController *targetViewController=[viewControllers objectAtIndex:newIndex];
     [targetViewController viewWillAppear:YES];
     [currentViewController viewWillDisappear:YES];

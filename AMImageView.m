@@ -28,6 +28,7 @@
     urlString=_urlString;
     if (connection) {
         [connection cancel];
+        [connection release];
     }
     
     if ((self.image=[AMSerializer imageForURLString:urlString])) {

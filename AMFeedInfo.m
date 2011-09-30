@@ -25,6 +25,7 @@
 -(void) dealloc{
     [title release];
     [urlString release];
+    [link release];
     [super dealloc];
 }
 

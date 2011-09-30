@@ -51,8 +51,10 @@ static BOOL initialized=NO;
     stopIssued=YES;
     [feedParser stopParsing];
     [feedParser reset];
-    [feeds removeAllObjects];
-    [table reloadData];
+    if (self.zoomController.transitionType==kTransitionTypePop) {
+        [feeds removeAllObjects];
+        [table reloadData];
+    }
     [super viewWillDisappear:animated];
 }
 
@@ -63,14 +65,15 @@ static BOOL initialized=NO;
 
 -(void) viewDidAppear:(BOOL)animated{
     stopIssued=NO;
-    //[feedParser setUrl:feedInfo.urlString];
-    if (parsingMode==kParsingModeDocuments) {
-        if(![feedParser parseFromDocuments]){
-            parsingMode=kParsingModeLive;
+    if (self.zoomController.transitionType==kTransitionTypePush) {
+        if (parsingMode==kParsingModeDocuments) {
+            if(![feedParser parseFromDocuments]){
+                parsingMode=kParsingModeLive;
+                [feedParser parse];
+            }
+        }else{
             [feedParser parse];
         }
-    }else{
-        [feedParser parse];
     }
     [super viewDidAppear:animated];
 }
