@@ -7,6 +7,7 @@
 //
 
 #import "AMFeedCell.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation AMFeedCell
 

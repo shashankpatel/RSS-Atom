@@ -103,6 +103,7 @@
 
 -(BOOL) parseFromDocuments{
 	NSData *data = [AMSerializer dataForURLString:url];
+    parsing=NO;
 	if (data!=nil && [data length]!=0) {
         NSLog(@"Parsing locally, length:%d",[data length]);
 		parsing = YES;

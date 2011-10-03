@@ -46,6 +46,7 @@ static NSString *htmlWrapper;
 
 -(void) processWebView{
     UIScrollView *webScroll=[[webView subviews] objectAtIndex:0];
+    webScroll.opaque = NO;
     webScroll.backgroundColor=[UIColor clearColor];
     webView.backgroundColor=[UIColor clearColor];
     for (UIView *view in [[[webView subviews] objectAtIndex:0] subviews] ) {
@@ -54,6 +55,8 @@ static NSString *htmlWrapper;
             iv.image=nil;
             iv.backgroundColor=[UIColor clearColor];
         }
+        view.opaque = NO;
+        view.backgroundColor=[UIColor clearColor];
     }
 }
 

@@ -22,7 +22,7 @@
     IBOutlet UIView *detachableView;
     UIView *currentView;
     AMFeedInfo *feedInfo;
-    NSMutableArray *feeds;
+    NSMutableArray *feeds,*tempFeeds;
     MWFeedParser *feedParser;
     int parsingMode;
     BOOL stopIssued;

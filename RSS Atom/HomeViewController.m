@@ -36,6 +36,7 @@ static BOOL initialized=NO;
 
 -(void) initController{
     feeds=[[NSMutableArray alloc] init];
+    tempFeeds=[[NSMutableArray alloc] init];
     parsingMode=kParsingModeDocuments;
     NSArray *allfeedInfos=[AMFeedManager allFeedInfos];
     if ([allfeedInfos count]!=0) {
@@ -95,6 +96,7 @@ static BOOL initialized=NO;
     if (parsingMode==kParsingModeDocuments) {
         if(![feedParser parseFromDocuments]){
             parsingMode=kParsingModeLive;
+            [feedParser stopParsing];
             [feedParser parse];
         }
     }else{
@@ -184,7 +186,7 @@ static BOOL initialized=NO;
 
 - (void)feedParserDidStart:(MWFeedParser *)parser{
     NSLog(@"Parsing started");
-    [feeds removeAllObjects];
+    [tempFeeds removeAllObjects];
 }
 
 - (void)feedParser:(MWFeedParser *)parser didParseFeedInfo:(MWFeedInfo *)info{
@@ -192,7 +194,7 @@ static BOOL initialized=NO;
 }
 
 - (void)feedParser:(MWFeedParser *)parser didParseFeedItem:(MWFeedItem *)item{
-    [feeds addObject:item];
+    [tempFeeds addObject:item];
 }
 
 - (void)feedParserDidFinish:(MWFeedParser *)parser{
@@ -201,10 +203,13 @@ static BOOL initialized=NO;
         parsingMode=kParsingModeDocuments;
         return;
     }
+    self.view.userInteractionEnabled=NO;
+    [feeds removeAllObjects];
+    [feeds addObjectsFromArray:tempFeeds];
     NSLog(@"Parsing finished");
     [table reloadData];
     [self stopLoading];
-    
+    self.view.userInteractionEnabled=YES;
     if (parsingMode==kParsingModeDocuments) {
         parsingMode=kParsingModeLive;
         [feedParser parse];

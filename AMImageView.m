@@ -32,7 +32,8 @@
     }
     
     if ((self.image=[AMSerializer imageForURLString:urlString])) {
-        [delegate imageSuccessfullyLoadedLocally];
+        [delegate imageSuccessfullyLoadedLive];
+//        [delegate imageSuccessfullyLoadedLocally];
         return;
     }
     

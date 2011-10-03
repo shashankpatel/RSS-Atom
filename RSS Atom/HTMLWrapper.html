@@ -1,112 +1,108 @@
 <html>
-<style>
-#fixed{
-    position:relative;
-    float:center;
-    max-width:285px;
-    min-width:285px;
-    background:#eeeeee;
-	line-height: 18pt;
-	padding:5px;
-	color:black;
-}
-#objectFrame{
-    position:relative;
-    float:center;
-    max-width:273px;
-    max-height:204px;
-	min-width:0px;
-	min-height:0px;
-    background:#eeeeee;
-	padding:5px;
-	color:black;
-	border:1px solid #666666;
-}
-#nilFrame{
-    position:relative;
-    float:center;
-    max-width:0px;
-    max-height:0px;
-	width:0px;
-	height:0px;
-    background:#eeeeee;
-	padding:5px;
-	color:black;
-	
-}
-
-#bodyFrame{
-    position:relative;
-    float:center;
-    max-width:320px;
-    background:#eeeeee;
-	line-height: 18pt;
-	color:black;
-}
-#titleFrame{
-    position:relative;
-    float:center;
-    width:300px;
-    background:gray;
-	line-height: 15pt;
-	font-size:12pt;
-	text-align:left;
-	border:2px solid #666666;
-	font-weight:bold;
-	font-family:SegoeUI;
-	padding:10px;
-	color:white;
-}
-#dateFrame{
-    position:relative;
-    float:center;
-    width:300px;
-    background:#dddddd;
-	font-size:8pt;
-	text-align:right;
-	font-family:SegoeUI;
-	color:black;
-}
-
-#authorFrame{
-    position:relative;
-    float:center;
-    width:300px;
-    background:#dddddd;
-	font-size:8pt;
-	text-align:right;
-	font-family:SegoeUI;
-	color:black;
-}
-
-#imageFrame{
-    position:relative;
-    float:left;
-	display:inline;
-    max-width:265px;
-	max-height:198px;
-	padding:5px;
-}
-</style>
-<body id="bodyFrame">
-    <table bgcolor="#eeeeee">
-		<tr>
-			<td id="titleFrame">%@
-			</td>
-		</tr>
-		<tr>
-			<td id="dateFrame">%@
-			</td>
-		</tr>
-		<tr>
-			<td id="authorFrame">%@
-			</td>
-		</tr>
-        <tr>
-            <td id="fixed"><hr>%@
-            </td>
-        </tr>
-    </table>
-</body>
-
+    <style>
+        #fixed{
+            position:relative;
+            float:center;
+            max-width:285px;
+            min-width:285px;
+            background:transparent;
+            line-height: 15pt;
+            padding:5px;
+            color:white;
+        }
+        #tableFrame{
+            position:relative;
+            background:transparent;
+            float:center;
+            max-width:300px;
+            line-height: 15pt;
+            color:#ffffff;
+        }
+        
+        #tableFrameTop{
+            position:relative;
+            background:transparent;
+            float:center;
+            max-width:300px;
+            line-height: 15pt;
+            color:#ffffff;
+            border:1px solid #ffffff;
+        }
+        
+        #bodyFrame{
+            position:relative;
+            background:transparent;
+            float:center;
+            max-width:320px;
+            line-height: 15pt;
+            color:#ffffff;
+        }
+        #titleFrame{
+            position:relative;
+            float:center;
+            width:300px;
+            background:transparent;
+            line-height: 15pt;
+            font-size:12pt;
+            text-align:left;
+            font-weight:bold;
+            font-family:SegoeUI;
+            padding:10px;
+            color:white;
+            
+        }
+        #dateFrame{
+            position:relative;
+            float:center;
+            width:300px;
+            background:transparent;
+            font-size:8pt;
+            text-align:right;
+            font-family:SegoeUI;
+            color:#ffffff;
+        }
+        
+        #authorFrame{
+            position:relative;
+            float:center;
+            width:300px;
+            background:transparent;
+            font-size:8pt;
+            text-align:right;
+            font-family:SegoeUI;
+            color:white;
+        }
+        
+        #imageFrame{
+            position:relative;
+            float:left;
+            display:inline;
+            max-width:265px;
+            max-height:198px;
+            padding:5px;
+        }
+        </style>
+    <body id="bodyFrame" link="gray" background-color="transparent">
+        <table bgcolor="transparent" id="tableFrameTop">
+            <tr>
+                <td id="titleFrame">%@
+                </td>
+            </tr>
+            <tr>
+                <td id="dateFrame"><hr style="border: 1px dotted #ffffff;">%@
+                </td>
+            </tr>
+            <tr>
+                <td id="authorFrame"><hr style="border: 1px dotted #ffffff;">%@
+                </td>
+            </tr>
+        </table>
+        <table bgcolor="transparent" id="tableFrame">
+            <tr>
+                <td id="fixed"><br>%@
+                </td>
+            </tr>
+        </table>
+    </body>
+    
 </html>
