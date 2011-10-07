@@ -67,6 +67,13 @@
 
 -(void) feedInfosReceived:(NSArray*) _feedInfos{
     [feedInfos addObjectsFromArray:_feedInfos];
+    if ([searchBar.text isEqualToString:@"gizmodo"]) {
+        AMFeedInfo *feedInfo=[[AMFeedInfo alloc] init];
+        feedInfo.urlString=@"http://gizmodo.com/vip.xml";
+        feedInfo.title=@"Gizmodo";
+        feedInfo.link=@"http://www.gizmodo.com/";
+        [feedInfos addObject:feedInfo];
+    }
     [table reloadData];
     [loadingView removeFromSuperview];
 }
@@ -123,6 +130,7 @@
         [addButton addTarget:self action:@selector(addButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         
         AMImageView *amiv=[[AMImageView alloc] init];
+        [amiv initAMImageView];
         amiv.tag=2222;
         [cell addSubview:amiv];
         amiv.frame=CGRectMake(20, 15, 16, 16);

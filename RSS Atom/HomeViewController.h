@@ -36,6 +36,7 @@
     NSString *textPull;
     NSString *textRelease;
     NSString *textLoading;
+    NSMutableArray *cells;
 }
 
 @property(nonatomic,retain) UIView *currentView;

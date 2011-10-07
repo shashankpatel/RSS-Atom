@@ -35,6 +35,7 @@
 static BOOL initialized=NO;
 
 -(void) initController{
+    cells=[[NSMutableArray alloc] init];
     feeds=[[NSMutableArray alloc] init];
     tempFeeds=[[NSMutableArray alloc] init];
     parsingMode=kParsingModeDocuments;
@@ -53,6 +54,10 @@ static BOOL initialized=NO;
     [feedParser stopParsing];
     [feedParser reset];
     if (self.zoomController.transitionType==kTransitionTypePop) {
+        for (AMFeedCell *cell in cells) {
+            cell.feedImage.shouldLoadImage=YES;
+            [cell.feedImage resetImage];
+        }
         [feeds removeAllObjects];
         [table reloadData];
     }
@@ -133,6 +138,7 @@ static BOOL initialized=NO;
         cell.descriptionLabel.numberOfLines=3;
         //cell.backgroundColor=[UIColor clearColor];
         //cell.contentView.backgroundColor=[UIColor clearColor];
+        [cells addObject:cell];
     }
     
     MWFeedItem *feed=[feeds objectAtIndex:indexPath.row];
@@ -257,6 +263,9 @@ static BOOL initialized=NO;
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     if (isLoading) return;
     isDragging = YES;
+    for (AMFeedCell *cell in cells) {
+        cell.feedImage.shouldLoadImage=NO;
+    }
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -281,12 +290,25 @@ static BOOL initialized=NO;
     }
 }
 
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    for (AMFeedCell *cell in cells) {
+        cell.feedImage.shouldLoadImage=YES;
+        [cell.feedImage resetImage];
+    }
+}
+
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     if (isLoading) return;
     isDragging = NO;
     if (scrollView.contentOffset.y <= -REFRESH_HEADER_HEIGHT) {
         // Released above the header
         [self startLoading];
+    }
+    if (!decelerate) {
+        for (AMFeedCell *cell in cells) {
+            cell.feedImage.shouldLoadImage=YES;
+            [cell.feedImage resetImage];
+        }
     }
 }
 

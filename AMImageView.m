@@ -12,40 +12,46 @@
 @implementation AMImageView
 
 @synthesize delegate;
+@synthesize urlString;
+@synthesize shouldLoadImage;
+@synthesize connection;
 
-- (id)init
+- (void)initAMImageView
 {
-    self = [super init];
-    if (self) {
-        // Initialization code here.
-    }
-    
-    return self;
+    shouldLoadImage=YES;
+    receievedData=[[NSMutableData alloc] init];
+    // Initialization code here.
 }
 
 -(void) setImageWithContentsOfURLString:(NSString*) _urlString{
     self.image=nil;
-    urlString=_urlString;
-    if (connection) {
-        [connection cancel];
-        [connection release];
+    self.urlString=_urlString;
+    self.connection=nil;
+    if ((self.image=[AMSerializer imageForURLString:urlString])) {
+        [delegate imageSuccessfullyLoadedLocally];
     }
     
-    if ((self.image=[AMSerializer imageForURLString:urlString])) {
-        [delegate imageSuccessfullyLoadedLive];
-//        [delegate imageSuccessfullyLoadedLocally];
+    [self resetImage];
+}
+
+-(void) resetImage{
+    if (self.image) {
+        return;
+    }
+    
+    if (!shouldLoadImage) {
         return;
     }
     
     NSURL *url=[NSURL URLWithString:urlString];
     NSURLRequest *request=[NSURLRequest requestWithURL:url];
-    connection=[[NSURLConnection alloc] initWithRequest:request delegate:self];
+    [self.connection cancel];
+    self.connection=[[NSURLConnection alloc] initWithRequest:request delegate:self];
     if (connection) {
     }
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response{
-    if(!receievedData)receievedData=[[NSMutableData alloc] init];
     [receievedData setLength:0];
 }
 
@@ -55,18 +61,29 @@
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)_connection{
     NSData *imageData=[NSData dataWithData:receievedData];
-    self.image=[UIImage imageWithData:imageData];
-    [AMSerializer serializeData:imageData forURLString:urlString];
+    if ([receievedData length]==0) {
+        [delegate imageFailedToLoad];
+    }else{
+        self.image=[UIImage imageWithData:imageData];
+        [AMSerializer serializeData:imageData forURLString:urlString];
+            [delegate imageSuccessfullyLoadedLive];
+    }
+    
     [receievedData setLength:0];
-    [connection release];
-    connection=nil;
-    [delegate imageSuccessfullyLoadedLive];
+    self.connection=nil;
 }
 
 - (void)connection:(NSURLConnection *)_connection didFailWithError:(NSError *)error{
-    [connection release];
-    connection=nil;
+    self.connection=nil;
     [delegate imageFailedToLoad];
+}
+
+-(void) dealloc{
+    self.connection=nil;
+    [receievedData release];
+    [delegate release];
+    [urlString release];
+    [super dealloc];
 }
 
 @end

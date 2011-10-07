@@ -32,6 +32,7 @@
     
     descriptionFrame=CGRectMake(0, 30, 280, 50);
     feedImageFrameRet=CGRectMake(0, 30, 0, 50);
+    [feedImage initAMImageView];
 }
 
 -(void) loadImageFromURLString:(NSString*) urlString{
@@ -41,6 +42,8 @@
         [feedImage setImageWithContentsOfURLString:urlString];
     }
 }
+
+
 
 -(void) imageSuccessfullyLoadedLive{
     [UIView beginAnimations:@"Image Load Animation" context:nil];
@@ -57,7 +60,7 @@
 }
 
 -(void) imageFailedToLoad{
-    
+    NSLog(@"Image failed to load");
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
