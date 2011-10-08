@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9832BADA1440CD8000391A7B /* UIImage+Alpha.m in Sources */ = {isa = PBXBuildFile; fileRef = 9832BAD51440CD8000391A7B /* UIImage+Alpha.m */; };
+		9832BADB1440CD8000391A7B /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 9832BAD71440CD8000391A7B /* UIImage+Resize.m */; };
+		9832BADC1440CD8000391A7B /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 9832BAD91440CD8000391A7B /* UIImage+RoundedCorner.m */; };
 		98427F83142B9F5C0048C0B5 /* General.m in Sources */ = {isa = PBXBuildFile; fileRef = 98427F82142B9F5C0048C0B5 /* General.m */; };
 		98427F92142BA6580048C0B5 /* segoeui.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 98427F90142BA6580048C0B5 /* segoeui.ttf */; };
 		98427F93142BA6580048C0B5 /* segoeuib.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 98427F91142BA6580048C0B5 /* segoeuib.ttf */; };
@@ -84,6 +87,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9832BAD41440CD8000391A7B /* UIImage+Alpha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Alpha.h"; sourceTree = "<group>"; };
+		9832BAD51440CD8000391A7B /* UIImage+Alpha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Alpha.m"; sourceTree = "<group>"; };
+		9832BAD61440CD8000391A7B /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
+		9832BAD71440CD8000391A7B /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
+		9832BAD81440CD8000391A7B /* UIImage+RoundedCorner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+RoundedCorner.h"; sourceTree = "<group>"; };
+		9832BAD91440CD8000391A7B /* UIImage+RoundedCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+RoundedCorner.m"; sourceTree = "<group>"; };
 		98427F81142B9F5C0048C0B5 /* General.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = General.h; sourceTree = "<group>"; };
 		98427F82142B9F5C0048C0B5 /* General.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = General.m; sourceTree = "<group>"; };
 		98427F90142BA6580048C0B5 /* segoeui.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = segoeui.ttf; sourceTree = "<group>"; };
@@ -225,6 +234,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9832BADE1440CD8600391A7B /* UIImage Categories */ = {
+			isa = PBXGroup;
+			children = (
+				9832BAD41440CD8000391A7B /* UIImage+Alpha.h */,
+				9832BAD51440CD8000391A7B /* UIImage+Alpha.m */,
+				9832BAD61440CD8000391A7B /* UIImage+Resize.h */,
+				9832BAD71440CD8000391A7B /* UIImage+Resize.m */,
+				9832BAD81440CD8000391A7B /* UIImage+RoundedCorner.h */,
+				9832BAD91440CD8000391A7B /* UIImage+RoundedCorner.m */,
+			);
+			name = "UIImage Categories";
+			sourceTree = "<group>";
+		};
 		9867771D1433B68B00327F78 /* MWFeedParser */ = {
 			isa = PBXGroup;
 			children = (
@@ -242,6 +264,7 @@
 		98C89D4614324DCF000D8F27 /* Supporting Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9832BADE1440CD8600391A7B /* UIImage Categories */,
 				98F0059A1434C8420013B44D /* ElementParser */,
 				9867771D1433B68B00327F78 /* MWFeedParser */,
 				98C89D6814325E57000D8F27 /* GTMDefines.h */,
@@ -555,6 +578,9 @@
 				98F005CB1434C85D0013B44D /* TagChunk.m in Sources */,
 				98F005CC1434C85D0013B44D /* TxtChunk.m in Sources */,
 				98F005CD1434C85D0013B44D /* URLParser.m in Sources */,
+				9832BADA1440CD8000391A7B /* UIImage+Alpha.m in Sources */,
+				9832BADB1440CD8000391A7B /* UIImage+Resize.m in Sources */,
+				9832BADC1440CD8000391A7B /* UIImage+RoundedCorner.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

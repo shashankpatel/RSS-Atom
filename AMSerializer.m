@@ -53,7 +53,9 @@ static NSString *cacheDictPath;
 
 +(void) serializeImage:(UIImage*) image forURLString:(NSString*) urlString{
     NSData *imageData=UIImagePNGRepresentation(image);
-    NSString *imageFileName=[NSString stringWithFormat:@"%f.png",[[NSDate date] timeInterval]];
+    [AMSerializer serializeData:imageData forURLString:urlString];
+    return;
+    NSString *imageFileName=[NSString stringWithFormat:@"%f.png",[[NSDate date] timeIntervalSince1970]];
     NSString *imageFilePath=[[AMSerializer cache] stringByAppendingPathComponent:imageFileName];
     [imageData writeToFile:imageFilePath atomically:YES];
     [cacheDictionary setObject:imageFileName forKey:urlString];

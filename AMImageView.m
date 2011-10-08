@@ -8,6 +8,7 @@
 
 #import "AMImageView.h"
 #import "AMSerializer.h"
+#import "UIImage+Resize.h"
 
 @implementation AMImageView
 
@@ -26,6 +27,7 @@
 -(void) setImageWithContentsOfURLString:(NSString*) _urlString{
     self.image=nil;
     self.urlString=_urlString;
+    [self.connection cancel];
     self.connection=nil;
     if ((self.image=[AMSerializer imageForURLString:urlString])) {
         [delegate imageSuccessfullyLoadedLocally];
@@ -64,13 +66,31 @@
     if ([receievedData length]==0) {
         [delegate imageFailedToLoad];
     }else{
-        self.image=[UIImage imageWithData:imageData];
-        [AMSerializer serializeData:imageData forURLString:urlString];
+        UIImage *downloadedImage=[self thumbmnailFromImage:[UIImage imageWithData:imageData]];
+        self.image=downloadedImage;
+        NSLog(@"Loaded: %@",urlString);
+        [AMSerializer serializeImage:downloadedImage forURLString:urlString];
             [delegate imageSuccessfullyLoadedLive];
     }
     
     [receievedData setLength:0];
     self.connection=nil;
+}
+
+-(UIImage*) thumbmnailFromImage:(UIImage*) image{
+    float width,height;
+    width=image.size.width;
+    height=image.size.height;
+    if (width<130 && height<130) {
+        return  image;
+    }
+    
+    float ratio=130.0/MAX(width, height);
+    width*=ratio;
+    height*=ratio;
+    NSLog(@"%f,%f",width,height);
+    return [image resizedImage:CGSizeMake(width, height) 
+          interpolationQuality:1.0];
 }
 
 - (void)connection:(NSURLConnection *)_connection didFailWithError:(NSError *)error{
