@@ -145,7 +145,7 @@
 						<string key="NSFrameSize">{300, 90}</string>
 						<reference key="NSSuperview" ref="665139502"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="427199143"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:370</string>
 						<reference key="IBUIBackgroundColor" ref="662988334"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -301,7 +301,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">11</int>
+			<int key="maxID">13</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

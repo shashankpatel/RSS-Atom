@@ -26,6 +26,7 @@
 
 - (void)viewDidLoad
 {
+    feedTitle.font=[General regularLabelFont];
     [self addPullToRefreshHeader];
     [self initController];
     [super viewDidLoad];
@@ -42,6 +43,7 @@ static BOOL initialized=NO;
     NSArray *allfeedInfos=[AMFeedManager allFeedInfos];
     if ([allfeedInfos count]!=0) {
         self.feedInfo=[allfeedInfos objectAtIndex:0];
+        feedTitle.text=[feedInfo.title stringByConvertingHTMLToPlainText];
     }
     feedParser=[[MWFeedParser alloc] initWithFeedURL:feedInfo.urlString];
     feedParser.connectionType=ConnectionTypeAsynchronously;
@@ -65,7 +67,6 @@ static BOOL initialized=NO;
 }
 
 -(void) viewWillAppear:(BOOL)animated{
-    
     [super viewWillAppear:animated];
 }
 
@@ -95,6 +96,7 @@ static BOOL initialized=NO;
 -(void) feedInfoSelected:(AMFeedInfo*) _feedInfo{
     //Some loading functionality for feed goes here
     self.feedInfo=_feedInfo;
+    feedTitle.text=[feedInfo.title stringByConvertingHTMLToPlainText];
     [feedParser setUrl:feedInfo.urlString];
     [self.zoomController pushToIndex:2];
     return;
@@ -142,7 +144,7 @@ static BOOL initialized=NO;
     }
     
     MWFeedItem *feed=[feeds objectAtIndex:indexPath.row];
-    cell.titleLabel.text=feed.title;
+    cell.titleLabel.text=[feed.title stringByConvertingHTMLToPlainText];
     cell.descriptionLabel.text=[feed.summary stringByConvertingHTMLToPlainText];
     
 	if (feed.iconLink==nil && feed.summary!=nil) {
@@ -186,12 +188,14 @@ static BOOL initialized=NO;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     feedViewController.feed=[feeds objectAtIndex:indexPath.row];
     [self.zoomController pushToIndex:3];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark -MWFeedParserDelegate methods
 
 - (void)feedParserDidStart:(MWFeedParser *)parser{
     NSLog(@"Parsing started");
+    self.view.window.userInteractionEnabled=NO;
     [tempFeeds removeAllObjects];
 }
 
@@ -209,13 +213,12 @@ static BOOL initialized=NO;
         parsingMode=kParsingModeDocuments;
         return;
     }
-    self.view.userInteractionEnabled=NO;
     [feeds removeAllObjects];
     [feeds addObjectsFromArray:tempFeeds];
     NSLog(@"Parsing finished");
     [table reloadData];
     [self stopLoading];
-    self.view.userInteractionEnabled=YES;
+    self.view.window.userInteractionEnabled=YES;
     if (parsingMode==kParsingModeDocuments) {
         parsingMode=kParsingModeLive;
         [feedParser parse];

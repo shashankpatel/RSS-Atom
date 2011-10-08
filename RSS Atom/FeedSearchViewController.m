@@ -73,6 +73,7 @@
         feedInfo.title=@"Gizmodo";
         feedInfo.link=@"http://www.gizmodo.com/";
         [feedInfos addObject:feedInfo];
+        [feedInfo release];
     }
     [table reloadData];
     [loadingView removeFromSuperview];

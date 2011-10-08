@@ -37,6 +37,7 @@
     NSString *textRelease;
     NSString *textLoading;
     NSMutableArray *cells;
+    IBOutlet UILabel *feedTitle;
 }
 
 @property(nonatomic,retain) UIView *currentView;

@@ -48,7 +48,7 @@
     NSURL *url=[NSURL URLWithString:urlString];
     NSURLRequest *request=[NSURLRequest requestWithURL:url];
     [self.connection cancel];
-    self.connection=[[NSURLConnection alloc] initWithRequest:request delegate:self];
+    self.connection=[[[NSURLConnection alloc] initWithRequest:request delegate:self] autorelease];
     if (connection) {
     }
 }
@@ -68,9 +68,10 @@
     }else{
         UIImage *downloadedImage=[self thumbmnailFromImage:[UIImage imageWithData:imageData]];
         self.image=downloadedImage;
-        NSLog(@"Loaded: %@",urlString);
-        [AMSerializer serializeImage:downloadedImage forURLString:urlString];
+        if (downloadedImage.size.width>10 && downloadedImage.size.height>10) {
+            [AMSerializer serializeImage:downloadedImage forURLString:urlString];
             [delegate imageSuccessfullyLoadedLive];
+        }
     }
     
     [receievedData setLength:0];
@@ -88,7 +89,6 @@
     float ratio=130.0/MAX(width, height);
     width*=ratio;
     height*=ratio;
-    NSLog(@"%f,%f",width,height);
     return [image resizedImage:CGSizeMake(width, height) 
           interpolationQuality:1.0];
 }
@@ -99,6 +99,7 @@
 }
 
 -(void) dealloc{
+    [self.connection cancel];
     self.connection=nil;
     [receievedData release];
     [delegate release];
