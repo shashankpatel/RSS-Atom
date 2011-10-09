@@ -18,6 +18,7 @@
 
 @synthesize delegate;
 @synthesize feedInfos;
+@synthesize allCategories;
 
 #pragma mark - View lifecycle
 
@@ -33,12 +34,7 @@
 
 -(void) viewWillAppear:(BOOL)animated{
     self.feedInfos=[AMFeedManager allFeedInfos];
-    allCategories=[[[AMFeedManager allFeedCategories] allValues] retain];
-    if ([feedInfos count]==0) {
-        removeButton.hidden=YES;
-    }else{
-        removeButton.hidden=NO;
-    }
+    self.allCategories=[[AMFeedManager allFeedCategories] allValues];
     [table reloadData];
     [super viewWillAppear:animated];
 }
@@ -59,7 +55,7 @@
         AMImageView *amiv=[[AMImageView alloc] init];
         amiv.tag=2222;
         [cell.contentView addSubview:amiv];
-        amiv.frame=CGRectMake(20, 15, 16, 16);
+        amiv.frame=CGRectMake(15, 15, 16, 16);
         [amiv release];
     }
     NSString *category=[allCategories objectAtIndex:indexPath.section];
@@ -111,7 +107,17 @@
 }*/
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIView *headerView=[[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 40)] autorelease];
+    UIView *headerView=[headerViews objectForKey:[NSNumber numberWithInt:section]];
+    if (headerView) {
+        UIButton *removeButton=(UIButton*) [headerView viewWithTag:kRemoveButtonTag+section];
+        if ([[feedInfos objectForKey:[allCategories objectAtIndex:section]] count]==0) {
+            removeButton.hidden=YES;
+        }else{
+            removeButton.hidden=NO;
+        }
+        return headerView;
+    }
+    headerView=[[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 40)] autorelease];
     headerView.backgroundColor=[UIColor clearColor];
     UITextField *label=[[[UITextField alloc] initWithFrame:CGRectMake(10, 10, 230, 30)] autorelease];
     label.backgroundColor=[UIColor clearColor];
@@ -181,10 +187,11 @@
     [AMFeedManager removeFeedInfo:feedInfo];
     
     self.feedInfos=[AMFeedManager allFeedInfos];
-    allCategories=[feedInfos allKeys];
+    self.allCategories=[[AMFeedManager allFeedCategories] allValues];
     
     [table deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationRight];
-    if ([feedInfos count]==0) {
+    if ([[feedInfos objectForKey:[allCategories objectAtIndex:indexPath.section]] count]==0) {
+        UIButton *removeButton=(UIButton*) [[headerViews objectForKey:[NSNumber numberWithInt:indexPath.section]] viewWithTag:kRemoveButtonTag+indexPath.section];
         removeButton.hidden=YES;
         [self removeFeedPressed:removeButton];
     }
@@ -205,9 +212,9 @@
     selectedSection=rButton.tag-kRemoveButtonTag;
     [table setEditing:!table.editing animated:YES];
     if(table.editing){
-        [removeButton setImage:[UIImage imageNamed:@"checkMarkIconSmall.png"] forState:UIControlStateNormal];
+        [rButton setImage:[UIImage imageNamed:@"checkMarkIconSmall.png"] forState:UIControlStateNormal];
     }else{
-        [removeButton setImage:[UIImage imageNamed:@"removeIconSmall.png"] forState:UIControlStateNormal];
+        [rButton setImage:[UIImage imageNamed:@"removeIconSmall.png"] forState:UIControlStateNormal];
     }
 }
 

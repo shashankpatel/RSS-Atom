@@ -41,8 +41,8 @@ static BOOL initialized=NO;
     tempFeeds=[[NSMutableArray alloc] init];
     parsingMode=kParsingModeDocuments;
     NSMutableDictionary *allfeedInfos=[AMFeedManager allFeedInfos];
-    
-    NSString *category=[[allfeedInfos allKeys] objectAtIndex:0];
+
+    NSString *category=[[[AMFeedManager allFeedCategories] allValues] objectAtIndex:0];
         
     
     

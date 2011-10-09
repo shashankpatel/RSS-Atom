@@ -23,7 +23,6 @@
     IBOutlet UITableView *table;
     NSMutableDictionary *feedInfos;
     NSObject<FeedSelectorDelegate> *delegate;
-    IBOutlet UIButton *removeButton;
     NSArray *allCategories;
     NSMutableDictionary *headerViews;
     int selectedSection;
@@ -31,6 +30,7 @@
 
 @property(nonatomic,retain) NSObject<FeedSelectorDelegate> *delegate;
 @property(nonatomic,retain) NSMutableDictionary *feedInfos;
+@property(nonatomic,retain) NSArray *allCategories;
 
 -(IBAction) addFeedPressed:(id)sender;
 -(IBAction) removeFeedPressed:(id)sender;

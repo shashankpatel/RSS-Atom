@@ -24,14 +24,7 @@
     feedInfos=[[NSMutableArray alloc] init];
     feedSearcher=[[AMFeedSearcher alloc] init];
     feedSearcher.delegate=self;
-    NSArray *allFeedInfos=[[AMFeedManager allFeedInfos] allValues];
     selectedURLsArray=[[NSMutableArray alloc] init];
-    for (NSArray *feedsInfoArray in allFeedInfos) {
-        for (AMFeedInfo *feedInfo in feedsInfoArray) {
-            [selectedURLsArray addObject:feedInfo.urlString];
-        }
-    }
-    
     [searchBar becomeFirstResponder];
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
@@ -39,6 +32,13 @@
 
 -(void) viewWillAppear:(BOOL)animated{
     [searchBar becomeFirstResponder];
+    NSArray *allFeedInfos=[[AMFeedManager allFeedInfos] allValues];
+    [selectedURLsArray removeAllObjects];
+    for (NSArray *feedsInfoArray in allFeedInfos) {
+        for (AMFeedInfo *feedInfo in feedsInfoArray) {
+            [selectedURLsArray addObject:feedInfo.urlString];
+        }
+    }
     [super viewWillAppear:animated];
 }
 
