@@ -3,26 +3,28 @@
         #fixed{
             position:relative;
             float:center;
-            max-width:285px;
-            min-width:285px;
-            width:285px;
+            max-width:300px;
+            width:300px;
             background:transparent;
             line-height: 15pt;
-            padding:5px;
             color:white;
+            text-align:justify;
         }
         #fixed img {
             position:relative;
             float:center;
-            max-width: 265px;
-            padding:10px;
+            max-width: 288px;
+            padding-left: 5px;
+            padding-right:5px;
+            padding-bottom:5px;
+            padding-top:5px;
         }
         
         #tableFrame{
             position:relative;
             background:transparent;
             float:center;
-            max-width:300px;
+            max-width:320px;
             width:300px;
             line-height: 15pt;
             color:#ffffff;
@@ -32,7 +34,7 @@
             position:relative;
             background:transparent;
             float:center;
-            max-width:300px;
+            max-width:318px;
             line-height: 15pt;
             color:#ffffff;
             border:1px solid #ffffff;
@@ -56,39 +58,35 @@
             text-align:left;
             font-weight:bold;
             font-family:SegoeUI;
-            padding:10px;
             color:white;
-            
+            padding-left: 5px;
+            padding-right:5px;
+            text-align:justify;
         }
         #dateFrame{
             position:relative;
             float:center;
-            width:300px;
+            width:298px;
             background:transparent;
             font-size:8pt;
             text-align:right;
             font-family:SegoeUI;
             color:#ffffff;
+            padding-left: 5px;
+            padding-right:5px;
         }
         
         #authorFrame{
             position:relative;
             float:center;
-            width:300px;
+            width:298px;
             background:transparent;
             font-size:8pt;
             text-align:right;
             font-family:SegoeUI;
             color:white;
-        }
-        
-        #imageFrame{
-            position:relative;
-            float:left;
-            display:inline;
-            max-width:265px;
-            max-height:198px;
-            padding:5px;
+            padding-left: 5px;
+            padding-right:5px;
         }
         </style>
     <body id="bodyFrame" link="gray" background-color="transparent">
@@ -98,17 +96,17 @@
                 </td>
             </tr>
             <tr>
-                <td id="dateFrame"><hr style="border: 1px dotted #ffffff;">%@
+                <td id="dateFrame"><hr style="border: 1px solid #ffffff;">%@
                 </td>
             </tr>
             <tr>
-                <td id="authorFrame"><hr style="border: 1px dotted #ffffff;">%@
+                <td id="authorFrame"><hr style="border: 1px solid #ffffff;">%@
                 </td>
             </tr>
         </table>
         <table bgcolor="transparent" id="tableFrame">
             <tr>
-                <td id="fixed" overflow="visible"><br>%@
+                <td id="fixed"><br>%@
                 </td>
             </tr>
         </table>
