@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "FeedSelectorViewController.h"
-#import "FeedViewController.h"
+#import "AMFeedSelectorViewController.h"
+#import "AMFeedViewController.h"
 #import "AMViewController.h"
 #import "MWFeedParser.h"
 
@@ -16,8 +16,8 @@
 #define kParsingModeLive 1
 
 @interface HomeViewController : AMViewController<FeedSelectorDelegate,FeedViewDelegate,MWFeedParserDelegate>{
-    FeedSelectorViewController *feedSelector;
-    FeedViewController *feedViewController;
+    AMFeedSelectorViewController *feedSelector;
+    AMFeedViewController *feedViewController;
     IBOutlet UITableView *table;
     IBOutlet UIView *detachableView;
     UIView *currentView;
@@ -42,7 +42,7 @@
 
 @property(nonatomic,retain) UIView *currentView;
 @property(nonatomic,retain) AMFeedInfo *feedInfo;
-@property(nonatomic,retain) FeedViewController *feedViewController;
+@property(nonatomic,retain) AMFeedViewController *feedViewController;
 
 @property (nonatomic, retain) UIView *refreshHeaderView;
 @property (nonatomic, retain) UILabel *refreshLabel;

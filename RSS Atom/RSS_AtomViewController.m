@@ -9,10 +9,10 @@
 #import "RSS_AtomViewController.h"
 #import "AMZoomViewController.h"
 
-#import "FeedSearchViewController.h"
-#import "FeedSelectorViewController.h"
+#import "AMFeedSearchViewController.h"
+#import "AMFeedSelectorViewController.h"
 #import "HomeViewController.h"
-#import "FeedViewController.h"
+#import "AMFeedViewController.h"
 
 @implementation RSS_AtomViewController
 
@@ -24,11 +24,11 @@
 {
     NSMutableArray *controllers=[[NSMutableArray alloc] init];
     
-    FeedSearchViewController *vc=[[FeedSearchViewController alloc] initWithNibName:@"FeedSearchViewController" bundle:nil];
+    AMFeedSearchViewController *vc=[[AMFeedSearchViewController alloc] initWithNibName:@"AMFeedSearchViewController" bundle:nil];
     [controllers addObject:vc];
     [vc release];
     
-    FeedSelectorViewController *fsvc=[[FeedSelectorViewController alloc] initWithNibName:@"FeedSelectorViewController" bundle:nil];
+    AMFeedSelectorViewController *fsvc=[[AMFeedSelectorViewController alloc] initWithNibName:@"AMFeedSelectorViewController" bundle:nil];
     [controllers addObject:fsvc];
     [fsvc release];
     
@@ -37,7 +37,7 @@
     [controllers addObject:hvc];
     [hvc release];
     
-    FeedViewController *fvc=[[FeedViewController alloc] initWithNibName:@"FeedViewController" bundle:nil];
+    AMFeedViewController *fvc=[[AMFeedViewController alloc] initWithNibName:@"AMFeedViewController" bundle:nil];
     hvc.feedViewController=fvc;
     [controllers addObject:fvc];
     [fvc release];

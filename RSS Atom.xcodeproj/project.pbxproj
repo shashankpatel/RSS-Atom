@@ -26,13 +26,13 @@
 		9896A0A5142F1CF0006CE433 /* AMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9896A0A3142F1CF0006CE433 /* AMViewController.m */; };
 		9896A0A6142F1CF0006CE433 /* AMViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9896A0A4142F1CF0006CE433 /* AMViewController.xib */; };
 		98B1F788142C700C003A4B0D /* AMSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 98B1F787142C700C003A4B0D /* AMSerializer.m */; };
-		98B1F78C142C7F0A003A4B0D /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98B1F78A142C7F0A003A4B0D /* FeedViewController.m */; };
-		98B1F78D142C7F0A003A4B0D /* FeedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98B1F78B142C7F0A003A4B0D /* FeedViewController.xib */; };
+		98B1F78C142C7F0A003A4B0D /* AMFeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98B1F78A142C7F0A003A4B0D /* AMFeedViewController.m */; };
+		98B1F78D142C7F0A003A4B0D /* AMFeedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98B1F78B142C7F0A003A4B0D /* AMFeedViewController.xib */; };
 		98B1F794142E5FE7003A4B0D /* listIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B1F793142E5FE7003A4B0D /* listIcon.png */; };
 		98B1F798142E66EE003A4B0D /* facebookIconSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B1F797142E66EE003A4B0D /* facebookIconSmall.png */; };
 		98B1F79A142E68CB003A4B0D /* twitterIconSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B1F799142E68CB003A4B0D /* twitterIconSmall.png */; };
-		98B1F7A2142F098A003A4B0D /* FeedSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98B1F7A0142F098A003A4B0D /* FeedSearchViewController.m */; };
-		98B1F7A3142F098A003A4B0D /* FeedSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98B1F7A1142F098A003A4B0D /* FeedSearchViewController.xib */; };
+		98B1F7A2142F098A003A4B0D /* AMFeedSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98B1F7A0142F098A003A4B0D /* AMFeedSearchViewController.m */; };
+		98B1F7A3142F098A003A4B0D /* AMFeedSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98B1F7A1142F098A003A4B0D /* AMFeedSearchViewController.xib */; };
 		98C89D4A14324E7D000D8F27 /* AMDataDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 98C89D4914324E7D000D8F27 /* AMDataDownloader.m */; };
 		98C89D4D14325190000D8F27 /* AMFeedSearcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 98C89D4C14325190000D8F27 /* AMFeedSearcher.m */; };
 		98C89D5014325707000D8F27 /* AMFeedInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 98C89D4F14325707000D8F27 /* AMFeedInfo.m */; };
@@ -62,8 +62,8 @@
 		98D62A6F142B5B5600481EF9 /* gridIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D62A6E142B5B5600481EF9 /* gridIcon.png */; };
 		98D62A71142B5BC400481EF9 /* blackSteel.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 98D62A70142B5BC400481EF9 /* blackSteel.jpg */; };
 		98D62A73142B5CA600481EF9 /* wrenchIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D62A72142B5CA600481EF9 /* wrenchIcon.png */; };
-		98D62A8E142B66C900481EF9 /* FeedSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98D62A8C142B66C900481EF9 /* FeedSelectorViewController.m */; };
-		98D62A8F142B66C900481EF9 /* FeedSelectorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98D62A8D142B66C900481EF9 /* FeedSelectorViewController.xib */; };
+		98D62A8E142B66C900481EF9 /* AMFeedSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98D62A8C142B66C900481EF9 /* AMFeedSelectorViewController.m */; };
+		98D62A8F142B66C900481EF9 /* AMFeedSelectorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98D62A8D142B66C900481EF9 /* AMFeedSelectorViewController.xib */; };
 		98F005921434BF810013B44D /* AMFeedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 98F005911434BF810013B44D /* AMFeedCell.m */; };
 		98F005951434BFB90013B44D /* AMFeedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98F005941434BFB90013B44D /* AMFeedCell.xib */; };
 		98F005BD1434C85D0013B44D /* CDataChunk.m in Sources */ = {isa = PBXBuildFile; fileRef = 98F0059C1434C85D0013B44D /* CDataChunk.m */; };
@@ -120,15 +120,15 @@
 		9896A0A4142F1CF0006CE433 /* AMViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AMViewController.xib; path = "RSS Atom/AMViewController.xib"; sourceTree = "<group>"; };
 		98B1F786142C700C003A4B0D /* AMSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMSerializer.h; sourceTree = "<group>"; };
 		98B1F787142C700C003A4B0D /* AMSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMSerializer.m; sourceTree = "<group>"; };
-		98B1F789142C7F0A003A4B0D /* FeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedViewController.h; sourceTree = "<group>"; };
-		98B1F78A142C7F0A003A4B0D /* FeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedViewController.m; sourceTree = "<group>"; };
-		98B1F78B142C7F0A003A4B0D /* FeedViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedViewController.xib; sourceTree = "<group>"; };
+		98B1F789142C7F0A003A4B0D /* AMFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = AMFeedViewController.h; sourceTree = "<group>"; };
+		98B1F78A142C7F0A003A4B0D /* AMFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMFeedViewController.m; sourceTree = "<group>"; };
+		98B1F78B142C7F0A003A4B0D /* AMFeedViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AMFeedViewController.xib; sourceTree = "<group>"; };
 		98B1F793142E5FE7003A4B0D /* listIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = listIcon.png; sourceTree = "<group>"; };
 		98B1F797142E66EE003A4B0D /* facebookIconSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebookIconSmall.png; sourceTree = "<group>"; };
 		98B1F799142E68CB003A4B0D /* twitterIconSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitterIconSmall.png; sourceTree = "<group>"; };
-		98B1F79F142F098A003A4B0D /* FeedSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedSearchViewController.h; sourceTree = "<group>"; };
-		98B1F7A0142F098A003A4B0D /* FeedSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedSearchViewController.m; sourceTree = "<group>"; };
-		98B1F7A1142F098A003A4B0D /* FeedSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedSearchViewController.xib; sourceTree = "<group>"; };
+		98B1F79F142F098A003A4B0D /* AMFeedSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = AMFeedSearchViewController.h; sourceTree = "<group>"; };
+		98B1F7A0142F098A003A4B0D /* AMFeedSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMFeedSearchViewController.m; sourceTree = "<group>"; };
+		98B1F7A1142F098A003A4B0D /* AMFeedSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AMFeedSearchViewController.xib; sourceTree = "<group>"; };
 		98C89D4814324E7D000D8F27 /* AMDataDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMDataDownloader.h; sourceTree = "<group>"; };
 		98C89D4914324E7D000D8F27 /* AMDataDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMDataDownloader.m; sourceTree = "<group>"; };
 		98C89D4B14325190000D8F27 /* AMFeedSearcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMFeedSearcher.h; sourceTree = "<group>"; };
@@ -177,9 +177,9 @@
 		98D62A6E142B5B5600481EF9 /* gridIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gridIcon.png; sourceTree = "<group>"; };
 		98D62A70142B5BC400481EF9 /* blackSteel.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = blackSteel.jpg; sourceTree = "<group>"; };
 		98D62A72142B5CA600481EF9 /* wrenchIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wrenchIcon.png; sourceTree = "<group>"; };
-		98D62A8B142B66C900481EF9 /* FeedSelectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedSelectorViewController.h; sourceTree = "<group>"; };
-		98D62A8C142B66C900481EF9 /* FeedSelectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedSelectorViewController.m; sourceTree = "<group>"; };
-		98D62A8D142B66C900481EF9 /* FeedSelectorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedSelectorViewController.xib; sourceTree = "<group>"; };
+		98D62A8B142B66C900481EF9 /* AMFeedSelectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = AMFeedSelectorViewController.h; sourceTree = "<group>"; };
+		98D62A8C142B66C900481EF9 /* AMFeedSelectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMFeedSelectorViewController.m; sourceTree = "<group>"; };
+		98D62A8D142B66C900481EF9 /* AMFeedSelectorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AMFeedSelectorViewController.xib; sourceTree = "<group>"; };
 		98F005901434BF810013B44D /* AMFeedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMFeedCell.h; sourceTree = "<group>"; };
 		98F005911434BF810013B44D /* AMFeedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMFeedCell.m; sourceTree = "<group>"; };
 		98F005941434BFB90013B44D /* AMFeedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AMFeedCell.xib; sourceTree = "<group>"; };
@@ -359,18 +359,18 @@
 				98D62A65142B550B00481EF9 /* HomeViewController.h */,
 				98D62A66142B550B00481EF9 /* HomeViewController.m */,
 				98D62A67142B550B00481EF9 /* HomeViewController.xib */,
-				98D62A8B142B66C900481EF9 /* FeedSelectorViewController.h */,
-				98D62A8C142B66C900481EF9 /* FeedSelectorViewController.m */,
-				98D62A8D142B66C900481EF9 /* FeedSelectorViewController.xib */,
+				98D62A8B142B66C900481EF9 /* AMFeedSelectorViewController.h */,
+				98D62A8C142B66C900481EF9 /* AMFeedSelectorViewController.m */,
+				98D62A8D142B66C900481EF9 /* AMFeedSelectorViewController.xib */,
 				98D62A4C142B528800481EF9 /* Supporting Files */,
 				98427F81142B9F5C0048C0B5 /* General.h */,
 				98427F82142B9F5C0048C0B5 /* General.m */,
-				98B1F789142C7F0A003A4B0D /* FeedViewController.h */,
-				98B1F78A142C7F0A003A4B0D /* FeedViewController.m */,
-				98B1F78B142C7F0A003A4B0D /* FeedViewController.xib */,
-				98B1F79F142F098A003A4B0D /* FeedSearchViewController.h */,
-				98B1F7A0142F098A003A4B0D /* FeedSearchViewController.m */,
-				98B1F7A1142F098A003A4B0D /* FeedSearchViewController.xib */,
+				98B1F789142C7F0A003A4B0D /* AMFeedViewController.h */,
+				98B1F78A142C7F0A003A4B0D /* AMFeedViewController.m */,
+				98B1F78B142C7F0A003A4B0D /* AMFeedViewController.xib */,
+				98B1F79F142F098A003A4B0D /* AMFeedSearchViewController.h */,
+				98B1F7A0142F098A003A4B0D /* AMFeedSearchViewController.m */,
+				98B1F7A1142F098A003A4B0D /* AMFeedSearchViewController.xib */,
 				98F005901434BF810013B44D /* AMFeedCell.h */,
 				98F005911434BF810013B44D /* AMFeedCell.m */,
 				98F005941434BFB90013B44D /* AMFeedCell.xib */,
@@ -512,14 +512,14 @@
 				98D62A6F142B5B5600481EF9 /* gridIcon.png in Resources */,
 				98D62A71142B5BC400481EF9 /* blackSteel.jpg in Resources */,
 				98D62A73142B5CA600481EF9 /* wrenchIcon.png in Resources */,
-				98D62A8F142B66C900481EF9 /* FeedSelectorViewController.xib in Resources */,
+				98D62A8F142B66C900481EF9 /* AMFeedSelectorViewController.xib in Resources */,
 				98427F92142BA6580048C0B5 /* segoeui.ttf in Resources */,
 				98427F93142BA6580048C0B5 /* segoeuib.ttf in Resources */,
-				98B1F78D142C7F0A003A4B0D /* FeedViewController.xib in Resources */,
+				98B1F78D142C7F0A003A4B0D /* AMFeedViewController.xib in Resources */,
 				98B1F794142E5FE7003A4B0D /* listIcon.png in Resources */,
 				98B1F798142E66EE003A4B0D /* facebookIconSmall.png in Resources */,
 				98B1F79A142E68CB003A4B0D /* twitterIconSmall.png in Resources */,
-				98B1F7A3142F098A003A4B0D /* FeedSearchViewController.xib in Resources */,
+				98B1F7A3142F098A003A4B0D /* AMFeedSearchViewController.xib in Resources */,
 				9896A097142F0F87006CE433 /* searchIconSmall.png in Resources */,
 				9896A09C142F118D006CE433 /* addIconSmall.png in Resources */,
 				9896A0A1142F1950006CE433 /* AMZoomViewController.xib in Resources */,
@@ -546,12 +546,12 @@
 				98D62A56142B528800481EF9 /* RSS_AtomAppDelegate.m in Sources */,
 				98D62A5C142B528800481EF9 /* RSS_AtomViewController.m in Sources */,
 				98D62A68142B550B00481EF9 /* HomeViewController.m in Sources */,
-				98D62A8E142B66C900481EF9 /* FeedSelectorViewController.m in Sources */,
+				98D62A8E142B66C900481EF9 /* AMFeedSelectorViewController.m in Sources */,
 				98427F83142B9F5C0048C0B5 /* General.m in Sources */,
 				98427FAD142C61FF0048C0B5 /* AMImageView.m in Sources */,
 				98B1F788142C700C003A4B0D /* AMSerializer.m in Sources */,
-				98B1F78C142C7F0A003A4B0D /* FeedViewController.m in Sources */,
-				98B1F7A2142F098A003A4B0D /* FeedSearchViewController.m in Sources */,
+				98B1F78C142C7F0A003A4B0D /* AMFeedViewController.m in Sources */,
+				98B1F7A2142F098A003A4B0D /* AMFeedSearchViewController.m in Sources */,
 				9896A0A0142F1950006CE433 /* AMZoomViewController.m in Sources */,
 				9896A0A5142F1CF0006CE433 /* AMViewController.m in Sources */,
 				98C89D4A14324E7D000D8F27 /* AMDataDownloader.m in Sources */,
