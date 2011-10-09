@@ -12,6 +12,7 @@
 #import "HomeViewController.h"
 #import "AMFeedManager.h"
 #import "NSString+HTML.h"
+#import "AMFeedSearchViewController.h"
 
 @implementation AMFeedSelectorViewController
 
@@ -22,6 +23,7 @@
 
 - (void)viewDidLoad
 {
+    headerViews=[[NSMutableDictionary alloc] init];
     [super viewDidLoad];
 }
 
@@ -31,6 +33,7 @@
 
 -(void) viewWillAppear:(BOOL)animated{
     self.feedInfos=[AMFeedManager allFeedInfos];
+    allCategories=[[[AMFeedManager allFeedCategories] allValues] retain];
     if ([feedInfos count]==0) {
         removeButton.hidden=YES;
     }else{
@@ -41,7 +44,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return [feedInfos count];
+    return [[feedInfos objectForKey:[allCategories objectAtIndex:section]] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -59,8 +62,8 @@
         amiv.frame=CGRectMake(20, 15, 16, 16);
         [amiv release];
     }
-    
-    AMFeedInfo *feedInfo=[feedInfos objectAtIndex:indexPath.row];
+    NSString *category=[allCategories objectAtIndex:indexPath.section];
+    AMFeedInfo *feedInfo=[[feedInfos objectForKey:category] objectAtIndex:indexPath.row];
     cell.textLabel.text=[feedInfo.title stringByConvertingHTMLToPlainText];
     NSRange startRange,endRange;
     NSString *domain=feedInfo.link;
@@ -85,11 +88,13 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
+    return [allCategories count];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [delegate feedInfoSelected:[feedInfos objectAtIndex:indexPath.row]];
+    NSString *category=[allCategories objectAtIndex:indexPath.section];
+    AMFeedInfo *feedInfo=[[feedInfos objectForKey:category] objectAtIndex:indexPath.row];
+    [delegate feedInfoSelected:feedInfo];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -100,39 +105,84 @@
     return 44;
 }
 
+/*
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 44;
+}*/
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *headerView=[[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 40)] autorelease];
     headerView.backgroundColor=[UIColor clearColor];
-    UILabel *label=[[[UILabel alloc] initWithFrame:CGRectMake(10, 10, 240, 30)] autorelease];
-    label.center=CGPointMake(160, 20);
+    UITextField *label=[[[UITextField alloc] initWithFrame:CGRectMake(10, 10, 230, 30)] autorelease];
     label.backgroundColor=[UIColor clearColor];
     label.textColor=[UIColor whiteColor];
-    label.textAlignment=UITextAlignmentCenter;
+    //label.textAlignment=UITextAlignmentCenter;
     label.font=[General selectedFontRegular];
-    label.text=@"Technology";
+    label.text=[allCategories objectAtIndex:section];
+    label.delegate=self;
+    UITapGestureRecognizer *singleDTap=[[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(textFieldDoubleTapped:)] autorelease];
+    singleDTap.numberOfTouchesRequired=1;
+    singleDTap.numberOfTapsRequired=2;
+    [label addGestureRecognizer:singleDTap];
     [headerView addSubview:label];
     
     UIButton *rButton=[UIButton buttonWithType:UIButtonTypeCustom];
-    [rButton setImage:[UIImage imageNamed:@"removeIconSmall.png"] forState:UIControlStateNormal];
-    rButton.frame=CGRectMake(0, 0, 40, 40);
+    [rButton setImage:[UIImage imageNamed:@"removeIconSmall.png"] 
+             forState:UIControlStateNormal];
+    rButton.frame=CGRectMake(230, 7, 30, 30);
+    rButton.tag=kRemoveButtonTag+section;
+    [rButton addTarget:self 
+                action:@selector(removeFeedPressed:) 
+      forControlEvents:UIControlEventTouchUpInside];
+    
+    if ([[feedInfos objectForKey:[allCategories objectAtIndex:section]] count]==0) {
+        rButton.hidden=YES;
+    }
+    
     [headerView addSubview:rButton];
     
     UIButton *addButton=[UIButton buttonWithType:UIButtonTypeCustom];
-    [addButton setImage:[UIImage imageNamed:@"addIconSmall.png"] forState:UIControlStateNormal];
-    addButton.frame=CGRectMake(280, 0, 40, 40);
+    [addButton setImage:[UIImage imageNamed:@"addIconSmall.png"] 
+               forState:UIControlStateNormal];
+    addButton.frame=CGRectMake(260, 7, 30, 30);
+    addButton.tag=kAddButtonTag+section;
+    [addButton addTarget:self 
+                  action:@selector(addFeedPressed:) 
+        forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:addButton];
+    
+    UIButton *dustBinButton=[UIButton buttonWithType:UIButtonTypeCustom];
+    [dustBinButton setBackgroundImage:[UIImage imageNamed:@"dustBinIconSmall.png"] forState:UIControlStateNormal];
+    dustBinButton.frame=CGRectMake(290, 7, 30, 30);
+    [headerView addSubview:dustBinButton];
+    
+    [headerViews setObject:headerView forKey:[NSNumber numberWithInt:section]];
     
     return  headerView;
 }
+
+/*
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    UIView *footerView=[[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 40)] autorelease];
+    UIButton *dustBinButton=[UIButton buttonWithType:UIButtonTypeCustom];
+    [dustBinButton setBackgroundImage:[UIImage imageNamed:@"dustBinIconSmall.png"] forState:UIControlStateNormal];
+    dustBinButton.frame=CGRectMake(140, 0, 40, 40);
+    [footerView addSubview:dustBinButton];
+    return  footerView;
+}*/
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     return UITableViewCellEditingStyleDelete;
 }
 
 -(void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
-    AMFeedInfo *feedInfo=[feedInfos objectAtIndex:indexPath.row];
+    NSString *category=[allCategories objectAtIndex:indexPath.section];
+    AMFeedInfo *feedInfo=[[feedInfos objectForKey:category] objectAtIndex:indexPath.row];
     [AMFeedManager removeFeedInfo:feedInfo];
-    [feedInfos removeObject:feedInfo];
+    
+    self.feedInfos=[AMFeedManager allFeedInfos];
+    allCategories=[feedInfos allKeys];
+    
     [table deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationRight];
     if ([feedInfos count]==0) {
         removeButton.hidden=YES;
@@ -140,17 +190,46 @@
     }
 }
 
--(IBAction) addFeedPressed:(id)sender{
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+    return (indexPath.section==selectedSection);
+}
+
+-(IBAction) addFeedPressed:(UIButton *) addButton{
+    selectedSection=addButton.tag-kAddButtonTag;
+    AMFeedSearchViewController *vc=(AMFeedSearchViewController*)[self.zoomController.viewControllers objectAtIndex:0];
+    vc.category=[allCategories objectAtIndex:selectedSection];
     [self.zoomController popToIndex:0];
 }
 
--(IBAction) removeFeedPressed:(id)sender{
+-(IBAction) removeFeedPressed:(UIButton *) rButton{
+    selectedSection=rButton.tag-kRemoveButtonTag;
     [table setEditing:!table.editing animated:YES];
     if(table.editing){
         [removeButton setImage:[UIImage imageNamed:@"checkMarkIconSmall.png"] forState:UIControlStateNormal];
     }else{
         [removeButton setImage:[UIImage imageNamed:@"removeIconSmall.png"] forState:UIControlStateNormal];
     }
+}
+
+
+-(void) textFieldDoubleTapped:(UITapGestureRecognizer*) singleDTap{
+    UITextField *textField=(UITextField*) singleDTap.view;
+    textField.tag=1000;
+    [textField becomeFirstResponder];
+    NSLog(@"Double tap");
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+    if(textField.tag==1000){
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    textField.tag=999;
+    [textField resignFirstResponder];
+    return YES;
 }
 
 -(void) dealloc{

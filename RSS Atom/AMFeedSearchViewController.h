@@ -17,7 +17,10 @@
     IBOutlet UIView *loadingView;
     NSMutableArray *selectedURLsArray;
     IBOutlet UITextField *searchBar;
+    NSString *category;
 }
+
+@property(nonatomic,retain) NSString *category;
 
 -(void) addButtonPressed:(UIButton*) addButton;
 -(IBAction) backButtonPressed:(id)sender;

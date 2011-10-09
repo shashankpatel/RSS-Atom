@@ -15,6 +15,8 @@
 
 @implementation AMFeedSearchViewController
 
+@synthesize category;
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
@@ -22,10 +24,12 @@
     feedInfos=[[NSMutableArray alloc] init];
     feedSearcher=[[AMFeedSearcher alloc] init];
     feedSearcher.delegate=self;
-    NSArray *storedFeedInfos=[AMFeedManager allFeedInfos];
+    NSArray *allFeedInfos=[[AMFeedManager allFeedInfos] allValues];
     selectedURLsArray=[[NSMutableArray alloc] init];
-    for (AMFeedInfo *feedInfo in storedFeedInfos) {
-        [selectedURLsArray addObject:feedInfo.urlString];
+    for (NSArray *feedsInfoArray in allFeedInfos) {
+        for (AMFeedInfo *feedInfo in feedsInfoArray) {
+            [selectedURLsArray addObject:feedInfo.urlString];
+        }
     }
     
     [searchBar becomeFirstResponder];
@@ -67,11 +71,18 @@
 
 -(void) feedInfosReceived:(NSArray*) _feedInfos{
     [feedInfos addObjectsFromArray:_feedInfos];
+    
+    for (int i=0; i<[feedInfos count]; i++) {
+        AMFeedInfo *feedInfo=[feedInfos objectAtIndex:i];
+        feedInfo.category=self.category;
+    }
+    
     if ([searchBar.text isEqualToString:@"gizmodo"]) {
         AMFeedInfo *feedInfo=[[AMFeedInfo alloc] init];
         feedInfo.urlString=@"http://gizmodo.com/vip.xml";
         feedInfo.title=@"Gizmodo";
         feedInfo.link=@"http://www.gizmodo.com/";
+        feedInfo.category=self.category;
         [feedInfos addObject:feedInfo];
         [feedInfo release];
     }
@@ -85,6 +96,7 @@
     while (![selectedCell isKindOfClass:[UITableViewCell class]]) {
         selectedCell=(UITableViewCell*)[selectedCell superview];
     }
+    
     NSIndexPath *indexPath=[table indexPathForCell:selectedCell];
     if ([selectedURLsArray indexOfObject:feedURLString]!=NSNotFound){
         [AMFeedManager removeFeedInfo:[feedInfos objectAtIndex:indexPath.row]];

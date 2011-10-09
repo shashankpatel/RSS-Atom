@@ -26,10 +26,12 @@ static sqlite3 *feedDB;
 }
 
 +(void) addFeedInfo:(AMFeedInfo*) feedInfo{
-    NSString *addQuery=[NSString stringWithFormat:@"INSERT INTO feedURLs VALUES(NULL,'%@','%@','%@')",feedInfo.title,feedInfo.urlString,feedInfo.link];
+    NSString *addQuery=[NSString stringWithFormat:@"INSERT INTO feedURLs VALUES(NULL,'%@','%@','%@',(SELECT PID FROM feedCategories WHERE categoryName='%@'))",feedInfo.title,feedInfo.urlString,feedInfo.link,feedInfo.category];
     int ret = sqlite3_exec(feedDB, [addQuery UTF8String],NULL,NULL, NULL);
     if (ret==SQLITE_OK) {
         NSLog(@"Feed added");
+    }else{
+        printf("\n%s",sqlite3_errmsg(feedDB));
     }
 }
 
@@ -41,11 +43,30 @@ static sqlite3 *feedDB;
     }
 }
 
-+(NSMutableArray*) allFeedInfos{
++(NSMutableDictionary*) allFeedCategories{
+    NSString *allCatQuery=@"SELECT * FROM feedCategories";
+	sqlite3_stmt *stmt;
+	int ret = sqlite3_prepare_v2 (feedDB, [allCatQuery UTF8String], [allCatQuery length], &stmt, NULL);
+    NSMutableDictionary *cats=[[NSMutableDictionary alloc] init];
+    if (ret == SQLITE_OK)
+	{
+		while (sqlite3_step(stmt) == SQLITE_ROW){
+            NSNumber *PID=[NSNumber numberWithInt:sqlite3_column_int(stmt, 0)];
+			NSString *cat=[NSString stringWithUTF8String:(char*)sqlite3_column_text(stmt, 1)];
+            [cats setObject:cat forKey:PID];
+		}
+	}else {
+		NSLog(@"%s",sqlite3_errmsg(feedDB));
+	}
+    return [cats autorelease];
+}
+
++(NSMutableDictionary*) allFeedInfos{
+    NSMutableDictionary *allFeedCats=[AMFeedManager allFeedCategories];
     NSString *allFeedsQuery=@"SELECT * FROM feedURLs";
 	sqlite3_stmt *stmt;
 	int ret = sqlite3_prepare_v2 (feedDB, [allFeedsQuery UTF8String], [allFeedsQuery length], &stmt, NULL);
-    NSMutableArray *feeds=[[NSMutableArray alloc] init];
+    NSMutableDictionary *feeds=[[NSMutableDictionary alloc] init];
     if (ret == SQLITE_OK)
 	{
 		while (sqlite3_step(stmt) == SQLITE_ROW){
@@ -54,7 +75,14 @@ static sqlite3 *feedDB;
 			feedInfo.title=[NSString stringWithUTF8String:(char*)sqlite3_column_text(stmt, 1)];
             feedInfo.urlString=[NSString stringWithUTF8String:(char*)sqlite3_column_text(stmt, 2)];
             feedInfo.link=[NSString stringWithUTF8String:(char*)sqlite3_column_text(stmt, 3)];
-            [feeds addObject:feedInfo];
+            feedInfo.category=[allFeedCats objectForKey:[NSNumber numberWithInt:sqlite3_column_int(stmt, 4)]];
+            
+            NSMutableArray *feedsArray=[feeds objectForKey:feedInfo.category];
+            if (!feedsArray) {
+                feedsArray=[NSMutableArray array];
+                [feeds setObject:feedsArray forKey:feedInfo.category];
+            }
+            [feedsArray addObject:feedInfo];
             [feedInfo release];
 		}
 	}else {

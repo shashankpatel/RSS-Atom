@@ -9,11 +9,11 @@
 #import <Foundation/Foundation.h>
 
 @interface AMFeedInfo : NSObject{
-    NSString *title,*urlString,*link;
+    NSString *title,*urlString,*link,*category;
     int feedID;
 }
 
-@property(nonatomic,retain) NSString *title,*urlString,*link;
+@property(nonatomic,retain) NSString *title,*urlString,*link,*category;
 @property int feedID;
 
 @end

@@ -40,9 +40,14 @@ static BOOL initialized=NO;
     feeds=[[NSMutableArray alloc] init];
     tempFeeds=[[NSMutableArray alloc] init];
     parsingMode=kParsingModeDocuments;
-    NSArray *allfeedInfos=[AMFeedManager allFeedInfos];
-    if ([allfeedInfos count]!=0) {
-        self.feedInfo=[allfeedInfos objectAtIndex:0];
+    NSMutableDictionary *allfeedInfos=[AMFeedManager allFeedInfos];
+    
+    NSString *category=[[allfeedInfos allKeys] objectAtIndex:0];
+        
+    
+    
+    if ([[allfeedInfos objectForKey:category] count]!=0) {
+        self.feedInfo=[[allfeedInfos objectForKey:category] objectAtIndex:0];
         feedTitle.text=[feedInfo.title stringByConvertingHTMLToPlainText];
     }
     feedParser=[[MWFeedParser alloc] initWithFeedURL:feedInfo.urlString];
