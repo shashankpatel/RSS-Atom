@@ -25,8 +25,17 @@
     [super viewDidLoad];
 }
 
+-(void) viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+}
+
 -(void) viewWillAppear:(BOOL)animated{
     self.feedInfos=[AMFeedManager allFeedInfos];
+    if ([feedInfos count]==0) {
+        removeButton.hidden=YES;
+    }else{
+        removeButton.hidden=NO;
+    }
     [table reloadData];
     [super viewWillAppear:animated];
 }
@@ -46,7 +55,7 @@
         
         AMImageView *amiv=[[AMImageView alloc] init];
         amiv.tag=2222;
-        [cell addSubview:amiv];
+        [cell.contentView addSubview:amiv];
         amiv.frame=CGRectMake(20, 15, 16, 16);
         [amiv release];
     }
@@ -94,17 +103,54 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *headerView=[[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 40)] autorelease];
     headerView.backgroundColor=[UIColor clearColor];
-    UILabel *label=[[[UILabel alloc] initWithFrame:CGRectMake(10, 10, 320, 30)] autorelease];
+    UILabel *label=[[[UILabel alloc] initWithFrame:CGRectMake(10, 10, 240, 30)] autorelease];
+    label.center=CGPointMake(160, 20);
     label.backgroundColor=[UIColor clearColor];
     label.textColor=[UIColor whiteColor];
+    label.textAlignment=UITextAlignmentCenter;
     label.font=[General selectedFontRegular];
     label.text=@"Technology";
     [headerView addSubview:label];
+    
+    UIButton *rButton=[UIButton buttonWithType:UIButtonTypeCustom];
+    [rButton setImage:[UIImage imageNamed:@"removeIconSmall.png"] forState:UIControlStateNormal];
+    rButton.frame=CGRectMake(0, 0, 40, 40);
+    [headerView addSubview:rButton];
+    
+    UIButton *addButton=[UIButton buttonWithType:UIButtonTypeCustom];
+    [addButton setImage:[UIImage imageNamed:@"addIconSmall.png"] forState:UIControlStateNormal];
+    addButton.frame=CGRectMake(280, 0, 40, 40);
+    [headerView addSubview:addButton];
+    
     return  headerView;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewCellEditingStyleDelete;
+}
+
+-(void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    AMFeedInfo *feedInfo=[feedInfos objectAtIndex:indexPath.row];
+    [AMFeedManager removeFeedInfo:feedInfo];
+    [feedInfos removeObject:feedInfo];
+    [table deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationRight];
+    if ([feedInfos count]==0) {
+        removeButton.hidden=YES;
+        [self removeFeedPressed:removeButton];
+    }
 }
 
 -(IBAction) addFeedPressed:(id)sender{
     [self.zoomController popToIndex:0];
+}
+
+-(IBAction) removeFeedPressed:(id)sender{
+    [table setEditing:!table.editing animated:YES];
+    if(table.editing){
+        [removeButton setImage:[UIImage imageNamed:@"checkMarkIconSmall.png"] forState:UIControlStateNormal];
+    }else{
+        [removeButton setImage:[UIImage imageNamed:@"removeIconSmall.png"] forState:UIControlStateNormal];
+    }
 }
 
 -(void) dealloc{

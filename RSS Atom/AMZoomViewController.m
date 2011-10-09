@@ -44,6 +44,7 @@
 }
 
 -(void) pushToIndex:(int) newIndex {
+    self.view.window.userInteractionEnabled=NO;
     self.transitionType=kTransitionTypePush;
     UIViewController *targetViewController=[viewControllers objectAtIndex:newIndex];
     [targetViewController viewWillAppear:YES];
@@ -70,6 +71,7 @@
 }
 
 -(void) popToIndex:(int) newIndex{
+    self.view.window.userInteractionEnabled=NO;
     self.transitionType=kTransitionTypePop;
     UIViewController *targetViewController=[viewControllers objectAtIndex:newIndex];
     [targetViewController viewWillAppear:YES];
@@ -97,6 +99,7 @@
 
 -(void) animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context{
     [currentViewController viewDidAppear:YES];
+    self.view.window.userInteractionEnabled=YES;
 }
 
 - (void)viewDidLoad

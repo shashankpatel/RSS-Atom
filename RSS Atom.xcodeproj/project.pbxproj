@@ -64,6 +64,7 @@
 		98D62A73142B5CA600481EF9 /* wrenchIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D62A72142B5CA600481EF9 /* wrenchIcon.png */; };
 		98D62A8E142B66C900481EF9 /* AMFeedSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98D62A8C142B66C900481EF9 /* AMFeedSelectorViewController.m */; };
 		98D62A8F142B66C900481EF9 /* AMFeedSelectorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98D62A8D142B66C900481EF9 /* AMFeedSelectorViewController.xib */; };
+		98E0418D1441DC5000DAF138 /* removeIconSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 98E0418C1441DC5000DAF138 /* removeIconSmall.png */; };
 		98F005921434BF810013B44D /* AMFeedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 98F005911434BF810013B44D /* AMFeedCell.m */; };
 		98F005951434BFB90013B44D /* AMFeedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98F005941434BFB90013B44D /* AMFeedCell.xib */; };
 		98F005BD1434C85D0013B44D /* CDataChunk.m in Sources */ = {isa = PBXBuildFile; fileRef = 98F0059C1434C85D0013B44D /* CDataChunk.m */; };
@@ -120,13 +121,13 @@
 		9896A0A4142F1CF0006CE433 /* AMViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AMViewController.xib; path = "RSS Atom/AMViewController.xib"; sourceTree = "<group>"; };
 		98B1F786142C700C003A4B0D /* AMSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMSerializer.h; sourceTree = "<group>"; };
 		98B1F787142C700C003A4B0D /* AMSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMSerializer.m; sourceTree = "<group>"; };
-		98B1F789142C7F0A003A4B0D /* AMFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = AMFeedViewController.h; sourceTree = "<group>"; };
+		98B1F789142C7F0A003A4B0D /* AMFeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMFeedViewController.h; sourceTree = "<group>"; };
 		98B1F78A142C7F0A003A4B0D /* AMFeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMFeedViewController.m; sourceTree = "<group>"; };
 		98B1F78B142C7F0A003A4B0D /* AMFeedViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AMFeedViewController.xib; sourceTree = "<group>"; };
 		98B1F793142E5FE7003A4B0D /* listIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = listIcon.png; sourceTree = "<group>"; };
 		98B1F797142E66EE003A4B0D /* facebookIconSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebookIconSmall.png; sourceTree = "<group>"; };
 		98B1F799142E68CB003A4B0D /* twitterIconSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = twitterIconSmall.png; sourceTree = "<group>"; };
-		98B1F79F142F098A003A4B0D /* AMFeedSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = AMFeedSearchViewController.h; sourceTree = "<group>"; };
+		98B1F79F142F098A003A4B0D /* AMFeedSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMFeedSearchViewController.h; sourceTree = "<group>"; };
 		98B1F7A0142F098A003A4B0D /* AMFeedSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMFeedSearchViewController.m; sourceTree = "<group>"; };
 		98B1F7A1142F098A003A4B0D /* AMFeedSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AMFeedSearchViewController.xib; sourceTree = "<group>"; };
 		98C89D4814324E7D000D8F27 /* AMDataDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMDataDownloader.h; sourceTree = "<group>"; };
@@ -177,9 +178,10 @@
 		98D62A6E142B5B5600481EF9 /* gridIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gridIcon.png; sourceTree = "<group>"; };
 		98D62A70142B5BC400481EF9 /* blackSteel.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = blackSteel.jpg; sourceTree = "<group>"; };
 		98D62A72142B5CA600481EF9 /* wrenchIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wrenchIcon.png; sourceTree = "<group>"; };
-		98D62A8B142B66C900481EF9 /* AMFeedSelectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = AMFeedSelectorViewController.h; sourceTree = "<group>"; };
+		98D62A8B142B66C900481EF9 /* AMFeedSelectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMFeedSelectorViewController.h; sourceTree = "<group>"; };
 		98D62A8C142B66C900481EF9 /* AMFeedSelectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMFeedSelectorViewController.m; sourceTree = "<group>"; };
 		98D62A8D142B66C900481EF9 /* AMFeedSelectorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AMFeedSelectorViewController.xib; sourceTree = "<group>"; };
+		98E0418C1441DC5000DAF138 /* removeIconSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = removeIconSmall.png; sourceTree = "<group>"; };
 		98F005901434BF810013B44D /* AMFeedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMFeedCell.h; sourceTree = "<group>"; };
 		98F005911434BF810013B44D /* AMFeedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMFeedCell.m; sourceTree = "<group>"; };
 		98F005941434BFB90013B44D /* AMFeedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AMFeedCell.xib; sourceTree = "<group>"; };
@@ -403,6 +405,7 @@
 				98D25E3B143277EF0049235B /* backIconSmall.png */,
 				98C89D691432664C000D8F27 /* checkMarkIconSmall.png */,
 				9896A09B142F118D006CE433 /* addIconSmall.png */,
+				98E0418C1441DC5000DAF138 /* removeIconSmall.png */,
 				9896A096142F0F87006CE433 /* searchIconSmall.png */,
 				98B1F799142E68CB003A4B0D /* twitterIconSmall.png */,
 				98B1F797142E66EE003A4B0D /* facebookIconSmall.png */,
@@ -532,6 +535,7 @@
 				98F67FD81435021100B8C615 /* HTMLWrapper.html in Resources */,
 				9832BAE01440D74000391A7B /* blackSteel copy.jpg in Resources */,
 				9832BAE21440E5B400391A7B /* tab.png in Resources */,
+				98E0418D1441DC5000DAF138 /* removeIconSmall.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

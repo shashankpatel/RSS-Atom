@@ -10,8 +10,10 @@
 
 @interface AMFeedInfo : NSObject{
     NSString *title,*urlString,*link;
+    int feedID;
 }
 
 @property(nonatomic,retain) NSString *title,*urlString,*link;
+@property int feedID;
 
 @end

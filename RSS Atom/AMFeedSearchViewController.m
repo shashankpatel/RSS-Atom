@@ -81,15 +81,15 @@
 
 -(void) addButtonPressed:(UIButton*) addButton{
     NSString *feedURLString=addButton.titleLabel.text;
-    
+    UITableViewCell *selectedCell=(UITableViewCell*)[addButton superview];
+    while (![selectedCell isKindOfClass:[UITableViewCell class]]) {
+        selectedCell=(UITableViewCell*)[selectedCell superview];
+    }
+    NSIndexPath *indexPath=[table indexPathForCell:selectedCell];
     if ([selectedURLsArray indexOfObject:feedURLString]!=NSNotFound){
+        [AMFeedManager removeFeedInfo:[feedInfos objectAtIndex:indexPath.row]];
         [selectedURLsArray removeObject:feedURLString];
     }else{
-        UITableViewCell *cell=(UITableViewCell*)[addButton superview];
-        while (![cell isKindOfClass:[UITableViewCell class]]) {
-            cell=(UITableViewCell*)[cell superview];
-        }
-        NSIndexPath *indexPath=[table indexPathForCell:cell];
         [AMFeedManager addFeedInfo:[feedInfos objectAtIndex:indexPath.row]];
         [selectedURLsArray addObject:feedURLString];
     }

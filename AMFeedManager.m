@@ -26,10 +26,18 @@ static sqlite3 *feedDB;
 }
 
 +(void) addFeedInfo:(AMFeedInfo*) feedInfo{
-    NSString *addQuery=[NSString stringWithFormat:@"INSERT INTO feedURLs VALUES('%@','%@','%@')",feedInfo.title,feedInfo.urlString,feedInfo.link];
+    NSString *addQuery=[NSString stringWithFormat:@"INSERT INTO feedURLs VALUES(NULL,'%@','%@','%@')",feedInfo.title,feedInfo.urlString,feedInfo.link];
     int ret = sqlite3_exec(feedDB, [addQuery UTF8String],NULL,NULL, NULL);
     if (ret==SQLITE_OK) {
         NSLog(@"Feed added");
+    }
+}
+
++(void) removeFeedInfo:(AMFeedInfo*) feedInfo{
+    NSString *removeQuery=[NSString stringWithFormat:@"DELETE FROM feedURLs WHERE feedID=%d",feedInfo.feedID];
+    int ret = sqlite3_exec(feedDB, [removeQuery UTF8String],NULL,NULL, NULL);
+    if (ret==SQLITE_OK) {
+        NSLog(@"Feed removed");
     }
 }
 
@@ -42,9 +50,10 @@ static sqlite3 *feedDB;
 	{
 		while (sqlite3_step(stmt) == SQLITE_ROW){
             AMFeedInfo *feedInfo=[[AMFeedInfo alloc] init];
-			feedInfo.title=[NSString stringWithUTF8String:(char*)sqlite3_column_text(stmt, 0)];
-            feedInfo.urlString=[NSString stringWithUTF8String:(char*)sqlite3_column_text(stmt, 1)];
-            feedInfo.link=[NSString stringWithUTF8String:(char*)sqlite3_column_text(stmt, 2)];
+            feedInfo.feedID=sqlite3_column_int(stmt, 0);
+			feedInfo.title=[NSString stringWithUTF8String:(char*)sqlite3_column_text(stmt, 1)];
+            feedInfo.urlString=[NSString stringWithUTF8String:(char*)sqlite3_column_text(stmt, 2)];
+            feedInfo.link=[NSString stringWithUTF8String:(char*)sqlite3_column_text(stmt, 3)];
             [feeds addObject:feedInfo];
             [feedInfo release];
 		}

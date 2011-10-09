@@ -18,13 +18,15 @@
 
 @interface AMFeedSelectorViewController : AMViewController<UITableViewDataSource,UITableViewDelegate>{
     IBOutlet UITableView *table;
-    NSArray *feedInfos;
+    NSMutableArray *feedInfos;
     NSObject<FeedSelectorDelegate> *delegate;
+    IBOutlet UIButton *removeButton;
 }
 
 @property(nonatomic,retain) NSObject<FeedSelectorDelegate> *delegate;
 @property(nonatomic,retain) NSArray *feedInfos;
 
 -(IBAction) addFeedPressed:(id)sender;
+-(IBAction) removeFeedPressed:(id)sender;
 
 @end
