@@ -144,7 +144,7 @@
         cell.textLabel.textColor=[UIColor whiteColor];
         cell.detailTextLabel.font=[General descriptionFont];
         cell.detailTextLabel.textColor=[UIColor whiteColor];
-        cell.backgroundColor=[UIColor colorWithWhite:0 alpha:0.5];
+        cell.backgroundColor=[UIColor blackColor];
         UIButton *addButton=[UIButton buttonWithType:UIButtonTypeCustom];
         addButton.frame=CGRectMake(0, 0, 44, 44);
         cell.accessoryView=addButton;

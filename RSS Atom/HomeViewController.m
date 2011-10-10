@@ -29,6 +29,7 @@
     feedTitle.font=[General regularLabelFont];
     [self addPullToRefreshHeader];
     [self initController];
+    [self makeViewTranparent:table];
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
@@ -87,7 +88,6 @@ static BOOL initialized=NO;
             [feedParser parse];
         }
     }
-    [self makeViewTranparent:table];
     [super viewDidAppear:animated];
 }
 

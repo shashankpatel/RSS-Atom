@@ -58,7 +58,7 @@
         cell=[[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:FeedCell] autorelease];
         cell.textLabel.font=[General selectedFontRegular];
         cell.textLabel.textColor=[UIColor whiteColor];
-        cell.backgroundColor=[UIColor colorWithWhite:0 alpha:0.5];
+        cell.backgroundColor=[UIColor blackColor];
         
         AMImageView *amiv=[[AMImageView alloc] init];
         amiv.tag=2222;
