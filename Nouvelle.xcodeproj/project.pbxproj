@@ -160,14 +160,14 @@
 		98D25E431432E3F50049235B /* AMFeedManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMFeedManager.m; sourceTree = "<group>"; };
 		98D25E451432E4B20049235B /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		98D25E531432EF910049235B /* feedDB.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = feedDB.db; sourceTree = "<group>"; };
-		98D62A41142B528800481EF9 /* RSS Atom.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RSS Atom.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		98D62A41142B528800481EF9 /* Nouvelle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nouvelle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98D62A45142B528800481EF9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		98D62A47142B528800481EF9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		98D62A49142B528800481EF9 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		98D62A4D142B528800481EF9 /* RSS Atom-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "RSS Atom-Info.plist"; sourceTree = "<group>"; };
+		98D62A4D142B528800481EF9 /* Nouvelle-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Nouvelle-Info.plist"; sourceTree = "<group>"; };
 		98D62A4F142B528800481EF9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		98D62A51142B528800481EF9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		98D62A53142B528800481EF9 /* RSS Atom-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RSS Atom-Prefix.pch"; sourceTree = "<group>"; };
+		98D62A53142B528800481EF9 /* Nouvelle-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Nouvelle-Prefix.pch"; sourceTree = "<group>"; };
 		98D62A54142B528800481EF9 /* RSS_AtomAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RSS_AtomAppDelegate.h; sourceTree = "<group>"; };
 		98D62A55142B528800481EF9 /* RSS_AtomAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RSS_AtomAppDelegate.m; sourceTree = "<group>"; };
 		98D62A58142B528800481EF9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
@@ -336,7 +336,7 @@
 		98D62A42142B528800481EF9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				98D62A41142B528800481EF9 /* RSS Atom.app */,
+				98D62A41142B528800481EF9 /* Nouvelle.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -390,10 +390,10 @@
 				98427F90142BA6580048C0B5 /* segoeui.ttf */,
 				98427F91142BA6580048C0B5 /* segoeuib.ttf */,
 				98D62A6D142B5B3A00481EF9 /* Icons */,
-				98D62A4D142B528800481EF9 /* RSS Atom-Info.plist */,
+				98D62A4D142B528800481EF9 /* Nouvelle-Info.plist */,
 				98D62A4E142B528800481EF9 /* InfoPlist.strings */,
 				98D62A51142B528800481EF9 /* main.m */,
-				98D62A53142B528800481EF9 /* RSS Atom-Prefix.pch */,
+				98D62A53142B528800481EF9 /* Nouvelle-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -464,9 +464,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		98D62A40142B528800481EF9 /* RSS Atom */ = {
+		98D62A40142B528800481EF9 /* Nouvelle */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 98D62A62142B528800481EF9 /* Build configuration list for PBXNativeTarget "RSS Atom" */;
+			buildConfigurationList = 98D62A62142B528800481EF9 /* Build configuration list for PBXNativeTarget "Nouvelle" */;
 			buildPhases = (
 				98D62A3D142B528800481EF9 /* Sources */,
 				98D62A3E142B528800481EF9 /* Frameworks */,
@@ -476,9 +476,9 @@
 			);
 			dependencies = (
 			);
-			name = "RSS Atom";
+			name = Nouvelle;
 			productName = "RSS Atom";
-			productReference = 98D62A41142B528800481EF9 /* RSS Atom.app */;
+			productReference = 98D62A41142B528800481EF9 /* Nouvelle.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -489,7 +489,7 @@
 			attributes = {
 				ORGANIZATIONNAME = "Not Applicable";
 			};
-			buildConfigurationList = 98D62A3B142B528800481EF9 /* Build configuration list for PBXProject "RSS Atom" */;
+			buildConfigurationList = 98D62A3B142B528800481EF9 /* Build configuration list for PBXProject "Nouvelle" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -501,7 +501,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				98D62A40142B528800481EF9 /* RSS Atom */,
+				98D62A40142B528800481EF9 /* Nouvelle */,
 			);
 		};
 /* End PBXProject section */
@@ -679,9 +679,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "RSS Atom/RSS Atom-Prefix.pch";
-				INFOPLIST_FILE = "RSS Atom/RSS Atom-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "RSS Atom/Nouvelle-Prefix.pch";
+				INFOPLIST_FILE = "RSS Atom/Nouvelle-Info.plist";
+				PRODUCT_NAME = Nouvelle;
 				SDKROOT = iphoneos;
 				WRAPPER_EXTENSION = app;
 			};
@@ -691,9 +691,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "RSS Atom/RSS Atom-Prefix.pch";
-				INFOPLIST_FILE = "RSS Atom/RSS Atom-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "RSS Atom/Nouvelle-Prefix.pch";
+				INFOPLIST_FILE = "RSS Atom/Nouvelle-Info.plist";
+				PRODUCT_NAME = Nouvelle;
 				SDKROOT = iphoneos;
 				WRAPPER_EXTENSION = app;
 			};
@@ -702,7 +702,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		98D62A3B142B528800481EF9 /* Build configuration list for PBXProject "RSS Atom" */ = {
+		98D62A3B142B528800481EF9 /* Build configuration list for PBXProject "Nouvelle" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				98D62A60142B528800481EF9 /* Debug */,
@@ -711,7 +711,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		98D62A62142B528800481EF9 /* Build configuration list for PBXNativeTarget "RSS Atom" */ = {
+		98D62A62142B528800481EF9 /* Build configuration list for PBXNativeTarget "Nouvelle" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				98D62A63142B528800481EF9 /* Debug */,

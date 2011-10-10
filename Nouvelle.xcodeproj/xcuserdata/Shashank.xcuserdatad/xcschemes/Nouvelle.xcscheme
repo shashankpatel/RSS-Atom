@@ -14,9 +14,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "98D62A40142B528800481EF9"
-               BuildableName = "RSS Atom.app"
-               BlueprintName = "RSS Atom"
-               ReferencedContainer = "container:RSS Atom.xcodeproj">
+               BuildableName = "Nouvelle.app"
+               BlueprintName = "Nouvelle"
+               ReferencedContainer = "container:Nouvelle.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -39,9 +39,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "98D62A40142B528800481EF9"
-            BuildableName = "RSS Atom.app"
-            BlueprintName = "RSS Atom"
-            ReferencedContainer = "container:RSS Atom.xcodeproj">
+            BuildableName = "Nouvelle.app"
+            BlueprintName = "Nouvelle"
+            ReferencedContainer = "container:Nouvelle.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -56,9 +56,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "98D62A40142B528800481EF9"
-            BuildableName = "RSS Atom.app"
-            BlueprintName = "RSS Atom"
-            ReferencedContainer = "container:RSS Atom.xcodeproj">
+            BuildableName = "Nouvelle.app"
+            BlueprintName = "Nouvelle"
+            ReferencedContainer = "container:Nouvelle.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
