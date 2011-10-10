@@ -61,4 +61,6 @@
 -(void) initController;
 -(IBAction)feedSelectorPressed:(id)sender;
 
+-(void) makeViewTranparent:(UIView *) view;
+
 @end

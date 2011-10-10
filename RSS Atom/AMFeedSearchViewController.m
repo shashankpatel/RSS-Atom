@@ -26,8 +26,16 @@
     feedSearcher.delegate=self;
     selectedURLsArray=[[NSMutableArray alloc] init];
     [searchBar becomeFirstResponder];
+    [self makeViewTranparent:table];
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+}
+
+-(void) makeViewTranparent:(UIView *) view{
+    for (UIView *subView in [view subviews]) {
+        [self makeViewTranparent:subView];
+    }
+    view.backgroundColor=[UIColor clearColor];
 }
 
 -(void) viewWillAppear:(BOOL)animated{

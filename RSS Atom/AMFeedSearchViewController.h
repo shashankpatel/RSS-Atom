@@ -24,5 +24,6 @@
 
 -(void) addButtonPressed:(UIButton*) addButton;
 -(IBAction) backButtonPressed:(id)sender;
+-(void) makeViewTranparent:(UIView *) view;
 
 @end

@@ -35,5 +35,6 @@
 -(IBAction) addFeedPressed:(id)sender;
 -(IBAction) removeFeedPressed:(id)sender;
 -(void) textFieldDoubleTapped:(UITapGestureRecognizer*) singleDTap;
+-(void) makeViewTranparent:(UIView *) view;
 
 @end

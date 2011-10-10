@@ -87,7 +87,15 @@ static BOOL initialized=NO;
             [feedParser parse];
         }
     }
+    [self makeViewTranparent:table];
     [super viewDidAppear:animated];
+}
+
+-(void) makeViewTranparent:(UIView *) view{
+    for (UIView *subView in [view subviews]) {
+        [self makeViewTranparent:subView];
+    }
+    view.backgroundColor=[UIColor clearColor];
 }
 
 -(void) loadFeed{
@@ -143,8 +151,7 @@ static BOOL initialized=NO;
         cell.titleLabel.numberOfLines=1;
         cell.descriptionLabel.font=[General descriptionFont];
         cell.descriptionLabel.numberOfLines=3;
-        //cell.backgroundColor=[UIColor clearColor];
-        //cell.contentView.backgroundColor=[UIColor clearColor];
+        cell.backgroundColor=[UIColor blackColor];
         [cells addObject:cell];
     }
     

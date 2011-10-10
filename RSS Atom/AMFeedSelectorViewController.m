@@ -25,7 +25,15 @@
 - (void)viewDidLoad
 {
     headerViews=[[NSMutableDictionary alloc] init];
+    [self makeViewTranparent:table];
     [super viewDidLoad];
+}
+
+-(void) makeViewTranparent:(UIView *) view{
+    for (UIView *subView in [view subviews]) {
+        [self makeViewTranparent:subView];
+    }
+    view.backgroundColor=[UIColor clearColor];
 }
 
 -(void) viewDidAppear:(BOOL)animated{
