@@ -49,6 +49,8 @@
 		98D25E441432E3F50049235B /* AMFeedManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 98D25E431432E3F50049235B /* AMFeedManager.m */; };
 		98D25E461432E4B20049235B /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 98D25E451432E4B20049235B /* libsqlite3.dylib */; };
 		98D25E541432EF910049235B /* feedDB.db in Resources */ = {isa = PBXBuildFile; fileRef = 98D25E531432EF910049235B /* feedDB.db */; };
+		98D2E3F61443576900087B76 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D2E3F41443576900087B76 /* icon.png */; };
+		98D2E3F71443576900087B76 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D2E3F51443576900087B76 /* icon@2x.png */; };
 		98D62A46142B528800481EF9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98D62A45142B528800481EF9 /* UIKit.framework */; };
 		98D62A48142B528800481EF9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98D62A47142B528800481EF9 /* Foundation.framework */; };
 		98D62A4A142B528800481EF9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98D62A49142B528800481EF9 /* CoreGraphics.framework */; };
@@ -160,6 +162,8 @@
 		98D25E431432E3F50049235B /* AMFeedManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMFeedManager.m; sourceTree = "<group>"; };
 		98D25E451432E4B20049235B /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		98D25E531432EF910049235B /* feedDB.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = feedDB.db; sourceTree = "<group>"; };
+		98D2E3F41443576900087B76 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		98D2E3F51443576900087B76 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		98D62A41142B528800481EF9 /* Nouvelle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nouvelle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98D62A45142B528800481EF9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		98D62A47142B528800481EF9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -321,6 +325,15 @@
 			path = JSON;
 			sourceTree = "<group>";
 		};
+		98D2E3F31443572A00087B76 /* App Icons */ = {
+			isa = PBXGroup;
+			children = (
+				98D2E3F41443576900087B76 /* icon.png */,
+				98D2E3F51443576900087B76 /* icon@2x.png */,
+			);
+			name = "App Icons";
+			sourceTree = "<group>";
+		};
 		98D62A36142B528800481EF9 = {
 			isa = PBXGroup;
 			children = (
@@ -385,6 +398,7 @@
 		98D62A4C142B528800481EF9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				98D2E3F31443572A00087B76 /* App Icons */,
 				98F67FD71435021100B8C615 /* HTMLWrapper.html */,
 				98D25E531432EF910049235B /* feedDB.db */,
 				98427F90142BA6580048C0B5 /* segoeui.ttf */,
@@ -540,6 +554,8 @@
 				9832BAE21440E5B400391A7B /* tab.png in Resources */,
 				98E0418D1441DC5000DAF138 /* removeIconSmall.png in Resources */,
 				9855CF7C1441EA7B00BD1F5C /* dustBinIconSmall.png in Resources */,
+				98D2E3F61443576900087B76 /* icon.png in Resources */,
+				98D2E3F71443576900087B76 /* icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
