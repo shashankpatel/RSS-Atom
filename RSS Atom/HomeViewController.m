@@ -86,7 +86,7 @@ static BOOL initialized=NO;
             }
         }else{
             [feedParser parse];
-        }
+        } 
     }
     [super viewDidAppear:animated];
 }

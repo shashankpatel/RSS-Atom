@@ -26,6 +26,8 @@
     NSArray *allCategories;
     NSMutableDictionary *headerViews;
     int selectedSection;
+    BOOL editMode;
+    IBOutlet UIButton *addCat,*removeCat;
 }
 
 @property(nonatomic,retain) NSObject<FeedSelectorDelegate> *delegate;
@@ -36,5 +38,7 @@
 -(IBAction) removeFeedPressed:(id)sender;
 -(void) textFieldDoubleTapped:(UITapGestureRecognizer*) singleDTap;
 -(void) makeViewTranparent:(UIView *) view;
+
+-(IBAction) editPressed:(id)sender;
 
 @end

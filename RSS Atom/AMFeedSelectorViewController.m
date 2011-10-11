@@ -59,6 +59,7 @@
         cell.textLabel.font=[General selectedFontRegular];
         cell.textLabel.textColor=[UIColor whiteColor];
         cell.backgroundColor=[UIColor blackColor];
+        cell.showsReorderControl = YES;
         
         AMImageView *amiv=[[AMImageView alloc] init];
         amiv.tag=2222;
@@ -109,10 +110,11 @@
     return 44;
 }
 
-/*
+
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 0;
     return 44;
-}*/
+}
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *headerView=[headerViews objectForKey:[NSNumber numberWithInt:section]];
@@ -140,10 +142,20 @@
     [label addGestureRecognizer:singleDTap];
     [headerView addSubview:label];
     
+    [headerViews setObject:headerView forKey:[NSNumber numberWithInt:section]];
+    
+    return  headerView;
+}
+
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    return nil;
+    UIView *footerView=[[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 40)] autorelease];
     UIButton *rButton=[UIButton buttonWithType:UIButtonTypeCustom];
     [rButton setImage:[UIImage imageNamed:@"removeIconSmall.png"] 
              forState:UIControlStateNormal];
     rButton.frame=CGRectMake(230, 7, 30, 30);
+    rButton.center=CGPointMake(80, 22);
     rButton.tag=kRemoveButtonTag+section;
     [rButton addTarget:self 
                 action:@selector(removeFeedPressed:) 
@@ -153,40 +165,37 @@
         rButton.hidden=YES;
     }
     
-    [headerView addSubview:rButton];
+    [footerView addSubview:rButton];
     
     UIButton *addButton=[UIButton buttonWithType:UIButtonTypeCustom];
     [addButton setImage:[UIImage imageNamed:@"addIconSmall.png"] 
                forState:UIControlStateNormal];
     addButton.frame=CGRectMake(260, 7, 30, 30);
+    addButton.center=CGPointMake(240, 22);
     addButton.tag=kAddButtonTag+section;
     [addButton addTarget:self 
                   action:@selector(addFeedPressed:) 
         forControlEvents:UIControlEventTouchUpInside];
-    [headerView addSubview:addButton];
+    [footerView addSubview:addButton];
     
     UIButton *dustBinButton=[UIButton buttonWithType:UIButtonTypeCustom];
     [dustBinButton setBackgroundImage:[UIImage imageNamed:@"dustBinIconSmall.png"] forState:UIControlStateNormal];
     dustBinButton.frame=CGRectMake(290, 7, 30, 30);
-    [headerView addSubview:dustBinButton];
-    
-    [headerViews setObject:headerView forKey:[NSNumber numberWithInt:section]];
-    
-    return  headerView;
-}
-
-/*
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    UIView *footerView=[[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 40)] autorelease];
-    UIButton *dustBinButton=[UIButton buttonWithType:UIButtonTypeCustom];
-    [dustBinButton setBackgroundImage:[UIImage imageNamed:@"dustBinIconSmall.png"] forState:UIControlStateNormal];
-    dustBinButton.frame=CGRectMake(140, 0, 40, 40);
+    dustBinButton.center=CGPointMake(160, 22);
     [footerView addSubview:dustBinButton];
+    
     return  footerView;
-}*/
+}
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
     return UITableViewCellEditingStyleDelete;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath{
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath{
 }
 
 -(void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -206,13 +215,14 @@
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+    return  YES;
     return (indexPath.section==selectedSection);
 }
 
 -(IBAction) addFeedPressed:(UIButton *) addButton{
     selectedSection=addButton.tag-kAddButtonTag;
-    AMFeedSearchViewController *vc=(AMFeedSearchViewController*)[self.zoomController.viewControllers objectAtIndex:0];
-    vc.category=[allCategories objectAtIndex:selectedSection];
+    //AMFeedSearchViewController *vc=(AMFeedSearchViewController*)[self.zoomController.viewControllers objectAtIndex:0];
+    //vc.category=[allCategories objectAtIndex:selectedSection];
     [self.zoomController popToIndex:0];
 }
 
@@ -245,6 +255,18 @@
     textField.tag=999;
     [textField resignFirstResponder];
     return YES;
+}
+
+-(IBAction) editPressed:(id)sender{
+    editMode=!editMode;
+    [table setEditing:editMode animated:YES];
+    return;
+    editMode=!editMode;
+    NSRange indexRange;
+    indexRange.location=0;
+    indexRange.length=[allCategories count];;
+    NSIndexSet *indexSet=[NSIndexSet indexSetWithIndexesInRange:indexRange];
+    [table reloadSections:indexSet withRowAnimation:UITableViewRowAnimationFade];
 }
 
 -(void) dealloc{
