@@ -19,14 +19,46 @@
 @synthesize delegate;
 @synthesize feedInfos;
 @synthesize allCategories;
+@synthesize tableIndex;
 
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
     headerViews=[[NSMutableDictionary alloc] init];
+    self.tableIndex=0;
+    upButton.titleLabel.font=[General selectedFontRegular];
+    downButton.titleLabel.font=[General selectedFontRegular];
     [self makeViewTranparent:table];
     [super viewDidLoad];
+}
+
+-(void) setTableIndex:(int)_tableIndex{
+    if(tableIndex>_tableIndex){
+        tableTransition=kTableTransitionNegative;
+    }else{
+        tableTransition=kTableTransitionPositive;
+    }
+    tableIndex=_tableIndex;
+    
+        
+    if(tableIndex>0){
+        [upButton setTitle:[allCategories objectAtIndex:tableIndex-1] forState:UIControlStateNormal];
+    }else{
+        [upButton setTitle:nil forState:UIControlStateNormal];
+    }
+    
+    if(tableIndex<[allCategories count]-1){
+        [downButton setTitle:[allCategories objectAtIndex:tableIndex+1] forState:UIControlStateNormal];
+    }else{
+        [downButton setTitle:nil forState:UIControlStateNormal];
+    }
+    
+    
+}
+
+-(int) tableIndex{
+    return tableIndex;
 }
 
 -(void) makeViewTranparent:(UIView *) view{
@@ -43,12 +75,13 @@
 -(void) viewWillAppear:(BOOL)animated{
     self.feedInfos=[AMFeedManager allFeedInfos];
     self.allCategories=[[AMFeedManager allFeedCategories] allValues];
+    self.tableIndex=0;
     [table reloadData];
     [super viewWillAppear:animated];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return [[feedInfos objectForKey:[allCategories objectAtIndex:section]] count];
+    return [[feedInfos objectForKey:[allCategories objectAtIndex:tableIndex]] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -67,7 +100,7 @@
         amiv.frame=CGRectMake(15, 15, 16, 16);
         [amiv release];
     }
-    NSString *category=[allCategories objectAtIndex:indexPath.section];
+    NSString *category=[allCategories objectAtIndex:tableIndex];
     AMFeedInfo *feedInfo=[[feedInfos objectForKey:category] objectAtIndex:indexPath.row];
     cell.textLabel.text=[feedInfo.title stringByConvertingHTMLToPlainText];
     NSRange startRange,endRange;
@@ -93,11 +126,12 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
     return [allCategories count];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSString *category=[allCategories objectAtIndex:indexPath.section];
+    NSString *category=[allCategories objectAtIndex:tableIndex];
     AMFeedInfo *feedInfo=[[feedInfos objectForKey:category] objectAtIndex:indexPath.row];
     [delegate feedInfoSelected:feedInfo];
 }
@@ -119,22 +153,19 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *headerView=[headerViews objectForKey:[NSNumber numberWithInt:section]];
     if (headerView) {
-        UIButton *removeButton=(UIButton*) [headerView viewWithTag:kRemoveButtonTag+section];
-        if ([[feedInfos objectForKey:[allCategories objectAtIndex:section]] count]==0) {
-            removeButton.hidden=YES;
-        }else{
-            removeButton.hidden=NO;
-        }
+        UILabel *headerLabel=(UILabel*)[headerView viewWithTag:kHeaderTextTag];
+        headerLabel.text=[allCategories objectAtIndex:tableIndex];
         return headerView;
     }
     headerView=[[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 40)] autorelease];
     headerView.backgroundColor=[UIColor clearColor];
-    UITextField *label=[[[UITextField alloc] initWithFrame:CGRectMake(10, 10, 230, 30)] autorelease];
+    UITextField *label=[[[UITextField alloc] initWithFrame:CGRectMake(10, 10, 300, 30)] autorelease];
+    label.tag=kHeaderTextTag;
     label.backgroundColor=[UIColor clearColor];
     label.textColor=[UIColor whiteColor];
-    //label.textAlignment=UITextAlignmentCenter;
+    label.textAlignment=UITextAlignmentCenter;
     label.font=[General selectedFontRegular];
-    label.text=[allCategories objectAtIndex:section];
+    label.text=[allCategories objectAtIndex:tableIndex];
     label.delegate=self;
     UITapGestureRecognizer *singleDTap=[[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(textFieldDoubleTapped:)] autorelease];
     singleDTap.numberOfTouchesRequired=1;
@@ -199,7 +230,7 @@
 }
 
 -(void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSString *category=[allCategories objectAtIndex:indexPath.section];
+    NSString *category=[allCategories objectAtIndex:tableIndex];
     AMFeedInfo *feedInfo=[[feedInfos objectForKey:category] objectAtIndex:indexPath.row];
     [AMFeedManager removeFeedInfo:feedInfo];
     
@@ -207,27 +238,23 @@
     self.allCategories=[[AMFeedManager allFeedCategories] allValues];
     
     [table deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationRight];
-    if ([[feedInfos objectForKey:[allCategories objectAtIndex:indexPath.section]] count]==0) {
-        UIButton *removeButton=(UIButton*) [[headerViews objectForKey:[NSNumber numberWithInt:indexPath.section]] viewWithTag:kRemoveButtonTag+indexPath.section];
-        removeButton.hidden=YES;
+    if ([[feedInfos objectForKey:[allCategories objectAtIndex:tableIndex]] count]==0) {
         [self removeFeedPressed:removeButton];
     }
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
     return  YES;
-    return (indexPath.section==selectedSection);
 }
 
 -(IBAction) addFeedPressed:(UIButton *) addButton{
-    selectedSection=addButton.tag-kAddButtonTag;
-    //AMFeedSearchViewController *vc=(AMFeedSearchViewController*)[self.zoomController.viewControllers objectAtIndex:0];
-    //vc.category=[allCategories objectAtIndex:selectedSection];
+    selectedSection=tableIndex;
+    AMFeedSearchViewController *vc=(AMFeedSearchViewController*)[self.zoomController.viewControllers objectAtIndex:0];
+    vc.category=[allCategories objectAtIndex:selectedSection];
     [self.zoomController popToIndex:0];
 }
 
 -(IBAction) removeFeedPressed:(UIButton *) rButton{
-    selectedSection=rButton.tag-kRemoveButtonTag;
     [table setEditing:!table.editing animated:YES];
     if(table.editing){
         [rButton setImage:[UIImage imageNamed:@"checkMarkIconSmall.png"] forState:UIControlStateNormal];
@@ -269,11 +296,56 @@
     [table reloadSections:indexSet withRowAnimation:UITableViewRowAnimationFade];
 }
 
+-(IBAction) upPressed{
+    if (tableIndex==0) {
+        return;
+    }
+    self.tableIndex--;
+    [self processTableChange];
+}
+
+-(IBAction) downPressed{
+    if (tableIndex==[allCategories count]-1) {
+        return;
+    }
+    self.tableIndex++;
+    [self processTableChange];
+}
+
+-(void) processTableChange{
+    NSIndexSet *indexSet=[NSIndexSet indexSetWithIndex:0];
+    [table reloadSections:indexSet withRowAnimation:tableTransition==kTableTransitionNegative? UITableViewRowAnimationBottom:UITableViewRowAnimationTop];
+    UIView *headerView=[headerViews objectForKey:[NSNumber numberWithInt:0]];
+    if (headerView) {
+        UILabel *headerLabel=(UILabel*)[headerView viewWithTag:kHeaderTextTag];
+        headerLabel.text=[allCategories objectAtIndex:tableIndex];
+    }
+    return;
+    [UIView beginAnimations:@"Table move" context:nil];
+    [UIView setAnimationDuration:0.3];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(tableAnimationStopped)];
+    //table.frame=CGRectMake(0, 88, 320, 0);
+    [UIView commitAnimations];
+}
+
+-(void) tableAnimationStopped{
+    NSIndexSet *indexSet=[NSIndexSet indexSetWithIndex:0];
+    [table reloadSections:indexSet withRowAnimation:UITableViewRowAnimationTop];
+    [UIView beginAnimations:@"Table move" context:nil];
+    [UIView setAnimationDuration:0.3];
+    [UIView setAnimationDelegate:nil];
+    //table.frame=CGRectMake(0, 88, 320, 328);
+    [UIView commitAnimations];
+}
+
 -(void) dealloc{
     [feedInfos release];
     [delegate release];
     [super dealloc];
 }
+
+
 
 
 @end

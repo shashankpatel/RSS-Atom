@@ -12,6 +12,9 @@
 
 #define kRemoveButtonTag -10000
 #define kAddButtonTag 10000
+#define kHeaderTextTag 2000
+#define kTableTransitionPositive 1
+#define kTableTransitionNegative -1
 
 @protocol FeedSelectorDelegate <NSObject>
 
@@ -28,11 +31,14 @@
     int selectedSection;
     BOOL editMode;
     IBOutlet UIButton *addCat,*removeCat;
+    int tableIndex,tableTransition;
+    IBOutlet UIButton *upButton,*downButton,*removeButton;
 }
 
 @property(nonatomic,retain) NSObject<FeedSelectorDelegate> *delegate;
 @property(nonatomic,retain) NSMutableDictionary *feedInfos;
 @property(nonatomic,retain) NSArray *allCategories;
+@property int tableIndex;
 
 -(IBAction) addFeedPressed:(id)sender;
 -(IBAction) removeFeedPressed:(id)sender;
@@ -40,5 +46,9 @@
 -(void) makeViewTranparent:(UIView *) view;
 
 -(IBAction) editPressed:(id)sender;
+
+-(IBAction) upPressed;
+-(IBAction) downPressed;
+-(void) processTableChange;
 
 @end

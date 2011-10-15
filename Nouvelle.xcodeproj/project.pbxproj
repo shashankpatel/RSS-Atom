@@ -383,7 +383,6 @@
 				98D62A8B142B66C900481EF9 /* AMFeedSelectorViewController.h */,
 				98D62A8C142B66C900481EF9 /* AMFeedSelectorViewController.m */,
 				98D62A8D142B66C900481EF9 /* AMFeedSelectorViewController.xib */,
-				98D62A4C142B528800481EF9 /* Supporting Files */,
 				98427F81142B9F5C0048C0B5 /* General.h */,
 				98427F82142B9F5C0048C0B5 /* General.m */,
 				98B1F789142C7F0A003A4B0D /* AMFeedViewController.h */,
@@ -395,6 +394,7 @@
 				98F005901434BF810013B44D /* AMFeedCell.h */,
 				98F005911434BF810013B44D /* AMFeedCell.m */,
 				98F005941434BFB90013B44D /* AMFeedCell.xib */,
+				98D62A4C142B528800481EF9 /* Supporting Files */,
 			);
 			path = "RSS Atom";
 			sourceTree = "<group>";
@@ -507,6 +507,7 @@
 		98D62A38142B528800481EF9 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = "Not Applicable";
 			};
 			buildConfigurationList = 98D62A3B142B528800481EF9 /* Build configuration list for PBXProject "Nouvelle" */;
@@ -704,6 +705,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RSS Atom/Nouvelle-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "RSS Atom/Nouvelle-Info.plist";
 				PRODUCT_NAME = Nouvelle;
 				SDKROOT = iphoneos;
@@ -716,6 +718,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RSS Atom/Nouvelle-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "RSS Atom/Nouvelle-Info.plist";
 				PRODUCT_NAME = Nouvelle;
 				SDKROOT = iphoneos;
