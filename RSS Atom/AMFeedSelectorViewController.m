@@ -29,8 +29,7 @@
     self.tableIndex=0;
     upButton.titleLabel.font=[General regularLabelFont];
     downButton.titleLabel.font=[General regularLabelFont];
-    bottomFrame=CGRectMake(0, 372, 320, 328);
-    topFrame=CGRectMake(0, -328, 320, 328);
+    bottomFrame=CGRectMake(0, 416, 320, 328);
     topFrame=CGRectMake(0, 44, 320, 328);
     [self makeViewTranparent:table];
     [super viewDidLoad];
@@ -333,7 +332,7 @@
     return;*/
     float animationDuration=tableTransition==kTableTransitionNegative ? 0.3 : 0.2;
     [UIView beginAnimations:@"Table move" context:nil];
-    [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
     [UIView setAnimationDuration:animationDuration];
     [UIView setAnimationDelegate:self];
     [UIView setAnimationDidStopSelector:@selector(tableAnimationStopped)];
@@ -347,7 +346,7 @@
     float animationDuration=tableTransition==kTableTransitionNegative ? 0.2 : 0.3;
     table.frame=tableTransition==kTableTransitionNegative ? topFrame :bottomFrame;
     [UIView beginAnimations:@"Table move" context:nil];
-    [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
     [UIView setAnimationDuration:animationDuration];
     [UIView setAnimationDelegate:nil];
     table.frame=CGRectMake(0, 88, 320, 328);
