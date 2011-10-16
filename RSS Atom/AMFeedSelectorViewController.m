@@ -53,7 +53,7 @@
         [upButton setTitle:[allCategories objectAtIndex:tableIndex-1] forState:UIControlStateNormal];
         //upButton.hidden=NO;
     }else{
-        [upButton setTitle:nil forState:UIControlStateNormal];
+        [upButton setTitle:@"✚" forState:UIControlStateNormal];
         //upButton.hidden=YES;
     }
     
@@ -61,7 +61,7 @@
         [downButton setTitle:[allCategories objectAtIndex:tableIndex+1] forState:UIControlStateNormal];
         //downButton.hidden=NO;
     }else{
-        [downButton setTitle:nil forState:UIControlStateNormal];
+        [downButton setTitle:@"✚" forState:UIControlStateNormal];
         //downButton.hidden=YES;
     }
 }
@@ -267,9 +267,11 @@
 -(IBAction) removeFeedPressed:(UIButton *) rButton{
     [table setEditing:!table.editing animated:YES];
     if(table.editing){
+        [rButton setTitle:@"✓" forState:UIControlStateNormal];
         [rButton setImage:[UIImage imageNamed:@"checkMarkIconSmall.png"] forState:UIControlStateNormal];
     }else{
-        [rButton setImage:[UIImage imageNamed:@"removeIconSmall.png"] forState:UIControlStateNormal];
+        [rButton setTitle:@"－" forState:UIControlStateNormal];
+        [rButton setImage:nil forState:UIControlStateNormal];
     }
 }
 

@@ -336,8 +336,6 @@
 		98D2E3F31443572A00087B76 /* App Icons */ = {
 			isa = PBXGroup;
 			children = (
-				982BD778144AA645008DEA20 /* downButtonIcon.png */,
-				982BD779144AA645008DEA20 /* upButtonIcon.png */,
 				98D2E3F41443576900087B76 /* icon.png */,
 				98D2E3F51443576900087B76 /* icon@2x.png */,
 			);
@@ -425,6 +423,8 @@
 		98D62A6D142B5B3A00481EF9 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				982BD778144AA645008DEA20 /* downButtonIcon.png */,
+				982BD779144AA645008DEA20 /* upButtonIcon.png */,
 				98D2E3FA14435E4F00087B76 /* vr.png */,
 				98D2E3F814435C7F00087B76 /* hr.png */,
 				9855CF7B1441EA7B00BD1F5C /* dustBinIconSmall.png */,

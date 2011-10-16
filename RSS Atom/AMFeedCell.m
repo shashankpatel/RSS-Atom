@@ -31,7 +31,7 @@
     feedImageFrame=feedImage.frame;
     
     descriptionFrame=CGRectMake(0, 30, 280, 50);
-    feedImageFrameRet=CGRectMake(0, 30, 0, 50);
+    feedImageFrameRet=CGRectMake(0,10, 0, 70);
     [feedImage initAMImageView];
 }
 
