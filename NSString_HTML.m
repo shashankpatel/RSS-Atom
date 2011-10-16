@@ -103,7 +103,7 @@ CFIndex lenEntityName(CFStringInlineBuffer* buffer, CFIndex index){
 	CFIndex len = 1;
 	index++; // first char is assumed to be a '&'
 	unichar c;
-	while (c = CFStringGetCharacterFromInlineBuffer(buffer, index++)){
+	while ((c = CFStringGetCharacterFromInlineBuffer(buffer, index++))){
 		if (c==';') 
 			return len + 1;
 		if (((c < 'a') || (c > 'z')) && ((c < 'A') || (c > 'Z')) && ((c < '0') || (c > '9')) && (c != '#'))
@@ -407,11 +407,10 @@ static inline int moveBufferToIndex(CFStringInlineBuffer *buffer, CFIndex index)
 			Chunk* partialChunk = nil;
 
 			if (c == '<'){
-				if (tagLen = lenToken(&buffer, index + 1)){
+				if ((tagLen = lenToken(&buffer, index + 1))){
 					interior = lenThruRespectingQuotes(&buffer, index + tagLen + 1, ">") + tagLen - 1;
 					if (interior > 0){
-						tag.tagName = createStringFromBuffer(&buffer, index + 1, tagLen);
-						[tag.tagName release];
+						tag.tagName = [createStringFromBuffer(&buffer, index + 1, tagLen) autorelease];
 						chunk = tag;
 						len = interior + 2;
 					}

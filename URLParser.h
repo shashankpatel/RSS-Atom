@@ -32,7 +32,7 @@
 	ElementParser* parser;
 	NSString* contentType;
 	NSStringEncoding encoding;
-	NSObject* connectionDelegate;
+	NSObject<NSURLConnectionDelegate,NSURLConnectionDataDelegate> * connectionDelegate;
 	NSMutableData* partialStringData;
 }
 

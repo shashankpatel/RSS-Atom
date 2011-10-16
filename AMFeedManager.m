@@ -8,6 +8,8 @@
 
 #import "AMFeedManager.h"
 #import "AMSerializer.h"
+#import "MWFeedItem.h"
+#import "JSON.h"
 
 @implementation AMFeedManager
 
@@ -16,6 +18,7 @@ static sqlite3 *feedDB;
 + (void)loadFeedManager
 {
     NSString *feedDBPath=[[AMSerializer documents] stringByAppendingPathComponent:@"feedDB.db"]; 
+    NSLog(@"DB Path:%@",feedDBPath);
     if(![[NSFileManager defaultManager] fileExistsAtPath:feedDBPath]){
         NSString *resourceDBPath=[[NSBundle mainBundle] pathForResource:@"feedDB" ofType:@"db"];
         if([[NSFileManager defaultManager] copyItemAtPath:resourceDBPath toPath:feedDBPath error:nil])NSLog(@"Database copied to:%@",feedDBPath);
@@ -89,6 +92,100 @@ static sqlite3 *feedDB;
 		NSLog(@"%s",sqlite3_errmsg(feedDB));
 	}
     return [feeds autorelease];
+}
+
++(NSMutableArray*) feedsForFeedID:(int) feedID{
+    NSMutableArray *feeds=[[NSMutableArray alloc] init];
+    NSString *allFeedsQuery=[NSString stringWithFormat:@"SELECT * FROM feeds WHERE feedID=%d",feedID];
+	sqlite3_stmt *stmt;
+	int ret = sqlite3_prepare_v2 (feedDB, [allFeedsQuery UTF8String], [allFeedsQuery length], &stmt, NULL);
+    if (ret == SQLITE_OK)
+	{
+		while (sqlite3_step(stmt) == SQLITE_ROW){
+            MWFeedItem *feedItem=[[MWFeedItem alloc] init];
+            int column=1;
+            char *data=(char*)sqlite3_column_text(stmt, column++);
+            if(data!=NULL)feedItem.title=[NSString stringWithUTF8String:data];
+
+            data=(char*)sqlite3_column_text(stmt, column++);
+            if(data!=NULL)feedItem.link=[NSString stringWithUTF8String:data];
+            
+            data=(char*)sqlite3_column_text(stmt, column++);
+            if(data!=NULL)feedItem.date=[NSDate dateWithTimeIntervalSince1970:[[NSString stringWithUTF8String:data] floatValue]];
+            
+            data=(char*)sqlite3_column_text(stmt, column++);
+            if(data!=NULL)feedItem.updated=[NSDate dateWithTimeIntervalSince1970:[[NSString stringWithUTF8String:data] floatValue]];
+            
+            data=(char*)sqlite3_column_text(stmt, column++);
+            if(data!=NULL)feedItem.summary=[NSString stringWithUTF8String:data];
+
+            data=(char*)sqlite3_column_text(stmt, column++);
+            if(data!=NULL)feedItem.content=[NSString stringWithUTF8String:data];
+
+            data=(char*)sqlite3_column_text(stmt, column++);
+            if(data!=NULL)feedItem.iconLink=[NSString stringWithUTF8String:data];
+            
+            data=(char*)sqlite3_column_text(stmt, column++);
+            if(data!=NULL)feedItem.author=[NSString stringWithUTF8String:data];
+            
+            NSString *enclosureString;
+            data=(char*)sqlite3_column_text(stmt, column++);
+            if(data!=NULL) enclosureString=[NSString stringWithUTF8String:data];
+            
+            if([enclosureString length]>0){
+                feedItem.enclosures=[enclosureString JSONValue];
+            }
+            [feeds addObject:feedItem];
+            [feedItem release];
+		}
+	}else {
+		NSLog(@"%s",sqlite3_errmsg(feedDB));
+	}
+    return [feeds autorelease];
+}
+
++(void) addFeeds:(NSArray*) feeds forFeedID:(int) feedID{
+    
+    NSString *deleteFeedQuery=[NSString stringWithFormat:@"DELETE FROM feeds WHERE feedID=%d",feedID];
+    int ret = sqlite3_exec(feedDB, [deleteFeedQuery UTF8String],NULL,NULL, NULL);
+    if (ret==SQLITE_OK) {
+        NSLog(@"Feeds deleted");
+    }
+    
+    
+    for(MWFeedItem *feed in feeds){
+        
+        char *sql;
+        sqlite3_stmt *outStmt;
+        sql=(char*) [@"INSERT INTO feeds (PID,title,link,date,updated,summary,content,iconLink,author,enclosures,feedID) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)" UTF8String];
+        ret = sqlite3_prepare (feedDB, sql, strlen (sql), &outStmt, NULL);
+        
+        sqlite3_reset (outStmt);
+        sqlite3_clear_bindings (outStmt);
+        
+        sqlite3_bind_text(outStmt, 1, [feed.title UTF8String], [feed.title length], NULL);
+        sqlite3_bind_text(outStmt, 2, [feed.link UTF8String], [feed.link length], NULL);
+        sqlite3_bind_text(outStmt, 3, [[feed dateString] UTF8String], [[feed dateString] length], NULL);
+        sqlite3_bind_text(outStmt, 4, [[feed updatedString] UTF8String], [[feed updatedString] length], NULL);
+        sqlite3_bind_text(outStmt, 5, [feed.summary UTF8String], [feed.summary length], NULL);
+        NSLog(@"Length:%d",[feed.summary length]);
+        sqlite3_bind_text(outStmt, 6, [feed.content UTF8String], [feed.content length], NULL);
+        sqlite3_bind_text(outStmt, 7, [feed.iconLink UTF8String], [feed.iconLink length], NULL);
+        sqlite3_bind_text(outStmt, 8, [feed.author UTF8String], [feed.author length], NULL);
+        sqlite3_bind_text(outStmt, 9, [[feed enclosureString] UTF8String], [[feed enclosureString] length], NULL);
+        sqlite3_bind_int(outStmt, 10, feedID);
+        
+        int ret = sqlite3_step (outStmt);
+        if (ret == SQLITE_DONE || ret == SQLITE_ROW){
+            NSLog(@"Feed added");
+        }
+        sqlite3_finalize(outStmt);
+    }
+	
+    
+    
+    
+    
 }
 
 @end

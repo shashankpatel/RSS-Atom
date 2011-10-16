@@ -30,6 +30,7 @@
 @synthesize parser, connection, lastError, contentType, encoding, connectionDelegate, partialStringData;
 
 - (id)initWithCallbackDelegate:(id)delegate{
+    self=[super init];
 	parser = [[ElementParser alloc] init];
 	parser.delegate = delegate;
 	encoding = NSISOLatin1StringEncoding;
@@ -105,8 +106,7 @@
 		char* charPtr = (char*) data.bytes;
 		unichar c = *(charPtr + data.length - less);
 		NSLog(@"Partial string received storing %i bytes, first char=%i", less, c);
-		self.partialStringData = [[NSMutableData alloc] initWithBytes: charPtr + (data.length - less) length: less];
-		[partialStringData release]; // setter has retained it
+		self.partialStringData = [[[NSMutableData alloc] initWithBytes: charPtr + (data.length - less) length: less] autorelease];
 	}
 	[parser continueParsingString: moreSource];
 	[moreSource release];

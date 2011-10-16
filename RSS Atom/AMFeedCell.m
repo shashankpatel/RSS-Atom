@@ -60,7 +60,7 @@
 }
 
 -(void) imageFailedToLoad{
-    NSLog(@"Image failed to load");
+    NSLog(@"Image failed to load at: %@",feedImage.urlString);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

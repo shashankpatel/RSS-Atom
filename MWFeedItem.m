@@ -7,12 +7,13 @@
 //
 
 #import "MWFeedItem.h"
+#import "JSON.h"
 
 #define EXCERPT(str, len) (([str length] > len) ? [[str substringToIndex:len-1] stringByAppendingString:@"…"] : str)
 
 @implementation MWFeedItem
 
-@synthesize title, link, date, updated, summary, content, enclosures, iconLink, author;
+@synthesize title, link, date, updated, summary, content, enclosures, iconLink, author, feedID;
 
 #pragma mark NSObject
 
@@ -61,6 +62,72 @@
 	if (summary) [encoder encodeObject:summary forKey:@"summary"];
 	if (content) [encoder encodeObject:content forKey:@"content"];
 	if (enclosures) [encoder encodeObject:enclosures forKey:@"enclosures"];
+}
+
+-(NSString*) addFeedQuery{
+    NSString *dateString=[NSString stringWithFormat:@"%f",[date timeIntervalSince1970]];
+    NSString *updatedString=[NSString stringWithFormat:@"%f",[updated timeIntervalSince1970]];
+    NSString *enclosureString=@"";
+    if ([enclosures count]>0) {
+        enclosureString=[enclosures JSONRepresentation];;
+    }
+    
+    NSString *titleString,*linkString,*summaryString,*contentString,*iconLinkString,*authorString;
+    
+    titleString=title;
+    linkString=link;
+    summaryString=summary;
+    contentString=content;
+    iconLinkString=iconLink;
+    authorString=author;
+    
+    if ([title length]==0) {
+        titleString=@"";
+    }
+    if ([link length]==0) {
+        linkString=@"";
+    }
+    if ([summary length]==0) {
+        summaryString=@"";
+    }
+    if ([content length]==0) {
+        contentString=@"";
+    }
+    if ([iconLink length]==0) {
+        iconLinkString=@"";
+    }
+    if ([author length]==0) {
+        authorString=@"";
+    }
+    
+    titleString=[titleString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    linkString=[linkString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    summaryString=[summaryString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    contentString=[contentString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    iconLinkString=[iconLinkString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    authorString=[authorString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    
+    NSString *addFeedQuery=[NSString stringWithFormat:@"INSERT INTO feeds VALUES(NULL,'%@','%@','%@','%@','%@','%@','%@','%@','%@',%d)", titleString, linkString, dateString, updatedString, summaryString, contentString, iconLinkString, authorString, enclosureString, feedID];
+    return  addFeedQuery;
+}
+
+-(NSString*) dateString{
+    NSString *dateString=[NSString stringWithFormat:@"%f",[date timeIntervalSince1970]];
+    return  dateString;
+}
+
+-(NSString*) updatedString{
+    NSString *updatedString=[NSString stringWithFormat:@"%f",[updated timeIntervalSince1970]];
+    return updatedString;
+}
+
+-(NSString*) enclosureString{
+    NSString *enclosureString=@"";
+    if ([enclosures count]>0) {
+        enclosureString=[enclosures JSONRepresentation];;
+    }
+    return  enclosureString;
 }
 
 @end

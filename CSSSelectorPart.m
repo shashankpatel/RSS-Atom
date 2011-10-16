@@ -41,6 +41,7 @@
 }
 
 -(id)initWithIndex:(CFIndex*) index inBuffer:(CFStringInlineBuffer*)buffer{
+    self=[super init];
 	unichar c;
 	CFIndex len;
 	c = skipWhitespace(buffer, index);
@@ -48,8 +49,7 @@
 		if (c=='#'){
 			len = lenToken(buffer, *index + 1);
 			assert(len);
-			self.identifier = createStringFromBuffer(buffer, *index + 1, len);
-			[self.identifier release];//retained by property setter
+			self.identifier = [createStringFromBuffer(buffer, *index + 1, len) autorelease];
 			(*index) += len + 1;
 		}
 		else if (c == '.'){
@@ -68,8 +68,7 @@
 			c = skipWhitespace(buffer, index);
 			len = lenToken(buffer, *index);
 			assert(len);
-			self.attrName = createStringFromBuffer(buffer, *index, len);
-			[self.attrName release];//retained by property setter
+			self.attrName = [createStringFromBuffer(buffer, *index, len) autorelease];
 			(*index) += len;
 			
 			c = skipWhitespace(buffer, index);
@@ -80,21 +79,20 @@
 				if (c=='\''){
 					len = lenThru(buffer, (*index) + 1, "'");
 					assert(len);
-					self.attrValue = createStringFromBuffer(buffer, *index + 1, len-1);
+					self.attrValue = [createStringFromBuffer(buffer, *index + 1, len-1) autorelease];
 					(*index)++;
 				}
 				else if (c == '"'){
 					len = lenThru(buffer, (*index) + 1, "\"");
 					assert(len);
-					self.attrValue = createStringFromBuffer(buffer, *index + 1, len-1);
+					self.attrValue = [createStringFromBuffer(buffer, *index + 1, len-1) autorelease];
 					(*index)++;
 				}
 				else{
 					len = lenToken(buffer, (*index));
 					assert(len);
-					self.attrValue = createStringFromBuffer(buffer, *index, len);
+					self.attrValue = [createStringFromBuffer(buffer, *index, len) autorelease];
 				}
-				[self.attrValue release];//retained by property setter
 				(*index) += len;
 				c = skipWhitespace(buffer, index);
 			}
@@ -106,8 +104,7 @@
 		else{
 			len = lenToken(buffer, (*index));
 			assert(len);
-			self.tag = createStringFromBuffer(buffer, *index, len);
-			[self.tag release];//retained by property setter
+			self.tag = [createStringFromBuffer(buffer, *index, len) autorelease];
 			(*index) += len;
 		}
 		c = CFStringGetCharacterFromInlineBuffer(buffer, *index);

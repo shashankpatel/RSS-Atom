@@ -99,6 +99,7 @@
 	self.currentElementAttributes = nil;
 	parseStructureAsContent = NO;
 	self.pathOfElementWithXHTMLType = nil;
+    parsing=NO;
 }
 
 -(BOOL) parseFromDocuments{
@@ -116,7 +117,7 @@
 
 // Begin downloading & parsing of feed
 - (BOOL)parse {
-	NSLog(@"Parsing live");
+	NSLog(@"Begining to parse live for: %@",url);
 	// Perform checks before parsing
 	if (!url || !delegate) { [self failWithErrorCode:MWErrorCodeNotInitiated description:@"Delegate or URL not specified"]; return NO; }
 	if (parsing) { [self failWithErrorCode:MWErrorCodeGeneral description:@"Cannot start parsing as parsing is already in progress"]; return NO; }

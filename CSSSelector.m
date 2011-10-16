@@ -32,6 +32,7 @@
 
 
 -(id)initWithString:(NSString*)string{
+    self=[super init];
 	CFStringInlineBuffer buffer;
 	CFRange range = CFRangeMake(0, [string length]);
 	CFStringInitInlineBuffer((CFStringRef)string, &buffer, range);
@@ -39,7 +40,7 @@
 	chain = [[NSMutableArray alloc] initWithCapacity: 10];
 	unichar c;
 	CFIndex index = 0;
-	while (c = skipWhitespace(&buffer, &index)){
+	while ((c = skipWhitespace(&buffer, &index))){
 		CSSSelectorPart* part = [[CSSSelectorPart alloc] initWithIndex: &index inBuffer: &buffer];
 		[chain addObject: part];
 		[part release];

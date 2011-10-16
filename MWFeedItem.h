@@ -24,7 +24,7 @@
 	//     length: how big it is in bytes (NSNumber)
 	//     type: what its type is, a standard MIME type  (NSString)
 	NSArray *enclosures;
-
+    int feedID;
 }
 
 @property (nonatomic, copy) NSString *title;
@@ -37,5 +37,12 @@
 @property (nonatomic, copy) NSString *author;
 
 @property (nonatomic, copy) NSArray *enclosures;
+
+@property int feedID;
+
+-(NSString*) addFeedQuery;
+-(NSString*) dateString;
+-(NSString*) updatedString;
+-(NSString*) enclosureString;
 
 @end

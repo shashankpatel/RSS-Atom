@@ -20,6 +20,8 @@
 @synthesize feedInfo;
 @synthesize feedViewController;
 @synthesize textPull, textRelease, textLoading, refreshHeaderView, refreshLabel, refreshArrow, refreshSpinner;
+@synthesize feeds;
+
 #define REFRESH_HEADER_HEIGHT 52.0f
 
 #pragma mark - View lifecycle
@@ -40,7 +42,6 @@ static BOOL initialized=NO;
     cells=[[NSMutableArray alloc] init];
     feeds=[[NSMutableArray alloc] init];
     tempFeeds=[[NSMutableArray alloc] init];
-    parsingMode=kParsingModeDocuments;
     NSMutableDictionary *allfeedInfos=[AMFeedManager allFeedInfos];
 
     NSString *category=[[[AMFeedManager allFeedCategories] allValues] objectAtIndex:0];
@@ -76,17 +77,20 @@ static BOOL initialized=NO;
     [super viewWillAppear:animated];
 }
 
+static BOOL skip=YES;
+
 -(void) viewDidAppear:(BOOL)animated{
+    if (skip) {
+        skip=NO;
+        return;
+    }
     stopIssued=NO;
     if (self.zoomController.transitionType==kTransitionTypePush) {
-        if (parsingMode==kParsingModeDocuments) {
-            if(![feedParser parseFromDocuments]){
-                parsingMode=kParsingModeLive;
-                [feedParser parse];
-            }
-        }else{
-            [feedParser parse];
-        } 
+        self.feeds=[AMFeedManager feedsForFeedID:feedInfo.feedID];
+        [table reloadData];
+        [feedParser stopParsing];
+        [feedParser reset];
+        [feedParser parse];
     }
     [super viewDidAppear:animated];
 }
@@ -112,19 +116,6 @@ static BOOL initialized=NO;
     feedTitle.text=[feedInfo.title stringByConvertingHTMLToPlainText];
     [feedParser setUrl:feedInfo.urlString];
     [self.zoomController pushToIndex:2];
-    return;
-    if (parsingMode==kParsingModeDocuments) {
-        if(![feedParser parseFromDocuments]){
-            parsingMode=kParsingModeLive;
-            [feedParser stopParsing];
-            [feedParser parse];
-        }
-    }else{
-        [feedParser parse];
-    }
-    
-    //[feedParser parse];
-    
 }
 
 -(void) feedsReceived:(NSArray*) _feeds{
@@ -159,10 +150,9 @@ static BOOL initialized=NO;
     cell.titleLabel.text=[feed.title stringByConvertingHTMLToPlainText];
     cell.descriptionLabel.text=[feed.summary stringByConvertingHTMLToPlainText];
     
-	if (feed.iconLink==nil && feed.summary!=nil) {
+	if ([feed.iconLink length]==0 && [feed.summary length]!=0) {
 		NSString *iconLink=nil;
 		NSString *feedSummery=[NSString stringWithString:feed.summary];
-		
 		Element* root = [Element parseHTML:feedSummery];
 		NSArray* imageElements = [root selectElements: @"img"];
 		
@@ -216,27 +206,21 @@ static BOOL initialized=NO;
 }
 
 - (void)feedParser:(MWFeedParser *)parser didParseFeedItem:(MWFeedItem *)item{
+    item.feedID=feedInfo.feedID;
     [tempFeeds addObject:item];
 }
 
 - (void)feedParserDidFinish:(MWFeedParser *)parser{
     if (stopIssued) {
         stopIssued=NO;
-        parsingMode=kParsingModeDocuments;
         return;
     }
-    [feeds removeAllObjects];
-    [feeds addObjectsFromArray:tempFeeds];
+    [AMFeedManager addFeeds:tempFeeds forFeedID:feedInfo.feedID];
+    self.feeds=[AMFeedManager feedsForFeedID:feedInfo.feedID];
     NSLog(@"Parsing finished");
     [table reloadData];
     [self stopLoading];
     self.view.window.userInteractionEnabled=YES;
-    if (parsingMode==kParsingModeDocuments) {
-        parsingMode=kParsingModeLive;
-        [feedParser parse];
-    }else{
-        parsingMode=kParsingModeDocuments;
-    }
 }
 
 - (void)feedParser:(MWFeedParser *)parser didFailWithError:(NSError *)error{
@@ -366,7 +350,8 @@ static BOOL initialized=NO;
 - (void)refresh {
     // This is just a demo. Override this method with your custom reload action.
     // Don't forget to call stopLoading at the end.
-    parsingMode=kParsingModeLive;
+    [feedParser stopParsing];
+    [feedParser reset];
     [feedParser parse];
     //[self performSelector:@selector(stopLoading) withObject:nil afterDelay:2.0];
 }

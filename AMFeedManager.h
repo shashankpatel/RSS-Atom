@@ -18,5 +18,7 @@
 +(void) removeFeedInfo:(AMFeedInfo*) feedInfo;
 +(NSMutableDictionary*) allFeedCategories;
 +(NSMutableDictionary*) allFeedInfos;
++(NSMutableArray*) feedsForFeedID:(int) feedID;
++(void) addFeeds:(NSArray*) feeds forFeedID:(int) feedID;
 
 @end

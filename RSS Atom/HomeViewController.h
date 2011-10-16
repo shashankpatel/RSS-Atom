@@ -12,9 +12,6 @@
 #import "AMViewController.h"
 #import "MWFeedParser.h"
 
-#define kParsingModeDocuments 0
-#define kParsingModeLive 1
-
 @interface HomeViewController : AMViewController<FeedSelectorDelegate,FeedViewDelegate,MWFeedParserDelegate>{
     AMFeedSelectorViewController *feedSelector;
     AMFeedViewController *feedViewController;
@@ -24,7 +21,6 @@
     AMFeedInfo *feedInfo;
     NSMutableArray *feeds,*tempFeeds;
     MWFeedParser *feedParser;
-    int parsingMode;
     BOOL stopIssued;
     
     UIView *refreshHeaderView;
@@ -51,6 +47,7 @@
 @property (nonatomic, copy) NSString *textPull;
 @property (nonatomic, copy) NSString *textRelease;
 @property (nonatomic, copy) NSString *textLoading;
+@property (nonatomic, retain) NSMutableArray *feeds;
 
 - (void)setupStrings;
 - (void)addPullToRefreshHeader;
