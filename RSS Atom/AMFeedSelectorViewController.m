@@ -27,8 +27,11 @@
 {
     headerViews=[[NSMutableDictionary alloc] init];
     self.tableIndex=0;
-    upButton.titleLabel.font=[General selectedFontRegular];
-    downButton.titleLabel.font=[General selectedFontRegular];
+    upButton.titleLabel.font=[General regularLabelFont];
+    downButton.titleLabel.font=[General regularLabelFont];
+    bottomFrame=CGRectMake(0, 372, 320, 328);
+    topFrame=CGRectMake(0, -328, 320, 328);
+    topFrame=CGRectMake(0, 44, 320, 328);
     [self makeViewTranparent:table];
     [super viewDidLoad];
 }
@@ -41,20 +44,26 @@
     }
     tableIndex=_tableIndex;
     
-        
+    [upButton setTitle:nil forState:UIControlStateNormal];
+    [downButton setTitle:nil forState:UIControlStateNormal];
+}
+
+-(void) setButtonTexts{
     if(tableIndex>0){
         [upButton setTitle:[allCategories objectAtIndex:tableIndex-1] forState:UIControlStateNormal];
+        //upButton.hidden=NO;
     }else{
         [upButton setTitle:nil forState:UIControlStateNormal];
+        //upButton.hidden=YES;
     }
     
     if(tableIndex<[allCategories count]-1){
         [downButton setTitle:[allCategories objectAtIndex:tableIndex+1] forState:UIControlStateNormal];
+        //downButton.hidden=NO;
     }else{
         [downButton setTitle:nil forState:UIControlStateNormal];
+        //downButton.hidden=YES;
     }
-    
-    
 }
 
 -(int) tableIndex{
@@ -76,6 +85,7 @@
     self.feedInfos=[AMFeedManager allFeedInfos];
     self.allCategories=[[AMFeedManager allFeedCategories] allValues];
     self.tableIndex=0;
+    [self setButtonTexts];
     [table reloadData];
     [super viewWillAppear:animated];
 }
@@ -164,7 +174,7 @@
     label.backgroundColor=[UIColor clearColor];
     label.textColor=[UIColor whiteColor];
     label.textAlignment=UITextAlignmentCenter;
-    label.font=[General selectedFontRegular];
+    label.font=[General regularLabelFont];
     label.text=[allCategories objectAtIndex:tableIndex];
     label.delegate=self;
     UITapGestureRecognizer *singleDTap=[[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(textFieldDoubleTapped:)] autorelease];
@@ -313,29 +323,35 @@
 }
 
 -(void) processTableChange{
-    NSIndexSet *indexSet=[NSIndexSet indexSetWithIndex:0];
+    /*NSIndexSet *indexSet=[NSIndexSet indexSetWithIndex:0];
     [table reloadSections:indexSet withRowAnimation:tableTransition==kTableTransitionNegative? UITableViewRowAnimationBottom:UITableViewRowAnimationTop];
     UIView *headerView=[headerViews objectForKey:[NSNumber numberWithInt:0]];
     if (headerView) {
         UILabel *headerLabel=(UILabel*)[headerView viewWithTag:kHeaderTextTag];
         headerLabel.text=[allCategories objectAtIndex:tableIndex];
     }
-    return;
+    return;*/
+    float animationDuration=tableTransition==kTableTransitionNegative ? 0.3 : 0.2;
     [UIView beginAnimations:@"Table move" context:nil];
-    [UIView setAnimationDuration:0.3];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+    [UIView setAnimationDuration:animationDuration];
     [UIView setAnimationDelegate:self];
     [UIView setAnimationDidStopSelector:@selector(tableAnimationStopped)];
-    //table.frame=CGRectMake(0, 88, 320, 0);
+    table.frame=tableTransition==kTableTransitionNegative ? bottomFrame : topFrame;
     [UIView commitAnimations];
 }
 
 -(void) tableAnimationStopped{
-    NSIndexSet *indexSet=[NSIndexSet indexSetWithIndex:0];
-    [table reloadSections:indexSet withRowAnimation:UITableViewRowAnimationTop];
+    //NSIndexSet *indexSet=[NSIndexSet indexSetWithIndex:0];
+    [table reloadData];
+    float animationDuration=tableTransition==kTableTransitionNegative ? 0.2 : 0.3;
+    table.frame=tableTransition==kTableTransitionNegative ? topFrame :bottomFrame;
     [UIView beginAnimations:@"Table move" context:nil];
-    [UIView setAnimationDuration:0.3];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+    [UIView setAnimationDuration:animationDuration];
     [UIView setAnimationDelegate:nil];
-    //table.frame=CGRectMake(0, 88, 320, 328);
+    table.frame=CGRectMake(0, 88, 320, 328);
+    [self setButtonTexts];
     [UIView commitAnimations];
 }
 

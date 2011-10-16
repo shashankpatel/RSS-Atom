@@ -33,6 +33,7 @@
     IBOutlet UIButton *addCat,*removeCat;
     int tableIndex,tableTransition;
     IBOutlet UIButton *upButton,*downButton,*removeButton;
+    CGRect bottomFrame,topFrame;
 }
 
 @property(nonatomic,retain) NSObject<FeedSelectorDelegate> *delegate;
@@ -50,5 +51,6 @@
 -(IBAction) upPressed;
 -(IBAction) downPressed;
 -(void) processTableChange;
+-(void) setButtonTexts;
 
 @end

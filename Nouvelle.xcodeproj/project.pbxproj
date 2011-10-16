@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		982BD77A144AA645008DEA20 /* downButtonIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 982BD778144AA645008DEA20 /* downButtonIcon.png */; };
+		982BD77B144AA645008DEA20 /* upButtonIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 982BD779144AA645008DEA20 /* upButtonIcon.png */; };
 		9832BADA1440CD8000391A7B /* UIImage+Alpha.m in Sources */ = {isa = PBXBuildFile; fileRef = 9832BAD51440CD8000391A7B /* UIImage+Alpha.m */; };
 		9832BADB1440CD8000391A7B /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 9832BAD71440CD8000391A7B /* UIImage+Resize.m */; };
 		9832BADC1440CD8000391A7B /* UIImage+RoundedCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 9832BAD91440CD8000391A7B /* UIImage+RoundedCorner.m */; };
@@ -95,6 +97,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		982BD778144AA645008DEA20 /* downButtonIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = downButtonIcon.png; sourceTree = "<group>"; };
+		982BD779144AA645008DEA20 /* upButtonIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = upButtonIcon.png; sourceTree = "<group>"; };
 		9832BAD41440CD8000391A7B /* UIImage+Alpha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Alpha.h"; sourceTree = "<group>"; };
 		9832BAD51440CD8000391A7B /* UIImage+Alpha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Alpha.m"; sourceTree = "<group>"; };
 		9832BAD61440CD8000391A7B /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
@@ -332,6 +336,8 @@
 		98D2E3F31443572A00087B76 /* App Icons */ = {
 			isa = PBXGroup;
 			children = (
+				982BD778144AA645008DEA20 /* downButtonIcon.png */,
+				982BD779144AA645008DEA20 /* upButtonIcon.png */,
 				98D2E3F41443576900087B76 /* icon.png */,
 				98D2E3F51443576900087B76 /* icon@2x.png */,
 			);
@@ -565,6 +571,8 @@
 				98D2E3F71443576900087B76 /* icon@2x.png in Resources */,
 				98D2E3F914435C7F00087B76 /* hr.png in Resources */,
 				98D2E3FB14435E4F00087B76 /* vr.png in Resources */,
+				982BD77A144AA645008DEA20 /* downButtonIcon.png in Resources */,
+				982BD77B144AA645008DEA20 /* upButtonIcon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
