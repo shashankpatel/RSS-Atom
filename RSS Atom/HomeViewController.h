@@ -54,6 +54,7 @@
 - (void)startLoading;
 - (void)stopLoading;
 - (void)refresh;
+- (void) reloadFeeds;
 
 -(void) initController;
 -(IBAction)feedSelectorPressed:(id)sender;

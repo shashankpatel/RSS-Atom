@@ -15,6 +15,30 @@
 
 @synthesize title, link, date, updated, summary, content, enclosures, iconLink, author, feedID;
 
+-(NSString*) title{
+    return [title length]==0 ? @"" : title;
+}
+
+-(NSString*) link{
+    return [link length]==0 ? @"" : link;
+}
+
+-(NSString*) summary{
+    return [summary length]==0 ? @"" : summary;
+}
+
+-(NSString*) content{
+    return [content length]==0 ? @"" : content;
+}
+
+-(NSString*) iconLink{
+    return [iconLink length]==0 ? @"" : iconLink;
+}
+
+-(NSString*) author{
+    return [author length]==0 ? @"" : author;
+}
+
 #pragma mark NSObject
 
 - (NSString *)description {

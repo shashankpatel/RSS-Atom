@@ -45,8 +45,6 @@ static BOOL initialized=NO;
     NSMutableDictionary *allfeedInfos=[AMFeedManager allFeedInfos];
 
     NSString *category=[[[AMFeedManager allFeedCategories] allValues] objectAtIndex:0];
-        
-    
     
     if ([[allfeedInfos objectForKey:category] count]!=0) {
         self.feedInfo=[[allfeedInfos objectForKey:category] objectAtIndex:0];
@@ -73,13 +71,9 @@ static BOOL initialized=NO;
     [super viewWillDisappear:animated];
 }
 
--(void) viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-}
-
 static BOOL skip=YES;
 
--(void) viewDidAppear:(BOOL)animated{
+-(void) viewWillAppear:(BOOL)animated{
     if (skip) {
         skip=NO;
         return;
@@ -87,11 +81,14 @@ static BOOL skip=YES;
     stopIssued=NO;
     if (self.zoomController.transitionType==kTransitionTypePush) {
         self.feeds=[AMFeedManager feedsForFeedID:feedInfo.feedID];
+        NSLog(@"Loaded %d feeds for %d",[self.feeds count], feedInfo.feedID);
         [table reloadData];
-        [feedParser stopParsing];
-        [feedParser reset];
-        [feedParser parse];
+        [self performSelector:@selector(reloadFeeds) withObject:nil afterDelay:0.5];
     }
+    [super viewWillAppear:animated];
+}
+
+-(void) viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
 }
 
@@ -100,10 +97,6 @@ static BOOL skip=YES;
         [self makeViewTranparent:subView];
     }
     view.backgroundColor=[UIColor clearColor];
-}
-
--(void) loadFeed{
-    
 }
 
 -(IBAction)feedSelectorPressed:(id)sender{
@@ -350,6 +343,16 @@ static BOOL skip=YES;
 - (void)refresh {
     // This is just a demo. Override this method with your custom reload action.
     // Don't forget to call stopLoading at the end.
+    [feedParser stopParsing];
+    [feedParser reset];
+    [feedParser parse];
+    //[self performSelector:@selector(stopLoading) withObject:nil afterDelay:2.0];
+}
+
+- (void) reloadFeeds {
+    // This is just a demo. Override this method with your custom reload action.
+    // Don't forget to call stopLoading at the end.
+    stopIssued=YES;
     [feedParser stopParsing];
     [feedParser reset];
     [feedParser parse];

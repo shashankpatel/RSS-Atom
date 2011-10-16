@@ -31,6 +31,7 @@
     downButton.titleLabel.font=[General regularLabelFont];
     bottomFrame=CGRectMake(0, 416, 320, 328);
     topFrame=CGRectMake(0, 44, 320, 328);
+    tableIndex=NSNotFound;
     [self makeViewTranparent:table];
     [super viewDidLoad];
 }
@@ -83,7 +84,7 @@
 -(void) viewWillAppear:(BOOL)animated{
     self.feedInfos=[AMFeedManager allFeedInfos];
     self.allCategories=[[AMFeedManager allFeedCategories] allValues];
-    self.tableIndex=0;
+    if(self.tableIndex==NSNotFound) self.tableIndex=0;
     [self setButtonTexts];
     [table reloadData];
     [super viewWillAppear:animated];
