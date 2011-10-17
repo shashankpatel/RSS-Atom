@@ -6,13 +6,13 @@
 //  Copyright 2011 Not Applicable. All rights reserved.
 //
 
-#import "RSS_AtomAppDelegate.h"
-#import "RSS_AtomViewController.h"
+#import "NouvelleAppDelegate.h"
+#import "AMNouvelleViewController.h"
 #import "General.h"
 #import "AMSerializer.h"
 #import "AMFeedManager.h"
 
-@implementation RSS_AtomAppDelegate
+@implementation NouvelleAppDelegate
 
 @synthesize window = _window;
 @synthesize viewController = _viewController;

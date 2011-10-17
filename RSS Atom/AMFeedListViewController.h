@@ -1,5 +1,5 @@
 //
-//  HomeViewController.h
+//  AMFeedListViewController.h
 //  RSS Atom
 //
 //  Created by Shashank Patel on 9/22/11.
@@ -12,7 +12,7 @@
 #import "AMViewController.h"
 #import "MWFeedParser.h"
 
-@interface HomeViewController : AMViewController<FeedSelectorDelegate,FeedViewDelegate,MWFeedParserDelegate>{
+@interface AMFeedListViewController : AMViewController<FeedSelectorDelegate,FeedViewDelegate,MWFeedParserDelegate>{
     AMFeedSelectorViewController *feedSelector;
     AMFeedViewController *feedViewController;
     IBOutlet UITableView *table;

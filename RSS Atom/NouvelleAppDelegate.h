@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@class RSS_AtomViewController;
+@class AMNouvelleViewController;
 
-@interface RSS_AtomAppDelegate : NSObject <UIApplicationDelegate>
+@interface NouvelleAppDelegate : NSObject <UIApplicationDelegate>
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 
-@property (nonatomic, retain) IBOutlet RSS_AtomViewController *viewController;
+@property (nonatomic, retain) IBOutlet AMNouvelleViewController *viewController;
 
 @end

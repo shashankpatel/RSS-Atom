@@ -15,7 +15,7 @@
 @synthesize feedImage;
 
 +(id) cell{
-    NSArray *nib=[[NSBundle mainBundle] loadNibNamed:@"AMFeedCell" owner:@"HomeViewController" options:nil];
+    NSArray *nib=[[NSBundle mainBundle] loadNibNamed:@"AMFeedCell" owner:@"AMFeedListViewController" options:nil];
     for (NSObject *obj in nib) {
         if ([obj isKindOfClass:[AMFeedCell class]]) {
             [(AMFeedCell*)obj loadFeedCell];

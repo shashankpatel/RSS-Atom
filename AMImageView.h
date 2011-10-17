@@ -21,13 +21,13 @@
     NSMutableData *receievedData;
     IBOutlet NSObject<AMImageViewDelegate> *delegate;
     NSString *urlString;
-    BOOL shouldLoadImage;
+    BOOL shouldLoadImage,shouldLoadSmallImage;
 }
 
 @property(nonatomic,retain) NSURLConnection *connection;
 @property(nonatomic,retain) NSString *urlString;
 @property(nonatomic,retain) NSObject<AMImageViewDelegate> *delegate;
-@property BOOL shouldLoadImage;
+@property BOOL shouldLoadImage,shouldLoadSmallImage;
 
 - (void)initAMImageView;
 -(void) setImageWithContentsOfURLString:(NSString*) urlString;

@@ -1,12 +1,12 @@
 //
-//  HomeViewController.m
+//  AMFeedListViewController.m
 //  RSS Atom
 //
 //  Created by Shashank Patel on 9/22/11.
 //  Copyright 2011 Not Applicable. All rights reserved.
 //
 
-#import "HomeViewController.h"
+#import "AMFeedListViewController.h"
 #import "General.h"
 #import "NSString+HTML.h"
 #import "AMFeedManager.h"
@@ -14,7 +14,7 @@
 #import "AMFeedCell.h"
 #import <QuartzCore/QuartzCore.h>
 
-@implementation HomeViewController
+@implementation AMFeedListViewController
 
 @synthesize currentView;
 @synthesize feedInfo;
@@ -204,6 +204,7 @@ static BOOL skip=YES;
 }
 
 - (void)feedParserDidFinish:(MWFeedParser *)parser{
+    [self stopLoading];
     if (stopIssued) {
         stopIssued=NO;
         return;
@@ -343,8 +344,6 @@ static BOOL skip=YES;
 - (void)refresh {
     // This is just a demo. Override this method with your custom reload action.
     // Don't forget to call stopLoading at the end.
-    [feedParser stopParsing];
-    [feedParser reset];
     [feedParser parse];
     //[self performSelector:@selector(stopLoading) withObject:nil afterDelay:2.0];
 }

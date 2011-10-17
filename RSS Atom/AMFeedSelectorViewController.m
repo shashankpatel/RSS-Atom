@@ -9,7 +9,7 @@
 #import "AMFeedSelectorViewController.h"
 #import "General.h"
 #import "AMImageView.h"
-#import "HomeViewController.h"
+#import "AMFeedListViewController.h"
 #import "AMFeedManager.h"
 #import "NSString+HTML.h"
 #import "AMFeedSearchViewController.h"

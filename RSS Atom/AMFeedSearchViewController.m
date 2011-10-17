@@ -151,6 +151,7 @@
         [addButton addTarget:self action:@selector(addButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         
         AMImageView *amiv=[[AMImageView alloc] init];
+        amiv.shouldLoadSmallImage=YES;
         [amiv initAMImageView];
         amiv.tag=2222;
         [cell addSubview:amiv];

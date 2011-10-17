@@ -14,7 +14,7 @@
 
 @synthesize delegate;
 @synthesize urlString;
-@synthesize shouldLoadImage;
+@synthesize shouldLoadImage,shouldLoadSmallImage;
 @synthesize connection;
 
 - (void)initAMImageView
@@ -83,7 +83,10 @@
     width=image.size.width;
     height=image.size.height;
     if (width<130 && height<130) {
-        return  image;
+        if (shouldLoadSmallImage) {
+            return  image;
+        }
+        return nil;
     }
     
     float ratio=130.0/MAX(width, height);

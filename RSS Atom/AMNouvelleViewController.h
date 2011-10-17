@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HomeViewController.h"
+#import "AMFeedListViewController.h"
 #import "AMZoomViewController.h"
 
-@interface RSS_AtomViewController : UIViewController{
-    HomeViewController *homeViewController;
+@interface AMNouvelleViewController : UIViewController{
+    AMFeedListViewController *AMFeedListViewController;
     AMZoomViewController *zvc;
 }
 

@@ -6,15 +6,15 @@
 //  Copyright 2011 Not Applicable. All rights reserved.
 //
 
-#import "RSS_AtomViewController.h"
+#import "AMNouvelleViewController.h"
 #import "AMZoomViewController.h"
 
 #import "AMFeedSearchViewController.h"
 #import "AMFeedSelectorViewController.h"
-#import "HomeViewController.h"
+#import "AMFeedListViewController.h"
 #import "AMFeedViewController.h"
 
-@implementation RSS_AtomViewController
+@implementation AMNouvelleViewController
 
 #pragma mark - View lifecycle
 
@@ -32,7 +32,7 @@
     [controllers addObject:fsvc];
     [fsvc release];
     
-    HomeViewController *hvc=[[HomeViewController alloc] initWithNibName:@"HomeViewController" bundle:nil];
+    AMFeedListViewController *hvc=[[AMFeedListViewController alloc] initWithNibName:@"AMFeedListViewController" bundle:nil];
     fsvc.delegate=hvc;
     [controllers addObject:hvc];
     [hvc release];
@@ -45,7 +45,7 @@
     
     zvc=[[AMZoomViewController alloc] initWithViewControllers:controllers startIndex:1];
     [controllers release];
-    [zvc pushToIndex:2];
+    [zvc pushToIndex:1];
     [self.view addSubview:zvc.view];
     [super viewDidLoad];
 }
