@@ -83,7 +83,7 @@
     width=image.size.width;
     height=image.size.height;
     
-    if (width<130 && height<130) {
+    if (width<140 && height<140) {
         if ((width<30 || height<30)) {
             if (shouldLoadSmallImage) {
                 return image;
@@ -94,7 +94,7 @@
         return  image;
     }
     
-    float ratio=130.0/MAX(width, height);
+    float ratio=140.0/MAX(width, height);
     width*=ratio;
     height*=ratio;
     return [image resizedImage:CGSizeMake(width, height) 

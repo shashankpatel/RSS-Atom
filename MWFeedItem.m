@@ -8,12 +8,14 @@
 
 #import "MWFeedItem.h"
 #import "JSON.h"
+#import "NSString+HTML.h"
 
 #define EXCERPT(str, len) (([str length] > len) ? [[str substringToIndex:len-1] stringByAppendingString:@"…"] : str)
 
 @implementation MWFeedItem
 
 @synthesize title, link, date, updated, summary, content, enclosures, iconLink, author, feedID;
+@synthesize plainStory,htmlStory;
 
 -(NSString*) title{
     return [title length]==0 ? @"" : title;
@@ -39,6 +41,21 @@
     return [author length]==0 ? @"" : author;
 }
 
+-(NSString*) plainStory{
+    if (!plainStory) {
+        plainStory=[self.summary length] > [self.content length] ? self.summary : self.content;
+        plainStory=[[plainStory stringByConvertingHTMLToPlainText] retain];
+    }
+    return plainStory;
+}
+
+-(NSString*) htmlStory{
+    if (!htmlStory) {
+        htmlStory=[self.summary length] > [self.content length] ? self.summary : self.content;
+    }
+    return htmlStory;
+}
+
 #pragma mark NSObject
 
 - (NSString *)description {
@@ -60,6 +77,7 @@
 	[summary release];
 	[content release];
 	[enclosures release];
+    [plainStory release];
 	[super dealloc];
 }
 

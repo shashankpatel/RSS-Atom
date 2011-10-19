@@ -12,7 +12,7 @@
 
 #define kRemoveButtonTag -10000
 #define kAddButtonTag 10000
-#define kHeaderTextTag 2000
+#define kHeaderTextTag 999
 #define kTableTransitionPositive 1
 #define kTableTransitionNegative -1
 

@@ -18,7 +18,7 @@
 
 #pragma mark - View lifecycle
 
--(id) initWithViewController:(UIViewController*) viewController{
+-(id) initWithViewController:(AMViewController*) viewController{
     self=[super initWithNibName:@"AMZoomViewController" bundle:nil];
     if (self) {
         viewControllers=[[NSMutableArray alloc] initWithObjects:viewController, nil];
@@ -44,57 +44,89 @@
 }
 
 -(void) pushToIndex:(int) newIndex {
+    [self pushToIndex:newIndex expand:NO];
+}
+
+-(void) pushToIndex:(int) newIndex expand:(BOOL) expand{
     self.view.window.userInteractionEnabled=NO;
     self.transitionType=kTransitionTypePush;
-    UIViewController *targetViewController=[viewControllers objectAtIndex:newIndex];
+    AMViewController *targetViewController=[viewControllers objectAtIndex:newIndex];
     [targetViewController viewWillAppear:YES];
     [currentViewController viewWillDisappear:YES];
     UIView *target=targetViewController.view;
     UIView *source=currentViewController.view;
     currentIndex=newIndex;
-    currentViewController=targetViewController;
+    
     if ([target superview]!=self.view) {
         [self.view addSubview:target];
     }
-    target.transform=CGAffineTransformMakeScale(0.5, 0.5);
-    target.alpha=0;
+    
+    
+    
+    float targetScale=expand ? 0.9 : 0.5;
+    
+    target.transform=CGAffineTransformMakeScale(targetScale, targetScale);
+    target.alpha=1;
     [UIView beginAnimations:@"PushView" context:nil];
     [UIView setAnimationDuration:0.2];
     [UIView setAnimationCurve:UIViewAnimationCurveLinear];
     [UIView setAnimationDelegate:self];
     [UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
+    currentViewController.titleBarView.alpha=0;
+    targetViewController.titleBarView.alpha=1;
     source.transform=CGAffineTransformMakeScale(1.5,1.5);
     source.alpha=0;
     target.transform=CGAffineTransformIdentity;
     target.alpha=1;
     [UIView commitAnimations];
+    if (expand) {
+        //[currentViewController expand];
+    }
+    currentViewController=targetViewController;
 }
 
 -(void) popToIndex:(int) newIndex{
+    [self popToIndex:newIndex shrink:NO];
+}
+
+-(void) popToIndex:(int) newIndex shrink:(BOOL) shrink{
     self.view.window.userInteractionEnabled=NO;
     self.transitionType=kTransitionTypePop;
-    UIViewController *targetViewController=[viewControllers objectAtIndex:newIndex];
+    AMViewController *targetViewController=[viewControllers objectAtIndex:newIndex];
+    
     [targetViewController viewWillAppear:YES];
     [currentViewController viewWillDisappear:YES];
     UIView *target=targetViewController.view;
     UIView *source=currentViewController.view;
     currentIndex=newIndex;
-    currentViewController=targetViewController;
     if ([target superview]!=self.view) {
         [self.view addSubview:target];
     }
+    
     source.transform=CGAffineTransformIdentity;
     target.transform=CGAffineTransformMakeScale(2, 2);
+    
     [UIView beginAnimations:@"PushView" context:nil];
     [UIView setAnimationDuration:0.2];
     [UIView setAnimationCurve:UIViewAnimationCurveLinear];
     [UIView setAnimationDelegate:self];
     [UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
+    
+    currentViewController.titleBarView.alpha=0;
+    targetViewController.titleBarView.alpha=1;
+    
     target.transform=CGAffineTransformIdentity;
     target.alpha=1;
-    source.transform=CGAffineTransformMakeScale(0.5, 0.5);
-    source.alpha=0;
+    if (shrink) {
+        [targetViewController shrink];
+    }
+    float sourceScale=shrink ? 0.9 : 0.5;
+    source.transform=CGAffineTransformMakeScale(sourceScale,sourceScale);
+    source.alpha=shrink ? 1 : 0;
+    
+    [self.view bringSubviewToFront:target];
     [UIView commitAnimations];
+    currentViewController=targetViewController;
 }
 
 -(void) animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context{

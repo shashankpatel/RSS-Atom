@@ -8,18 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
+@class AMViewController;
+
 #define kTransitionTypePush 0
 #define kTransitionTypePop 1
 
 @interface AMZoomViewController : UIViewController {
     NSMutableArray *viewControllers;
-    UIViewController *currentViewController;
+    AMViewController *currentViewController;
     int currentIndex;
     int transitionType;
 }
 
 @property(nonatomic,retain) NSMutableArray *viewControllers;
-@property(nonatomic,retain) UIViewController *currentViewController;
+@property(nonatomic,retain) AMViewController *currentViewController;
 @property int currentIndex;
 @property int transitionType;
 
@@ -29,5 +31,8 @@
 -(void) pushToIndex:(int) newIndex;
 -(void) popToIndex:(int) newIndex;
 -(void) animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context;
+
+-(void) popToIndex:(int) newIndex shrink:(BOOL) shrink;
+-(void) pushToIndex:(int) newIndex expand:(BOOL) shrink;
 
 @end

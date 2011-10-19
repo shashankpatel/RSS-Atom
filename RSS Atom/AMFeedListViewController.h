@@ -58,6 +58,7 @@
 
 -(void) initController;
 -(IBAction)feedSelectorPressed:(id)sender;
+-(IBAction) backgroundButtonPressed:(id)sender;
 
 -(void) makeViewTranparent:(UIView *) view;
 

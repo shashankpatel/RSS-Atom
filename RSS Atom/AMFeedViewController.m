@@ -8,6 +8,7 @@
 
 #import "AMFeedViewController.h"
 #import "AMWebViewController.h"
+#import "AMFeedListViewController.h"
 
 @implementation AMFeedViewController
 
@@ -39,6 +40,13 @@ static NSString *htmlWrapper;
     [self.view addGestureRecognizer:singleFingerDTap];
     [singleFingerDTap release];
     
+    UITapGestureRecognizer *singleFingerSTap = [[UITapGestureRecognizer alloc]
+                                                initWithTarget:self action:@selector(singleTapReceived:)];
+    singleFingerSTap.delegate=self;
+    singleFingerSTap.numberOfTapsRequired = 2;
+    //[self.view addGestureRecognizer:singleFingerSTap];
+    [singleFingerSTap release];
+    
     [self processWebView];
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
@@ -66,26 +74,29 @@ static NSString *htmlWrapper;
 }
 
 -(void) viewWillAppear:(BOOL)animated{
-    [self performSelectorInBackground:@selector(loadDescription) withObject:nil];
     [super viewWillAppear:animated];
 }
 
 -(void) loadDescription{
     NSAutoreleasePool *pool=[[NSAutoreleasePool alloc] init];
-    NSString *htmlDescription=[NSString stringWithFormat:htmlWrapper,feed.link,feed.title,feed.date,feed.author,feed.summary];
+    NSString *htmlDescription=[NSString stringWithFormat:htmlWrapper,feed.link,feed.title,feed.date,feed.author,[feed htmlStory]];
     [webView loadHTMLString:htmlDescription baseURL:nil];
     [pool release];
 }
 
 -(void) doubleTapReceived:(id) sender{
     NSLog(@"Double tap");
+    [self.zoomController popToIndex:2 shrink:YES];
 }
 
 -(void) singleTapReceived:(id) sender{
     NSLog(@"Single tap");
+    [self.zoomController pushToIndex:3 expand:YES];
 }
 
 -(IBAction) btnListPressed:(id)sender{
+    AMFeedListViewController *flvc=(AMFeedListViewController*)[self.zoomController.viewControllers objectAtIndex:2];
+    [flvc expand];
     [self.zoomController popToIndex:2];
 }
 

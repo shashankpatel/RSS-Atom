@@ -9,10 +9,22 @@
 #import <UIKit/UIKit.h>
 #import "AMZoomViewController.h"
 
+
+#define kViewModeNormal 0
+#define kViewModeShrunk 1
+
 @interface AMViewController : UIViewController{
     AMZoomViewController *zoomController;
+    int viewMode;
+    IBOutlet UIView *titleBarView;
 }
 
 @property(nonatomic,retain) AMZoomViewController *zoomController;
+@property int viewMode;
+@property(nonatomic,readonly) IBOutlet UIView *titleBarView;
+
+
+-(void) shrink;
+-(void) expand;
 
 @end

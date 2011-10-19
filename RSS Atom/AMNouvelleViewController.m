@@ -45,7 +45,7 @@
     
     AMWebViewController *wvc=[[AMWebViewController alloc] initWithNibName:@"AMWebViewController" bundle:nil];
     [controllers addObject:wvc];
-    [fvc release];
+    [wvc release];
     
     
     zvc=[[AMZoomViewController alloc] initWithViewControllers:controllers startIndex:1];

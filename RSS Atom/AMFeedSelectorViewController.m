@@ -160,12 +160,14 @@
     return 0;
     return 44;
 }
-
+UITapGestureRecognizer *singleDTap;
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *headerView=[headerViews objectForKey:[NSNumber numberWithInt:section]];
     if (headerView) {
         UILabel *headerLabel=(UILabel*)[headerView viewWithTag:kHeaderTextTag];
         headerLabel.text=[allCategories objectAtIndex:tableIndex];
+        [headerLabel removeGestureRecognizer:singleDTap];
+        [headerLabel addGestureRecognizer:singleDTap];
         return headerView;
     }
     headerView=[[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 40)] autorelease];
@@ -178,7 +180,7 @@
     label.font=[General regularLabelFont];
     label.text=[allCategories objectAtIndex:tableIndex];
     label.delegate=self;
-    UITapGestureRecognizer *singleDTap=[[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(textFieldDoubleTapped:)] autorelease];
+    singleDTap=[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(textFieldDoubleTapped:)];
     singleDTap.numberOfTouchesRequired=1;
     singleDTap.numberOfTapsRequired=2;
     [label addGestureRecognizer:singleDTap];
@@ -293,6 +295,8 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     textField.tag=999;
+    [AMFeedManager modifyCategoryNameFrom:[allCategories objectAtIndex:tableIndex] toName:textField.text];
+    [self viewWillAppear:YES];
     [textField resignFirstResponder];
     return YES;
 }

@@ -13,7 +13,8 @@
     IBOutlet UILabel *titleLabel,*descriptionLabel;
     IBOutlet AMImageView *feedImage;
     CGRect titleFrame,descriptionFrame,feedImageFrame;
-    CGRect descriptionFrameRet,feedImageFrameRet;
+    CGRect titleFrameShrunk,descriptionFrameShrunk,descriptionFrameRet,feedImageFrameRet;
+    BOOL shrunk;
 }
 
 @property(nonatomic,retain) IBOutlet UILabel *titleLabel,*descriptionLabel;
@@ -22,5 +23,9 @@
 +(id) cell;
 -(void) loadFeedCell;
 -(void) loadImageFromURLString:(NSString*) urlString;
+
+-(void) shrink;
+-(void) expand;
+-(void) setFrames;
 
 @end

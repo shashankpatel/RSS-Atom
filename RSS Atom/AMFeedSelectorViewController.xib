@@ -163,9 +163,13 @@
 						<reference key="IBUIHighlightedTitleColor" ref="488333354"/>
 						<reference key="IBUINormalTitleColor" ref="488333354"/>
 						<reference key="IBUINormalTitleShadowColor" ref="363030074"/>
-						<object class="NSCustomResource" key="IBUINormalBackgroundImage" id="719765548">
+						<object class="NSCustomResource" key="IBUINormalImage" id="455073911">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">upButtonIcon.png</string>
+						</object>
+						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">upButtonIcon copy.png</string>
 						</object>
 						<object class="IBUIFontDescription" key="IBUIFontDescription" id="48921350">
 							<string key="name">Helvetica-Bold</string>
@@ -228,7 +232,7 @@
 										<reference key="IBUIHighlightedTitleColor" ref="488333354"/>
 										<reference key="IBUINormalTitleColor" ref="488333354"/>
 										<reference key="IBUINormalTitleShadowColor" ref="363030074"/>
-										<reference key="IBUINormalBackgroundImage" ref="719765548"/>
+										<reference key="IBUINormalBackgroundImage" ref="455073911"/>
 										<object class="IBUIFontDescription" key="IBUIFontDescription">
 											<int key="type">2</int>
 											<double key="pointSize">15</double>
@@ -677,11 +681,13 @@
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>downButtonIcon.png</string>
+				<string>upButtonIcon copy.png</string>
 				<string>upButtonIcon.png</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>{640, 104}</string>
+				<string>{16, 16}</string>
 				<string>{640, 104}</string>
 			</object>
 		</object>

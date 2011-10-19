@@ -160,32 +160,42 @@ static sqlite3 *feedDB;
         sql=(char*) [@"INSERT INTO feeds (PID,title,link,date,updated,summary,content,iconLink,author,enclosures,feedID) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)" UTF8String];
         ret = sqlite3_prepare (feedDB, sql, strlen (sql), &outStmt, NULL);
         
-        sqlite3_reset (outStmt);
-        sqlite3_clear_bindings (outStmt);
         
-        sqlite3_bind_text(outStmt, 1, [feed.title UTF8String], strlen([feed.title UTF8String]), NULL);
-        sqlite3_bind_text(outStmt, 2, [feed.link UTF8String], strlen([feed.link UTF8String]), NULL);
-        sqlite3_bind_text(outStmt, 3, [[feed dateString] UTF8String], strlen([[feed dateString] UTF8String]), NULL);
-        sqlite3_bind_text(outStmt, 4, [[feed updatedString] UTF8String], strlen([[feed updatedString] UTF8String]), NULL);
-        sqlite3_bind_text(outStmt, 5, [feed.summary UTF8String], strlen([feed.summary UTF8String]), NULL);
-        sqlite3_bind_text(outStmt, 6, [feed.content UTF8String], strlen([feed.content UTF8String]), NULL);
-        sqlite3_bind_text(outStmt, 7, [feed.iconLink UTF8String], strlen([feed.iconLink UTF8String]), NULL);
-        sqlite3_bind_text(outStmt, 8, [feed.author UTF8String], strlen([feed.author UTF8String]), NULL);
-        sqlite3_bind_text(outStmt, 9, [[feed enclosureString] UTF8String], strlen([[feed enclosureString] UTF8String]), NULL);
-        sqlite3_bind_int(outStmt, 10, feedID);
-        
-        
-        int ret = sqlite3_step (outStmt);
-        if (ret == SQLITE_DONE || ret == SQLITE_ROW){
-            //NSLog(@"Feed added");
+        if (ret==SQLITE_OK) {
+            sqlite3_reset (outStmt);
+            sqlite3_clear_bindings (outStmt);
+            
+            sqlite3_bind_text(outStmt, 1, [feed.title UTF8String], strlen([feed.title UTF8String]), NULL);
+            sqlite3_bind_text(outStmt, 2, [feed.link UTF8String], strlen([feed.link UTF8String]), NULL);
+            sqlite3_bind_text(outStmt, 3, [[feed dateString] UTF8String], strlen([[feed dateString] UTF8String]), NULL);
+            sqlite3_bind_text(outStmt, 4, [[feed updatedString] UTF8String], strlen([[feed updatedString] UTF8String]), NULL);
+            sqlite3_bind_text(outStmt, 5, [feed.summary UTF8String], strlen([feed.summary UTF8String]), NULL);
+            sqlite3_bind_text(outStmt, 6, [feed.content UTF8String], strlen([feed.content UTF8String]), NULL);
+            sqlite3_bind_text(outStmt, 7, [feed.iconLink UTF8String], strlen([feed.iconLink UTF8String]), NULL);
+            sqlite3_bind_text(outStmt, 8, [feed.author UTF8String], strlen([feed.author UTF8String]), NULL);
+            sqlite3_bind_text(outStmt, 9, [[feed enclosureString] UTF8String], strlen([[feed enclosureString] UTF8String]), NULL);
+            sqlite3_bind_int(outStmt, 10, feedID);
+            
+            
+            int ret = sqlite3_step (outStmt);
+            if (ret == SQLITE_DONE || ret == SQLITE_ROW){
+                //NSLog(@"Feed added");
+            }
+            sqlite3_finalize(outStmt);
         }
-        sqlite3_finalize(outStmt);
+        
     }
 	
-    
-    
-    
-    
+}
+
++(void) modifyCategoryNameFrom:(NSString*) oldName toName:(NSString*) newName{
+    NSString *deleteFeedQuery=[NSString stringWithFormat:@"UPDATE feedCategories SET categoryName='%@' WHERE categoryName='%@'",newName,oldName];
+    int ret = sqlite3_exec(feedDB, [deleteFeedQuery UTF8String],NULL,NULL, NULL);
+    if (ret==SQLITE_OK) {
+        NSLog(@"Category modified");
+    }else{
+        NSLog(@"Error:%s",sqlite3_errmsg(feedDB));
+    }
 }
 
 @end

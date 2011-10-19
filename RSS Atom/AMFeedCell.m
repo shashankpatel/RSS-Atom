@@ -25,19 +25,57 @@
     return nil;
 }
 
+-(void) shrink{
+    shrunk=YES;
+    [self setFrames];
+}
+
+-(void) expand{
+    shrunk=NO;
+    [self setFrames];
+}
+
+-(void) setFrames{
+    if (shrunk) {
+        titleLabel.frame=titleFrameShrunk;
+        titleLabel.numberOfLines=3;
+        descriptionLabel.frame=descriptionFrameRet;
+        descriptionLabel.hidden=YES;
+        if (feedImage.image) {
+            feedImage.frame=feedImageFrame;
+        }else{
+            feedImage.frame=feedImageFrameRet;
+        }
+    }else{
+        titleLabel.frame=titleFrame;
+        titleLabel.numberOfLines=1;
+        descriptionLabel.hidden=NO;
+        if (feedImage.image) {
+            descriptionLabel.frame=descriptionFrameRet;
+        }else{
+            descriptionLabel.frame=descriptionFrame;
+        }
+        feedImage.frame=feedImageFrame;
+    }
+}
+
 -(void) loadFeedCell{
     titleFrame=titleLabel.frame;
     descriptionFrameRet=descriptionLabel.frame;
     feedImageFrame=feedImage.frame;
     
+    titleFrameShrunk=CGRectMake(0,5,70,80);
+    descriptionFrameShrunk=descriptionLabel.frame;
+    
     descriptionFrame=CGRectMake(0, 30, 280, 50);
     feedImageFrameRet=CGRectMake(0,10, 0, 70);
+    
     [feedImage initAMImageView];
 }
 
 -(void) loadImageFromURLString:(NSString*) urlString{
     feedImage.frame=feedImageFrameRet;
-    descriptionLabel.frame=descriptionFrame;
+    descriptionLabel.frame=shrunk?descriptionFrameRet:descriptionFrame;
     if (urlString) {
         [feedImage setImageWithContentsOfURLString:urlString];
     }
@@ -49,17 +87,16 @@
     [UIView beginAnimations:@"Image Load Animation" context:nil];
     [UIView setAnimationDuration:0.2];
     [UIView setAnimationCurve:UIViewAnimationCurveLinear];
-    feedImage.frame=feedImageFrame;
-    descriptionLabel.frame=descriptionFrameRet;
+    [self setFrames];
     [UIView commitAnimations];
 }
 
 -(void) imageSuccessfullyLoadedLocally{
-    feedImage.frame=feedImageFrame;
-    descriptionLabel.frame=descriptionFrameRet;
+    [self setFrames];
 }
 
 -(void) imageFailedToLoad{
+    [self setFrames];
     NSLog(@"Image failed to load at: %@",feedImage.urlString);
 }
 

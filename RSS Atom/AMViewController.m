@@ -11,6 +11,8 @@
 @implementation AMViewController
 
 @synthesize zoomController;
+@synthesize viewMode;
+@synthesize titleBarView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,6 +29,12 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+}
+
+-(void) shrink{
+}
+
+-(void) expand{
 }
 
 -(void) dealloc{
