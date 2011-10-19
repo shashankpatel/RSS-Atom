@@ -31,6 +31,7 @@
     downButton.titleLabel.font=[General regularLabelFont];
     bottomFrame=CGRectMake(0, 416, 320, 328);
     topFrame=CGRectMake(0, 44, 320, 328);
+    manageButton.hidden=YES;
     tableIndex=NSNotFound;
     [self makeViewTranparent:table];
     [super viewDidLoad];

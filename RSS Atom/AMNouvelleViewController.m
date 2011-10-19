@@ -13,6 +13,7 @@
 #import "AMFeedSelectorViewController.h"
 #import "AMFeedListViewController.h"
 #import "AMFeedViewController.h"
+#import "AMWebViewController.h"
 
 @implementation AMNouvelleViewController
 
@@ -40,6 +41,10 @@
     AMFeedViewController *fvc=[[AMFeedViewController alloc] initWithNibName:@"AMFeedViewController" bundle:nil];
     hvc.feedViewController=fvc;
     [controllers addObject:fvc];
+    [fvc release];
+    
+    AMWebViewController *wvc=[[AMWebViewController alloc] initWithNibName:@"AMWebViewController" bundle:nil];
+    [controllers addObject:wvc];
     [fvc release];
     
     

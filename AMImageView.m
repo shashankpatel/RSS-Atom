@@ -82,11 +82,16 @@
     float width,height;
     width=image.size.width;
     height=image.size.height;
+    
     if (width<130 && height<130) {
-        if (shouldLoadSmallImage) {
-            return  image;
+        if ((width<30 || height<30)) {
+            if (shouldLoadSmallImage) {
+                return image;
+            }else{
+                return nil;
+            }
         }
-        return nil;
+        return  image;
     }
     
     float ratio=130.0/MAX(width, height);

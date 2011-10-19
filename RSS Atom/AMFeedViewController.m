@@ -7,6 +7,7 @@
 //
 
 #import "AMFeedViewController.h"
+#import "AMWebViewController.h"
 
 @implementation AMFeedViewController
 
@@ -71,7 +72,7 @@ static NSString *htmlWrapper;
 
 -(void) loadDescription{
     NSAutoreleasePool *pool=[[NSAutoreleasePool alloc] init];
-    NSString *htmlDescription=[NSString stringWithFormat:htmlWrapper,feed.title,feed.date,feed.author,feed.summary];
+    NSString *htmlDescription=[NSString stringWithFormat:htmlWrapper,feed.link,feed.title,feed.date,feed.author,feed.summary];
     [webView loadHTMLString:htmlDescription baseURL:nil];
     [pool release];
 }
@@ -91,7 +92,15 @@ static NSString *htmlWrapper;
 #pragma UIWebViewDelegate methods
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
-    return YES;
+    if ([request.URL.path length]==0) {
+        return YES;
+    }
+    
+    AMWebViewController *wvc=(AMWebViewController*)[self.zoomController.viewControllers objectAtIndex:4];
+    [wvc openURLString:request];
+    [self.zoomController pushToIndex:4];
+    
+    return NO;
 }
 
 @end

@@ -32,7 +32,7 @@
     BOOL editMode;
     IBOutlet UIButton *addCat,*removeCat;
     int tableIndex,tableTransition;
-    IBOutlet UIButton *upButton,*downButton,*removeButton;
+    IBOutlet UIButton *upButton,*downButton,*removeButton,*manageButton;
     CGRect bottomFrame,topFrame;
 }
 
