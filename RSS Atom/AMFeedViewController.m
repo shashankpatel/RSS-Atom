@@ -9,6 +9,7 @@
 #import "AMFeedViewController.h"
 #import "AMWebViewController.h"
 #import "AMFeedListViewController.h"
+#import "NouvelleAppDelegate.h"
 
 @implementation AMFeedViewController
 
@@ -80,7 +81,7 @@ static NSString *htmlWrapper;
 -(void) loadDescription{
     NSAutoreleasePool *pool=[[NSAutoreleasePool alloc] init];
     NSString *htmlDescription=[NSString stringWithFormat:htmlWrapper,feed.link,feed.title,feed.date,feed.author,[feed htmlStory]];
-    [webView loadHTMLString:htmlDescription baseURL:nil];
+    [webView loadHTMLString:htmlDescription baseURL:[NSURL URLWithString:@"www.appmaggot.com\test"]];
     [pool release];
 }
 
@@ -103,6 +104,7 @@ static NSString *htmlWrapper;
 #pragma UIWebViewDelegate methods
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
+    NSLog(@"Domain:%@",[request.URL description]);
     if ([request.URL.path length]==0) {
         return YES;
     }
@@ -112,6 +114,11 @@ static NSString *htmlWrapper;
     [self.zoomController pushToIndex:4];
     
     return NO;
+}
+
+-(IBAction)facebookClicked{
+    NouvelleAppDelegate *appDelegate=(NouvelleAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate publishContent:feed];
 }
 
 @end

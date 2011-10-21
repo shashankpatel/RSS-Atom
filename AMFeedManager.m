@@ -135,6 +135,9 @@ static sqlite3 *feedDB;
             if([enclosureString length]>0){
                 feedItem.enclosures=[enclosureString JSONValue];
             }
+            
+            feedItem.feedID=feedID;
+            
             [feeds addObject:feedItem];
             [feedItem release];
 		}
@@ -196,6 +199,22 @@ static sqlite3 *feedDB;
     }else{
         NSLog(@"Error:%s",sqlite3_errmsg(feedDB));
     }
+}
+
++(NSString*) titleForFeedID:(int) feedID{
+    NSString *titleQuery=[NSString stringWithFormat:@"SELECT title FROM feedURLs WHERE feedID=%d",feedID];
+	sqlite3_stmt *stmt;
+	int ret = sqlite3_prepare_v2 (feedDB, [titleQuery UTF8String], [titleQuery length], &stmt, NULL);
+    NSString *feedTitle;
+    if (ret == SQLITE_OK)
+	{
+		if (sqlite3_step(stmt) == SQLITE_ROW){
+			feedTitle=[NSString stringWithUTF8String:(char*)sqlite3_column_text(stmt, 0)];
+		}
+	}else {
+		NSLog(@"%s",sqlite3_errmsg(feedDB));
+	}
+    return feedTitle;
 }
 
 @end

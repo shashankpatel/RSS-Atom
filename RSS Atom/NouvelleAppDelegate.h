@@ -7,13 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FBConnect.h"
+#import "MWFeedItem.h"
 
 @class AMNouvelleViewController;
 
-@interface NouvelleAppDelegate : NSObject <UIApplicationDelegate>
+@interface NouvelleAppDelegate : NSObject <UIApplicationDelegate,FBRequestDelegate,FBDialogDelegate,FBSessionDelegate>
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 
 @property (nonatomic, retain) IBOutlet AMNouvelleViewController *viewController;
+
+-(void) loadFaceBook;
+-(void)loginToFacebook;
+-(void)logoutFromfacebook;
+-(void) publishContent:(MWFeedItem*) feed;
 
 @end

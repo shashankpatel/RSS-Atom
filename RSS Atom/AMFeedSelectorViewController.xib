@@ -163,13 +163,9 @@
 						<reference key="IBUIHighlightedTitleColor" ref="488333354"/>
 						<reference key="IBUINormalTitleColor" ref="488333354"/>
 						<reference key="IBUINormalTitleShadowColor" ref="363030074"/>
-						<object class="NSCustomResource" key="IBUINormalImage" id="455073911">
+						<object class="NSCustomResource" key="IBUINormalBackgroundImage" id="900296512">
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">upButtonIcon.png</string>
-						</object>
-						<object class="NSCustomResource" key="IBUINormalBackgroundImage">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">upButtonIcon copy.png</string>
 						</object>
 						<object class="IBUIFontDescription" key="IBUIFontDescription" id="48921350">
 							<string key="name">Helvetica-Bold</string>
@@ -232,7 +228,7 @@
 										<reference key="IBUIHighlightedTitleColor" ref="488333354"/>
 										<reference key="IBUINormalTitleColor" ref="488333354"/>
 										<reference key="IBUINormalTitleShadowColor" ref="363030074"/>
-										<reference key="IBUINormalBackgroundImage" ref="455073911"/>
+										<reference key="IBUINormalBackgroundImage" ref="900296512"/>
 										<object class="IBUIFontDescription" key="IBUIFontDescription">
 											<int key="type">2</int>
 											<double key="pointSize">15</double>
@@ -661,6 +657,17 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">AMViewController</string>
 					<string key="superclassName">UIViewController</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">titleBarView</string>
+						<string key="NS.object.0">UIView</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">titleBarView</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">titleBarView</string>
+							<string key="candidateClassName">UIView</string>
+						</object>
+					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/AMViewController.h</string>
@@ -681,13 +688,11 @@
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>downButtonIcon.png</string>
-				<string>upButtonIcon copy.png</string>
 				<string>upButtonIcon.png</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>{640, 104}</string>
-				<string>{16, 16}</string>
 				<string>{640, 104}</string>
 			</object>
 		</object>

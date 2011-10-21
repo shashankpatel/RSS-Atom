@@ -12,13 +12,36 @@
 #import "AMSerializer.h"
 #import "AMFeedManager.h"
 
+
 @implementation NouvelleAppDelegate
 
 @synthesize window = _window;
 @synthesize viewController = _viewController;
 
+static Facebook* facebook;
+static NSString* kAppId = @"274510792589386";
+static NSArray *permissions;
+static MWFeedItem *feedToPublish;
+static BOOL publishScheduled;
+
+-(void) loadFaceBook{
+    publishScheduled=NO;
+    permissions =  [[NSArray arrayWithObjects:
+                     @"read_stream", @"publish_stream", @"read_friendlists",nil] retain];
+    facebook=[[Facebook alloc] initWithAppId:kAppId
+                                 andDelegate:self];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults objectForKey:@"FBAccessTokenKey"] 
+        && [defaults objectForKey:@"FBExpirationDateKey"]) {
+        facebook.accessToken = [defaults objectForKey:@"FBAccessTokenKey"];
+        facebook.expirationDate = [defaults objectForKey:@"FBExpirationDateKey"];
+    }
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [self loadFaceBook];
     [General loadFonts];
     [AMSerializer loadSerializer];
     [AMFeedManager loadFeedManager];
@@ -67,11 +90,152 @@
      */
 }
 
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    return [facebook handleOpenURL:url];
+}
+
 - (void)dealloc
 {
     [_window release];
     [_viewController release];
     [super dealloc];
+}
+
+#pragma mark - Facebook Methods
+
+- (void)loginToFacebook {
+    [facebook authorize:permissions];
+}
+
+-(void) publishContent:(MWFeedItem*) feed{
+    if (!facebook.isSessionValid) {
+        feedToPublish=[feed retain];
+        publishScheduled=YES;
+        [facebook authorize:permissions];
+    }
+    
+    SBJSON *jsonWriter = [[SBJSON new] autorelease];
+    
+    NSArray* actionLinks = [NSArray arrayWithObjects:[NSDictionary 
+                                                           dictionaryWithObjectsAndKeys: @"Always Running",@"text",@"http://itsti.me/",
+                                                           @"href", nil], nil];
+    NSString *actionLinksStr = [jsonWriter stringWithObject:[actionLinks objectAtIndex:0]];
+    
+    NSString *caption=[AMFeedManager titleForFeedID:feed.feedID];
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setObject:feed.title forKey:@"name"];
+    if ([caption length]>0) {
+        [params setObject:caption forKey:@"caption"];
+    }
+    
+    NSString *description=[feed plainStory];
+    if ([description length]>120) {
+        description=[description substringToIndex:119];
+        description=[description stringByAppendingString:@"... Read on Nouvelle"];
+    }
+    if ([description length]<5) {
+        description=@"Read on Nouvelle";
+    }
+    [params setObject:description forKey:@"description"];
+    
+    static NSString *websiteLink=@"http://www.appmaggot.com/nouvelle";
+    
+    [params setObject:feed.link forKey:@"link"];
+    if (feed.iconLink) {
+        [params setObject:feed.iconLink forKey:@"picture"];
+    }
+    
+    //[params setObject:@"Test" forKey:@"message"];
+    [params setObject:actionLinksStr forKey:@"action_links"];
+    
+    [facebook requestWithGraphPath:@"me/feed"   // or use page ID instead of 'me'
+                   andParams:params
+               andHttpMethod:@"POST"
+                 andDelegate:self];
+}
+
+/**
+ * Invalidate the access token and clear the cookie.
+ */
+- (void)logoutFromfacebook {
+    [facebook logout:self];
+}
+
+- (void)fbDidLogin {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:[facebook accessToken] forKey:@"FBAccessTokenKey"];
+    [defaults setObject:[facebook expirationDate] forKey:@"FBExpirationDateKey"];
+    [defaults synchronize];
+    
+    if (publishScheduled) {
+        [self publishContent:feedToPublish];
+    }
+    
+    NSLog(@"Logged in");
+}
+
+/**
+ * Called when the user canceled the authorization dialog.
+ */
+-(void)fbDidNotLogin:(BOOL)cancelled {
+    NSLog(@"did not login");
+}
+
+/**
+ * Called when the request logout has succeeded.
+ */
+- (void)fbDidLogout {
+    NSLog(@"Logged out successfully");
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+// FBRequestDelegate
+
+/**
+ * Called when the Facebook API request has returned a response. This callback
+ * gives you access to the raw response. It's called before
+ * (void)request:(FBRequest *)request didLoad:(id)result,
+ * which is passed the parsed response object.
+ */
+- (void)request:(FBRequest *)request didReceiveResponse:(NSURLResponse *)response {
+    NSLog(@"Facebook:received response");
+}
+
+/**
+ * Called when a request returns and its response has been parsed into
+ * an object. The resulting object may be a dictionary, an array, a string,
+ * or a number, depending on the format of the API response. If you need access
+ * to the raw response, use:
+ *
+ * (void)request:(FBRequest *)request
+ *      didReceiveResponse:(NSURLResponse *)response
+ */
+- (void)request:(FBRequest *)request didLoad:(id)result {
+    NSLog(@"Facebook:%@,%@",[[result class] description], [result description]);
+    if ([result isKindOfClass:[NSArray class]]) {
+        result = [result objectAtIndex:0];
+    }
+};
+
+/**
+ * Called when an error prevents the Facebook API request from completing
+ * successfully.
+ */
+- (void)request:(FBRequest *)request didFailWithError:(NSError *)error {
+    NSLog(@"Request failed with error:%@",[error description]);
+};
+
+
+////////////////////////////////////////////////////////////////////////////////
+// FBDialogDelegate
+
+/**
+ * Called when a UIServer Dialog successfully return.
+ */
+-(void)dialogDidComplete:(FBDialog *)dialog {
+    NSLog(@"published successfully");
 }
 
 @end
