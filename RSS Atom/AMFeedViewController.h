@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "AMViewController.h"
 #import "MWFeedItem.h"
+#import "AMImageView.h"
 
 @protocol FeedViewDelegate <NSObject>
 
@@ -20,6 +21,11 @@
     NSObject<FeedViewDelegate> *delegate;
     IBOutlet UIWebView *webView;
     MWFeedItem *feed;
+    IBOutlet UIView *fbStatusView;
+    IBOutlet UITextField *tfMessage;
+    IBOutlet UILabel *lblTitle,*lblCaption,*lblDescription;
+    IBOutlet AMImageView *imageView;
+    BOOL pageLoaded;
 }
 
 @property(nonatomic,retain) NSObject<FeedViewDelegate> *delegate;
@@ -30,5 +36,7 @@
 -(IBAction) btnListPressed:(id)sender;
 -(void) loadDescription;
 -(IBAction)facebookClicked;
+-(IBAction)postTapped:(id)sender;
+-(IBAction) cancelTapped:(id)sender;
 
 @end

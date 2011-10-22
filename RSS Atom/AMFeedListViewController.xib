@@ -53,7 +53,6 @@
 								<string key="NSFrameSize">{320, 460}</string>
 								<reference key="NSSuperview" ref="104723513"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:225</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -334,6 +333,15 @@
 					<int key="connectionID">9</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">wrenchPressed:</string>
+						<reference key="source" ref="643901429"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">25</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">dataSource</string>
 						<reference key="source" ref="193647876"/>
@@ -511,7 +519,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">24</int>
+			<int key="maxID">25</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -525,9 +533,11 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>backgroundButtonPressed:</string>
 							<string>feedSelectorPressed:</string>
+							<string>wrenchPressed:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 						</object>
@@ -538,6 +548,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>backgroundButtonPressed:</string>
 							<string>feedSelectorPressed:</string>
+							<string>wrenchPressed:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -547,6 +558,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">feedSelectorPressed:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">wrenchPressed:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 						</object>

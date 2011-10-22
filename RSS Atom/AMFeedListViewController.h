@@ -61,5 +61,6 @@
 -(IBAction) backgroundButtonPressed:(id)sender;
 
 -(void) makeViewTranparent:(UIView *) view;
+-(IBAction) wrenchPressed:(id)sender;
 
 @end

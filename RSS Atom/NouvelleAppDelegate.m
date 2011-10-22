@@ -117,8 +117,8 @@ static BOOL publishScheduled;
     SBJSON *jsonWriter = [[SBJSON new] autorelease];
     
     NSArray* actionLinks = [NSArray arrayWithObjects:[NSDictionary 
-                                                           dictionaryWithObjectsAndKeys: @"Always Running",@"text",@"http://itsti.me/",
-                                                           @"href", nil], nil];
+                                                           dictionaryWithObjectsAndKeys: @"I want Nouvelle for iOS",@"name",@"http://appmaggot.com/nouvelle",
+                                                           @"link", nil], nil];
     NSString *actionLinksStr = [jsonWriter stringWithObject:[actionLinks objectAtIndex:0]];
     
     NSString *caption=[AMFeedManager titleForFeedID:feed.feedID];
@@ -142,12 +142,12 @@ static BOOL publishScheduled;
     static NSString *websiteLink=@"http://www.appmaggot.com/nouvelle";
     
     [params setObject:feed.link forKey:@"link"];
-    if (feed.iconLink) {
+    if ([feed.iconLink length]>0) {
         [params setObject:feed.iconLink forKey:@"picture"];
     }
     
     //[params setObject:@"Test" forKey:@"message"];
-    [params setObject:actionLinksStr forKey:@"action_links"];
+    [params setObject:actionLinksStr forKey:@"actions"];
     
     [facebook requestWithGraphPath:@"me/feed"   // or use page ID instead of 'me'
                    andParams:params
@@ -224,6 +224,9 @@ static BOOL publishScheduled;
  * successfully.
  */
 - (void)request:(FBRequest *)request didFailWithError:(NSError *)error {
+    UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Error" message:@"Cannot post to Facebook. Please try again later or relogin" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    [alert show];
+    [alert release];
     NSLog(@"Request failed with error:%@",[error description]);
 };
 

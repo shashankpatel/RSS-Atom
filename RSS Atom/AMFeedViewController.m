@@ -10,6 +10,9 @@
 #import "AMWebViewController.h"
 #import "AMFeedListViewController.h"
 #import "NouvelleAppDelegate.h"
+#import <QuartzCore/QuartzCore.h>
+#import "AMFeedManager.h"
+#import "NSString+HTML.h"
 
 @implementation AMFeedViewController
 
@@ -34,6 +37,8 @@ static NSString *htmlWrapper;
 
 - (void)viewDidLoad
 {
+    fbStatusView.center=CGPointMake(160, -75);
+    fbStatusView.alpha=0;
     UITapGestureRecognizer *singleFingerDTap = [[UITapGestureRecognizer alloc]
                                                 initWithTarget:self action:@selector(doubleTapReceived:)];
     singleFingerDTap.delegate=self;
@@ -75,6 +80,9 @@ static NSString *htmlWrapper;
 }
 
 -(void) viewWillAppear:(BOOL)animated{
+    [tfMessage resignFirstResponder];
+    pageLoaded=NO;
+    webView.userInteractionEnabled=YES;
     [super viewWillAppear:animated];
 }
 
@@ -87,6 +95,9 @@ static NSString *htmlWrapper;
 
 -(void) doubleTapReceived:(id) sender{
     NSLog(@"Double tap");
+    if (fbStatusView.alpha==1.0) {
+        return;
+    }
     [self.zoomController popToIndex:2 shrink:YES];
 }
 
@@ -109,6 +120,10 @@ static NSString *htmlWrapper;
         return YES;
     }
     
+    if (!pageLoaded) {
+        return YES;
+    }
+    
     AMWebViewController *wvc=(AMWebViewController*)[self.zoomController.viewControllers objectAtIndex:4];
     [wvc openURLString:request];
     [self.zoomController pushToIndex:4];
@@ -116,9 +131,61 @@ static NSString *htmlWrapper;
     return NO;
 }
 
+- (void)webViewDidFinishLoad:(UIWebView *)webView{
+    pageLoaded=YES;
+}
+
 -(IBAction)facebookClicked{
+    
+    NSString *caption=[[AMFeedManager titleForFeedID:feed.feedID] stringByConvertingHTMLToPlainText];
+    
+    lblTitle.text=feed.title;
+    lblCaption.text=caption;
+    NSString *description=[feed plainStory];
+    if ([description length]>120) {
+        description=[description substringToIndex:119];
+        description=[description stringByAppendingString:@"... Read on Nouvelle"];
+    }
+    if ([description length]<5) {
+        description=@"Read on Nouvelle";
+    }
+    
+    lblDescription.text=description;
+    if (feed.iconLink) {
+        [imageView setImageWithContentsOfURLString:feed.iconLink];
+    }
+    
+    [UIView beginAnimations:@"Show facebook view" context:nil];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+    [UIView setAnimationDuration:0.2];
+    fbStatusView.center=CGPointMake(160, 75);
+    fbStatusView.alpha=1;
+    [UIView commitAnimations];
+    webView.userInteractionEnabled=NO;
+}
+
+-(IBAction)postTapped:(id)sender{
+    [tfMessage resignFirstResponder];
     NouvelleAppDelegate *appDelegate=(NouvelleAppDelegate*)[[UIApplication sharedApplication] delegate];
     [appDelegate publishContent:feed];
+    [UIView beginAnimations:@"Hide facebook view" context:nil];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+    [UIView setAnimationDuration:0.2];
+    fbStatusView.center=CGPointMake(160, -75);
+    fbStatusView.alpha=0;
+    [UIView commitAnimations];
+    webView.userInteractionEnabled=YES;
+}
+
+-(IBAction) cancelTapped:(id)sender{
+    [tfMessage resignFirstResponder];
+    [UIView beginAnimations:@"Hide facebook view" context:nil];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+    [UIView setAnimationDuration:0.2];
+    fbStatusView.center=CGPointMake(160, -75);
+    fbStatusView.alpha=0;
+    [UIView commitAnimations];
+    webView.userInteractionEnabled=YES;
 }
 
 @end

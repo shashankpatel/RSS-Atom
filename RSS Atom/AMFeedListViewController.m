@@ -13,6 +13,7 @@
 #import "ElementParser.h"
 #import "AMFeedCell.h"
 #import <QuartzCore/QuartzCore.h>
+#import "NouvelleAppDelegate.h"
 
 @implementation AMFeedListViewController
 
@@ -403,6 +404,11 @@ static BOOL skip=YES;
     [feedParser reset];
     [feedParser parse];
     //[self performSelector:@selector(stopLoading) withObject:nil afterDelay:2.0];
+}
+
+-(IBAction) wrenchPressed:(id)sender{
+    NouvelleAppDelegate *appDelegate=(NouvelleAppDelegate*) [[UIApplication sharedApplication] delegate];
+    [appDelegate logoutFromfacebook];
 }
 
 @end
