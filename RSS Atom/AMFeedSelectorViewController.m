@@ -13,6 +13,7 @@
 #import "AMFeedManager.h"
 #import "NSString+HTML.h"
 #import "AMFeedSearchViewController.h"
+#import "AMCatTile.h"
 
 @implementation AMFeedSelectorViewController
 
@@ -25,6 +26,9 @@
 
 - (void)viewDidLoad
 {
+    catOverlay.alpha=0;
+    addFeedCatView.center=CGPointMake(160, -69);
+    addFeedCatView.alpha=0;
     headerViews=[[NSMutableDictionary alloc] init];
     self.tableIndex=0;
     upButton.titleLabel.font=[General regularLabelFont];
@@ -87,8 +91,149 @@
     self.allCategories=[[AMFeedManager allFeedCategories] allValues];
     if(self.tableIndex==NSNotFound) self.tableIndex=0;
     [self setButtonTexts];
+    [self regenerateGrid];
     [table reloadData];
     [super viewWillAppear:animated];
+}
+
+-(void) regenerateGrid{
+    if (!gridTiles)gridTiles=[[NSMutableArray alloc] init];
+    [gridTiles removeAllObjects];
+    
+    for (UIView * subView in [catOverlay subviews]) {
+        [subView removeFromSuperview];
+    }
+    
+    for (NSString *category in allCategories) {
+        AMCatTile *catTile=[AMCatTile catTile];
+        catTile.index=[allCategories indexOfObject:category];
+        [catTile.button setTitle:category forState:UIControlStateNormal];
+        [gridTiles addObject:catTile];
+        [catOverlay addSubview:catTile];
+        [catTile.button addTarget:self action:@selector(tilePressed:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    
+    int totalRows=[gridTiles count] / 3;
+    
+    for (int i=0; i<[gridTiles count]; i++) {
+        int row=i / 3;
+        int column=i % 3;
+        AMCatTile *tile=[gridTiles objectAtIndex:i];
+    
+        tile.frame=CGRectMake(10+column*100, 10+row*100, 100, 100);
+        if (i!=tableIndex) {
+            int transX,transY;
+            
+            transX=(tile.center.x-160)*10;
+            transY=-(tile.center.y-(50.0*totalRows))*10;
+            
+            tile.transform=CGAffineTransformMakeTranslation(transX, transY);
+        }
+        tile.alpha=0;
+    }
+}
+
+-(void) tilePressed:(UIButton*) sender{
+    AMCatTile *tile=(AMCatTile*) [sender superview];
+    if (tableIndex!=tile.index) {
+        self.tableIndex=tile.index;
+        [self processTableChange];
+    }
+    
+    tile.transform=CGAffineTransformMakeScale(1, 1);
+    [UIView beginAnimations:@"" context:nil];
+    [UIView setAnimationDuration:0.4];
+    catOverlay.alpha=0.0;
+    int totalRows=[gridTiles count] / 3;
+    for (int i=0; i<[gridTiles count]; i++) {
+        int row=i / 3;
+        int column=i % 3;
+        AMCatTile *tile=[gridTiles objectAtIndex:i];
+        
+        tile.frame=CGRectMake(10+column*100, 10+row*100, 100, 100);
+        if (i!=tableIndex) {
+            int transX,transY;
+            
+            transX=(tile.center.x-160)*10;
+            transY=-(tile.center.y-(50.0*totalRows))*10;
+            
+            tile.transform=CGAffineTransformMakeTranslation(transX, transY);
+        }
+        tile.alpha=0;
+    }
+    table.alpha=1;
+    upButton.alpha=1;
+    downButton.alpha=1;
+    [UIView commitAnimations];
+}
+
+-(IBAction) gridPressed:(id)sender{
+    AMCatTile *tile=[gridTiles objectAtIndex:tableIndex];
+    tile.transform=CGAffineTransformMakeScale(1, 1);
+    [UIView beginAnimations:@"" context:nil];
+    [UIView setAnimationDuration:0.4];
+    catOverlay.alpha=1.0;
+    for (int i=0; i<[gridTiles count]; i++) {
+        AMCatTile *tile=[gridTiles objectAtIndex:i];
+        if (i!=tableIndex) {
+            tile.transform=CGAffineTransformMakeTranslation(0,0);
+            //tile.transform=CGAffineTransformMakeScale(1, 1);
+        }
+        tile.alpha=1;
+    }
+    table.alpha=0.6;
+    upButton.alpha=0;
+    downButton.alpha=0;
+    [UIView commitAnimations];
+}
+
+-(void) addFeedCatPressed{
+    [UIView beginAnimations:@"Show addCatView" context:nil];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+    [UIView setAnimationDuration:0.3];
+    addFeedCatView.center=CGPointMake(160, 69);
+    addFeedCatView.alpha=1;
+    table.userInteractionEnabled=NO;
+    table.alpha=0.5;
+    upButton.enabled=NO;
+    downButton.enabled=NO;
+    [UIView commitAnimations];
+    [tfFeedCat becomeFirstResponder];
+    
+}
+
+-(IBAction) cancelAddFeedCatPressed{
+    [UIView beginAnimations:@"Show addCatView" context:nil];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+    [UIView setAnimationDuration:0.3];
+    addFeedCatView.center=CGPointMake(160, -69);
+    addFeedCatView.alpha=0;
+    table.userInteractionEnabled=YES;
+    table.alpha=1;
+    upButton.enabled=YES;
+    downButton.enabled=YES;
+    [UIView commitAnimations];
+    [tfFeedCat resignFirstResponder];
+}
+
+-(IBAction) okAddFeedCatPressed{
+    if ([tfFeedCat.text length]==0) {
+        return;
+    }
+    [AMFeedManager addFeedCat:tfFeedCat.text];
+    [UIView beginAnimations:@"Show addCatView" context:nil];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+    [UIView setAnimationDuration:0.3];
+    addFeedCatView.center=CGPointMake(160, -69);
+    addFeedCatView.alpha=0;
+    table.userInteractionEnabled=YES;
+    table.alpha=1;
+    upButton.enabled=YES;
+    downButton.enabled=YES;
+    [UIView commitAnimations];
+    [tfFeedCat resignFirstResponder];
+    tfFeedCat.text=nil;
+    [self viewWillAppear:YES];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -287,6 +432,9 @@ UITapGestureRecognizer *singleDTap;
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+    if (textField==tfFeedCat) {
+        return YES;
+    }
     if(textField.tag==1000){
         return YES;
     }
@@ -315,6 +463,7 @@ UITapGestureRecognizer *singleDTap;
 
 -(IBAction) upPressed{
     if (tableIndex==0) {
+        [self addFeedCatPressed];
         return;
     }
     self.tableIndex--;
@@ -323,6 +472,7 @@ UITapGestureRecognizer *singleDTap;
 
 -(IBAction) downPressed{
     if (tableIndex==[allCategories count]-1) {
+        [self addFeedCatPressed];
         return;
     }
     self.tableIndex++;

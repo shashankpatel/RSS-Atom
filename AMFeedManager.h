@@ -15,6 +15,7 @@
 
 + (void)loadFeedManager;
 +(void) addFeedInfo:(AMFeedInfo*) feedInfo;
++(void) addFeedCat:(NSString*) feedCat;
 +(void) removeFeedInfo:(AMFeedInfo*) feedInfo;
 +(NSMutableDictionary*) allFeedCategories;
 +(NSMutableDictionary*) allFeedInfos;

@@ -34,12 +34,19 @@
     int tableIndex,tableTransition;
     IBOutlet UIButton *upButton,*downButton,*removeButton,*manageButton;
     CGRect bottomFrame,topFrame;
+    IBOutlet UIView *addFeedCatView;
+    IBOutlet UITextField *tfFeedCat;
+    NSMutableArray *gridTiles;
+    IBOutlet UIView *catOverlay;
 }
 
 @property(nonatomic,retain) NSObject<FeedSelectorDelegate> *delegate;
 @property(nonatomic,retain) NSMutableDictionary *feedInfos;
 @property(nonatomic,retain) NSArray *allCategories;
 @property int tableIndex;
+
+-(IBAction) cancelAddFeedCatPressed;
+-(IBAction) okAddFeedCatPressed;
 
 -(IBAction) addFeedPressed:(id)sender;
 -(IBAction) removeFeedPressed:(id)sender;
@@ -52,5 +59,8 @@
 -(IBAction) downPressed;
 -(void) processTableChange;
 -(void) setButtonTexts;
+-(void) addFeedCatPressed;
+-(void) regenerateGrid;
+-(IBAction) gridPressed:(id)sender;
 
 @end

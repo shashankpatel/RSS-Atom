@@ -53,6 +53,8 @@
 		98B1F7A3142F098A003A4B0D /* AMFeedSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98B1F7A1142F098A003A4B0D /* AMFeedSearchViewController.xib */; };
 		98B42956144C28DB00F4D006 /* heartIconSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B42955144C28DB00F4D006 /* heartIconSmall.png */; };
 		98B4295C144C808B00F4D006 /* blackButtonIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 98B4295B144C808B00F4D006 /* blackButtonIcon.png */; };
+		98B4C9D91454B42C0039DC90 /* AMCatTile.m in Sources */ = {isa = PBXBuildFile; fileRef = 98B4C9D81454B42B0039DC90 /* AMCatTile.m */; };
+		98B4C9DC1454B43B0039DC90 /* AMCatTile.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98B4C9DB1454B43A0039DC90 /* AMCatTile.xib */; };
 		98C89D4A14324E7D000D8F27 /* AMDataDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 98C89D4914324E7D000D8F27 /* AMDataDownloader.m */; };
 		98C89D4D14325190000D8F27 /* AMFeedSearcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 98C89D4C14325190000D8F27 /* AMFeedSearcher.m */; };
 		98C89D5014325707000D8F27 /* AMFeedInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 98C89D4F14325707000D8F27 /* AMFeedInfo.m */; };
@@ -184,6 +186,9 @@
 		98B1F7A1142F098A003A4B0D /* AMFeedSearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AMFeedSearchViewController.xib; sourceTree = "<group>"; };
 		98B42955144C28DB00F4D006 /* heartIconSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = heartIconSmall.png; sourceTree = "<group>"; };
 		98B4295B144C808B00F4D006 /* blackButtonIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blackButtonIcon.png; sourceTree = "<group>"; };
+		98B4C9D71454B42B0039DC90 /* AMCatTile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMCatTile.h; sourceTree = "<group>"; };
+		98B4C9D81454B42B0039DC90 /* AMCatTile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMCatTile.m; sourceTree = "<group>"; };
+		98B4C9DB1454B43A0039DC90 /* AMCatTile.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AMCatTile.xib; sourceTree = "<group>"; };
 		98C89D4814324E7D000D8F27 /* AMDataDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMDataDownloader.h; sourceTree = "<group>"; };
 		98C89D4914324E7D000D8F27 /* AMDataDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMDataDownloader.m; sourceTree = "<group>"; };
 		98C89D4B14325190000D8F27 /* AMFeedSearcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMFeedSearcher.h; sourceTree = "<group>"; };
@@ -467,6 +472,9 @@
 				98F005911434BF810013B44D /* AMFeedCell.m */,
 				98F005941434BFB90013B44D /* AMFeedCell.xib */,
 				98D62A4C142B528800481EF9 /* Supporting Files */,
+				98B4C9D71454B42B0039DC90 /* AMCatTile.h */,
+				98B4C9D81454B42B0039DC90 /* AMCatTile.m */,
+				98B4C9DB1454B43A0039DC90 /* AMCatTile.xib */,
 			);
 			path = "RSS Atom";
 			sourceTree = "<group>";
@@ -655,6 +663,7 @@
 				986EA10A144F527100A796AA /* forewardIconSmall.png in Resources */,
 				986EA10E144F54BE00A796AA /* moreIconSmall.png in Resources */,
 				981F23B2145200D60047D124 /* FBDialog.bundle in Resources */,
+				98B4C9DC1454B43B0039DC90 /* AMCatTile.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -718,6 +727,7 @@
 				981F23C714520A3D0047D124 /* SBJsonBase.m in Sources */,
 				981F23C814520A3D0047D124 /* SBJsonParser.m in Sources */,
 				981F23C914520A3D0047D124 /* SBJsonWriter.m in Sources */,
+				98B4C9D91454B42C0039DC90 /* AMCatTile.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

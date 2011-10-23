@@ -38,6 +38,16 @@ static sqlite3 *feedDB;
     }
 }
 
++(void) addFeedCat:(NSString*) feedCat{
+    NSString *addQuery=[NSString stringWithFormat:@"INSERT INTO feedCategories VALUES(NULL,'%@')",feedCat];
+    int ret = sqlite3_exec(feedDB, [addQuery UTF8String],NULL,NULL, NULL);
+    if (ret==SQLITE_OK) {
+        NSLog(@"Feed cat added");
+    }else{
+        printf("\n%s",sqlite3_errmsg(feedDB));
+    }
+}
+
 +(void) removeFeedInfo:(AMFeedInfo*) feedInfo{
     NSString *removeQuery=[NSString stringWithFormat:@"DELETE FROM feedURLs WHERE feedID=%d",feedInfo.feedID];
     int ret = sqlite3_exec(feedDB, [removeQuery UTF8String],NULL,NULL, NULL);
