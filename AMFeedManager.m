@@ -71,6 +71,8 @@ static sqlite3 *feedDB;
 	}else {
 		NSLog(@"%s",sqlite3_errmsg(feedDB));
 	}
+    
+    sqlite3_finalize(stmt);
     return [cats autorelease];
 }
 
@@ -101,6 +103,7 @@ static sqlite3 *feedDB;
 	}else {
 		NSLog(@"%s",sqlite3_errmsg(feedDB));
 	}
+    sqlite3_finalize(stmt);
     return [feeds autorelease];
 }
 
@@ -154,6 +157,7 @@ static sqlite3 *feedDB;
 	}else {
 		NSLog(@"%s",sqlite3_errmsg(feedDB));
 	}
+    sqlite3_finalize(stmt);
     return [feeds autorelease];
 }
 
@@ -224,6 +228,7 @@ static sqlite3 *feedDB;
 	}else {
 		NSLog(@"%s",sqlite3_errmsg(feedDB));
 	}
+    sqlite3_finalize(stmt);
     return feedTitle;
 }
 

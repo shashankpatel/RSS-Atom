@@ -43,14 +43,7 @@ static BOOL initialized=NO;
     cells=[[NSMutableArray alloc] init];
     feeds=[[NSMutableArray alloc] init];
     tempFeeds=[[NSMutableArray alloc] init];
-    NSMutableDictionary *allfeedInfos=[AMFeedManager allFeedInfos];
 
-    NSString *category=[[[AMFeedManager allFeedCategories] allValues] objectAtIndex:0];
-    
-    if ([[allfeedInfos objectForKey:category] count]!=0) {
-        self.feedInfo=[[allfeedInfos objectForKey:category] objectAtIndex:0];
-        feedTitle.text=[feedInfo.title stringByConvertingHTMLToPlainText];
-    }
     feedParser=[[MWFeedParser alloc] initWithFeedURL:feedInfo.urlString];
     feedParser.connectionType=ConnectionTypeAsynchronously;
     feedParser.delegate=self;

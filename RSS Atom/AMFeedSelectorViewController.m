@@ -507,7 +507,7 @@ UITapGestureRecognizer *singleDTap;
     [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
     [UIView setAnimationDuration:animationDuration];
     [UIView setAnimationDelegate:nil];
-    table.frame=CGRectMake(0, 88, 320, 328);
+    table.frame=CGRectMake(0, 44, 320, 416);
     [self setButtonTexts];
     [UIView commitAnimations];
 }

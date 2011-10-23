@@ -48,7 +48,8 @@
     NSURL *url=[NSURL URLWithString:urlString];
     NSURLRequest *request=[NSURLRequest requestWithURL:url];
     [self.connection cancel];
-    self.connection=[[[NSURLConnection alloc] initWithRequest:request delegate:self] autorelease];
+    self.connection=[[NSURLConnection alloc] initWithRequest:request delegate:self];
+    [connection release];
     if (connection) {
     }
 }
