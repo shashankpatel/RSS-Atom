@@ -69,6 +69,7 @@
 		98D2E3F71443576900087B76 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D2E3F51443576900087B76 /* icon@2x.png */; };
 		98D2E3F914435C7F00087B76 /* hr.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D2E3F814435C7F00087B76 /* hr.png */; };
 		98D2E3FB14435E4F00087B76 /* vr.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D2E3FA14435E4F00087B76 /* vr.png */; };
+		98D55C3B1455D1A500F9698C /* crossButtonIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D55C3A1455D1A500F9698C /* crossButtonIcon.png */; };
 		98D62A46142B528800481EF9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98D62A45142B528800481EF9 /* UIKit.framework */; };
 		98D62A48142B528800481EF9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98D62A47142B528800481EF9 /* Foundation.framework */; };
 		98D62A4A142B528800481EF9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98D62A49142B528800481EF9 /* CoreGraphics.framework */; };
@@ -210,6 +211,7 @@
 		98D2E3F51443576900087B76 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		98D2E3F814435C7F00087B76 /* hr.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hr.png; sourceTree = "<group>"; };
 		98D2E3FA14435E4F00087B76 /* vr.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = vr.png; sourceTree = "<group>"; };
+		98D55C3A1455D1A500F9698C /* crossButtonIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = crossButtonIcon.png; sourceTree = "<group>"; };
 		98D62A41142B528800481EF9 /* Nouvelle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nouvelle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98D62A45142B528800481EF9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		98D62A47142B528800481EF9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -471,10 +473,10 @@
 				98F005901434BF810013B44D /* AMFeedCell.h */,
 				98F005911434BF810013B44D /* AMFeedCell.m */,
 				98F005941434BFB90013B44D /* AMFeedCell.xib */,
-				98D62A4C142B528800481EF9 /* Supporting Files */,
 				98B4C9D71454B42B0039DC90 /* AMCatTile.h */,
 				98B4C9D81454B42B0039DC90 /* AMCatTile.m */,
 				98B4C9DB1454B43A0039DC90 /* AMCatTile.xib */,
+				98D62A4C142B528800481EF9 /* Supporting Files */,
 			);
 			path = "RSS Atom";
 			sourceTree = "<group>";
@@ -499,6 +501,7 @@
 		98D62A6D142B5B3A00481EF9 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				98D55C3A1455D1A500F9698C /* crossButtonIcon.png */,
 				986EA10D144F54BE00A796AA /* moreIconSmall.png */,
 				986EA109144F527100A796AA /* forewardIconSmall.png */,
 				986EA107144F523E00A796AA /* backwardIconSmall.png */,
@@ -664,6 +667,7 @@
 				986EA10E144F54BE00A796AA /* moreIconSmall.png in Resources */,
 				981F23B2145200D60047D124 /* FBDialog.bundle in Resources */,
 				98B4C9DC1454B43B0039DC90 /* AMCatTile.xib in Resources */,
+				98D55C3B1455D1A500F9698C /* crossButtonIcon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -26,6 +26,7 @@
 
 - (void)viewDidLoad
 {
+    catMode=kCatModeNormal;
     catOverlay.alpha=0;
     addFeedCatView.center=CGPointMake(160, -69);
     addFeedCatView.alpha=0;
@@ -96,11 +97,55 @@
     [super viewWillAppear:animated];
 }
 
+-(IBAction) delCatPressed:(id)sender{
+    [UIView beginAnimations:@"Show delete" context:nil];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+    [UIView setAnimationDuration:0.2];
+    if (catMode==kCatModeNormal) {
+        for (AMCatTile *tile in gridTiles) {
+            if (tile.index==kAddButtonTag)continue;
+            [tile showDelete];
+        }
+        [deleteButton setImage:[UIImage imageNamed:@"checkMarkIconSmall.png"] forState:UIControlStateNormal];
+        catMode=kCatModeDelete;
+    }else{
+        for (AMCatTile *tile in gridTiles) {
+            if (tile.index==kAddButtonTag)continue;
+            [tile hideDelete];
+        }
+        [deleteButton setImage:[UIImage imageNamed:@"dustBinIconSmall.png"] forState:UIControlStateNormal];
+        catMode=kCatModeNormal;
+    }
+    [UIView commitAnimations];
+}
+
+-(void) deleteCatTile:(UIButton*) button{
+    AMCatTile *_tile=(AMCatTile*)[button superview];
+    NSString *feedCat=[allCategories objectAtIndex:_tile.index];
+    [AMFeedManager removeFeedCat:feedCat];
+    [_tile removeFromSuperview];
+    [gridTiles removeObject:_tile];
+    
+    [UIView beginAnimations:@"Delete tile" context:nil];
+    [UIView setAnimationDuration:0.3];
+    
+    for (int i=0; i<[gridTiles count]; i++) {
+        int row=i / 3;
+        int column=i % 3;
+        AMCatTile *tile=[gridTiles objectAtIndex:i];
+        tile.frame=CGRectMake(10+column*100, 54+row*100, 100, 100);
+    }
+    [UIView commitAnimations];
+}
+
 -(void) regenerateGrid{
     if (!gridTiles)gridTiles=[[NSMutableArray alloc] init];
     [gridTiles removeAllObjects];
     
     for (UIView * subView in [catOverlay subviews]) {
+        if (subView.tag==-10000) {
+            continue;
+        }
         [subView removeFromSuperview];
     }
     
@@ -111,7 +156,17 @@
         [gridTiles addObject:catTile];
         [catOverlay addSubview:catTile];
         [catTile.button addTarget:self action:@selector(tilePressed:) forControlEvents:UIControlEventTouchUpInside];
+        [catTile.deleteButton addTarget:self action:@selector(deleteCatTile:) forControlEvents:UIControlEventTouchUpInside];
     }
+    
+    AMCatTile *catTile=[AMCatTile catTile];
+    catTile.index=kAddButtonTag;
+    [catTile.button setTitle:@"+" forState:UIControlStateNormal];
+    [gridTiles addObject:catTile];
+    [catOverlay addSubview:catTile];
+    [catTile.button addTarget:self action:@selector(tilePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [catTile.deleteButton addTarget:self action:@selector(deleteCatTile:) forControlEvents:UIControlEventTouchUpInside];
+    
     
     int totalRows=[gridTiles count] / 3;
     
@@ -120,7 +175,7 @@
         int column=i % 3;
         AMCatTile *tile=[gridTiles objectAtIndex:i];
     
-        tile.frame=CGRectMake(10+column*100, 10+row*100, 100, 100);
+        tile.frame=CGRectMake(10+column*100, 54+row*100, 100, 100);
         if (i!=tableIndex) {
             int transX,transY;
             
@@ -135,37 +190,60 @@
 
 -(void) tilePressed:(UIButton*) sender{
     AMCatTile *tile=(AMCatTile*) [sender superview];
-    if (tableIndex!=tile.index) {
-        self.tableIndex=tile.index;
-        [self processTableChange];
+    if (tile.index==kAddButtonTag) {
+        [self addFeedCatPressed];
+        return;
+    }else{
+        if (tableIndex!=tile.index) {
+            self.tableIndex=tile.index;
+            //[table reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+            [table reloadData];
+        }
     }
     
     tile.transform=CGAffineTransformMakeScale(1, 1);
     [UIView beginAnimations:@"" context:nil];
-    [UIView setAnimationDuration:0.4];
-    catOverlay.alpha=0.0;
+    [UIView setAnimationDuration:0.2];
+    [UIView setAnimationDelegate:self];
+    [UIView setAnimationDidStopSelector:@selector(tileAnimationEnded)];
+    tile.frame=CGRectMake(0, 44, 320, 44);
+    table.alpha=1;
     int totalRows=[gridTiles count] / 3;
     for (int i=0; i<[gridTiles count]; i++) {
         int row=i / 3;
         int column=i % 3;
         AMCatTile *tile=[gridTiles objectAtIndex:i];
         
-        tile.frame=CGRectMake(10+column*100, 10+row*100, 100, 100);
         if (i!=tableIndex) {
+            tile.frame=CGRectMake(10+column*100, 54+row*100, 100, 100);
+            
             int transX,transY;
             
             transX=(tile.center.x-160)*10;
             transY=-(tile.center.y-(50.0*totalRows))*10;
             
             tile.transform=CGAffineTransformMakeTranslation(transX, transY);
+            tile.alpha=0;
         }
-        tile.alpha=0;
+
     }
-    table.alpha=1;
-    upButton.alpha=1;
-    downButton.alpha=1;
+    
     [UIView commitAnimations];
 }
+
+-(void) tileAnimationEnded{
+    [UIView beginAnimations:@"" context:nil];
+    [UIView setAnimationDuration:0.2];
+    [UIView setAnimationDelegate:nil];
+    [UIView setAnimationDidStopSelector:nil];
+    
+    catOverlay.alpha=0.0;
+    mainTitleBar.hidden=NO;
+    table.alpha=1;
+    
+    [UIView commitAnimations];
+}
+
 
 -(IBAction) gridPressed:(id)sender{
     AMCatTile *tile=[gridTiles objectAtIndex:tableIndex];
@@ -178,10 +256,15 @@
         if (i!=tableIndex) {
             tile.transform=CGAffineTransformMakeTranslation(0,0);
             //tile.transform=CGAffineTransformMakeScale(1, 1);
+        }else{
+            int row=i / 3;
+            int column=i % 3;
+            tile.frame=CGRectMake(10+column*100, 54+row*100, 100, 100);
         }
         tile.alpha=1;
     }
-    table.alpha=0.6;
+    mainTitleBar.hidden=YES;
+    table.alpha=0;
     upButton.alpha=0;
     downButton.alpha=0;
     [UIView commitAnimations];
@@ -193,10 +276,12 @@
     [UIView setAnimationDuration:0.3];
     addFeedCatView.center=CGPointMake(160, 69);
     addFeedCatView.alpha=1;
-    table.userInteractionEnabled=NO;
-    table.alpha=0.5;
-    upButton.enabled=NO;
-    downButton.enabled=NO;
+    table.alpha=0;
+    for (int i=0; i<[gridTiles count]; i++) {
+        AMCatTile *tile=[gridTiles objectAtIndex:i];
+        tile.backgroundColor=[UIColor colorWithWhite:0 alpha:0.5];
+        tile.userInteractionEnabled=NO;
+    }
     [UIView commitAnimations];
     [tfFeedCat becomeFirstResponder];
     
@@ -208,11 +293,13 @@
     [UIView setAnimationDuration:0.3];
     addFeedCatView.center=CGPointMake(160, -69);
     addFeedCatView.alpha=0;
-    table.userInteractionEnabled=YES;
-    table.alpha=1;
-    upButton.enabled=YES;
-    downButton.enabled=YES;
+    for (int i=0; i<[gridTiles count]; i++) {
+        AMCatTile *tile=[gridTiles objectAtIndex:i];
+        tile.backgroundColor=[UIColor blackColor];
+        tile.userInteractionEnabled=YES;
+    }
     [UIView commitAnimations];
+    tfFeedCat.text=nil;
     [tfFeedCat resignFirstResponder];
 }
 
@@ -221,19 +308,20 @@
         return;
     }
     [AMFeedManager addFeedCat:tfFeedCat.text];
+    self.feedInfos=[AMFeedManager allFeedInfos];
+    self.allCategories=[[AMFeedManager allFeedCategories] allValues];
     [UIView beginAnimations:@"Show addCatView" context:nil];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
     [UIView setAnimationDuration:0.3];
     addFeedCatView.center=CGPointMake(160, -69);
     addFeedCatView.alpha=0;
-    table.userInteractionEnabled=YES;
-    table.alpha=1;
-    upButton.enabled=YES;
-    downButton.enabled=YES;
+    [self regenerateGrid];
+    [self gridPressed:nil];
+    [table reloadData];
     [UIView commitAnimations];
     [tfFeedCat resignFirstResponder];
     tfFeedCat.text=nil;
-    [self viewWillAppear:YES];
+    //[self viewWillAppear:YES];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -339,41 +427,6 @@ UITapGestureRecognizer *singleDTap;
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     return nil;
-    UIView *footerView=[[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 40)] autorelease];
-    UIButton *rButton=[UIButton buttonWithType:UIButtonTypeCustom];
-    [rButton setImage:[UIImage imageNamed:@"removeIconSmall.png"] 
-             forState:UIControlStateNormal];
-    rButton.frame=CGRectMake(230, 7, 30, 30);
-    rButton.center=CGPointMake(80, 22);
-    rButton.tag=kRemoveButtonTag+section;
-    [rButton addTarget:self 
-                action:@selector(removeFeedPressed:) 
-      forControlEvents:UIControlEventTouchUpInside];
-    
-    if ([[feedInfos objectForKey:[allCategories objectAtIndex:section]] count]==0) {
-        rButton.hidden=YES;
-    }
-    
-    [footerView addSubview:rButton];
-    
-    UIButton *addButton=[UIButton buttonWithType:UIButtonTypeCustom];
-    [addButton setImage:[UIImage imageNamed:@"addIconSmall.png"] 
-               forState:UIControlStateNormal];
-    addButton.frame=CGRectMake(260, 7, 30, 30);
-    addButton.center=CGPointMake(240, 22);
-    addButton.tag=kAddButtonTag+section;
-    [addButton addTarget:self 
-                  action:@selector(addFeedPressed:) 
-        forControlEvents:UIControlEventTouchUpInside];
-    [footerView addSubview:addButton];
-    
-    UIButton *dustBinButton=[UIButton buttonWithType:UIButtonTypeCustom];
-    [dustBinButton setBackgroundImage:[UIImage imageNamed:@"dustBinIconSmall.png"] forState:UIControlStateNormal];
-    dustBinButton.frame=CGRectMake(290, 7, 30, 30);
-    dustBinButton.center=CGPointMake(160, 22);
-    [footerView addSubview:dustBinButton];
-    
-    return  footerView;
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -480,14 +533,6 @@ UITapGestureRecognizer *singleDTap;
 }
 
 -(void) processTableChange{
-    /*NSIndexSet *indexSet=[NSIndexSet indexSetWithIndex:0];
-    [table reloadSections:indexSet withRowAnimation:tableTransition==kTableTransitionNegative? UITableViewRowAnimationBottom:UITableViewRowAnimationTop];
-    UIView *headerView=[headerViews objectForKey:[NSNumber numberWithInt:0]];
-    if (headerView) {
-        UILabel *headerLabel=(UILabel*)[headerView viewWithTag:kHeaderTextTag];
-        headerLabel.text=[allCategories objectAtIndex:tableIndex];
-    }
-    return;*/
     float animationDuration=tableTransition==kTableTransitionNegative ? 0.3 : 0.2;
     [UIView beginAnimations:@"Table move" context:nil];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];

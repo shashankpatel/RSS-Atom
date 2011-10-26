@@ -16,6 +16,9 @@
 #define kTableTransitionPositive 1
 #define kTableTransitionNegative -1
 
+#define kCatModeDelete -1
+#define kCatModeNormal 1
+
 @protocol FeedSelectorDelegate <NSObject>
 
 -(void) feedInfoSelected:(AMFeedInfo*) feedInfo;
@@ -38,6 +41,9 @@
     IBOutlet UITextField *tfFeedCat;
     NSMutableArray *gridTiles;
     IBOutlet UIView *catOverlay;
+    IBOutlet UIButton *deleteButton;
+    IBOutlet UIView *mainTitleBar;
+    int catMode;
 }
 
 @property(nonatomic,retain) NSObject<FeedSelectorDelegate> *delegate;
@@ -62,5 +68,6 @@
 -(void) addFeedCatPressed;
 -(void) regenerateGrid;
 -(IBAction) gridPressed:(id)sender;
+-(IBAction) delCatPressed:(id)sender;
 
 @end

@@ -48,6 +48,35 @@ static sqlite3 *feedDB;
     }
 }
 
++(void) removeFeedCat:(NSString*) feedCat{
+    NSString *removeQuery;
+    int ret;
+    
+    removeQuery=[NSString stringWithFormat:@"DELETE FROM feeds WHERE feedID in (SELECT feedID FROM feedURLs WHERE categoryID in (SELECT PID FROM feedCategories WHERE categoryName='%@'))",feedCat];
+    ret = sqlite3_exec(feedDB, [removeQuery UTF8String],NULL,NULL, NULL);
+    if (ret==SQLITE_OK) {
+        NSLog(@"Feeds with cat %@ deleted",feedCat);
+    }else{
+        printf("\n%s",sqlite3_errmsg(feedDB));
+    }
+    
+    removeQuery=[NSString stringWithFormat:@"DELETE FROM feedURLs WHERE categoryID in (SELECT PID FROM feedCategories WHERE categoryName='%@')",feedCat];
+    ret = sqlite3_exec(feedDB, [removeQuery UTF8String],NULL,NULL, NULL);
+    if (ret==SQLITE_OK) {
+        NSLog(@"Feed URLs with cat %@ deleted",feedCat);
+    }else{
+        printf("\n%s",sqlite3_errmsg(feedDB));
+    }
+    
+    removeQuery=[NSString stringWithFormat:@"DELETE FROM  feedCategories WHERE categoryName='%@'",feedCat];
+    ret = sqlite3_exec(feedDB, [removeQuery UTF8String],NULL,NULL, NULL);
+    if (ret==SQLITE_OK) {
+        NSLog(@"Feed cat %@ deleted",feedCat);
+    }else{
+        printf("\n%s",sqlite3_errmsg(feedDB));
+    }
+}
+
 +(void) removeFeedInfo:(AMFeedInfo*) feedInfo{
     NSString *removeQuery=[NSString stringWithFormat:@"DELETE FROM feedURLs WHERE feedID=%d",feedInfo.feedID];
     int ret = sqlite3_exec(feedDB, [removeQuery UTF8String],NULL,NULL, NULL);
