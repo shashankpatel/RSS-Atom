@@ -12,7 +12,6 @@
 #import "AMSerializer.h"
 #import "AMFeedManager.h"
 
-
 @implementation NouvelleAppDelegate
 
 @synthesize window = _window;
@@ -25,13 +24,11 @@ static MWFeedItem *feedToPublish;
 static NSString *postMessage;
 static BOOL publishScheduled;
 
-static MGTwitterEngine *twitterEngine;
-static NSString *consumerKey=@"AfpVFBP5BGKqbK5yDiNisA";
-static NSString *consumerSecret=@"I9N5HCubJhB212YGBleAs1AY4KSq6ECUqHASNozTTdA";
-static OAToken *token;
+static SA_OAuthTwitterEngine *engine;
+static NSString *kOAuthConsumerKey=@"AfpVFBP5BGKqbK5yDiNisA";
+static NSString *kOAuthConsumerSecret=@"I9N5HCubJhB212YGBleAs1AY4KSq6ECUqHASNozTTdA";
+
 static NSString *twitterPostString;
-static NSString *userName=@"shashankpatel";
-static NSString *password=@"radicalnotion";
 
 -(void) loadFaceBook{
     publishScheduled=NO;
@@ -48,19 +45,27 @@ static NSString *password=@"radicalnotion";
     }
 }
 
--(void) loadTwitter{
-    twitterEngine = [[MGTwitterEngine alloc] initWithDelegate:self];
-	[twitterEngine setUsesSecureConnection:NO];
-	[twitterEngine setConsumerKey:consumerKey secret:consumerSecret];
-    [twitterEngine setUsername:userName];
-    
-	[twitterEngine getXAuthAccessTokenForUsername:userName password:password];
+-(BOOL) loadTwitter{
+    BOOL loading=NO;
+    if (engine) return loading;
+    engine = [[SA_OAuthTwitterEngine alloc] initOAuthWithDelegate: self];
+	engine.consumerKey = kOAuthConsumerKey;
+	engine.consumerSecret = kOAuthConsumerSecret;
+	AMViewController *controller = [SA_OAuthTwitterController controllerToEnterCredentialsWithTwitterEngine: engine delegate: self];
+	if (controller) {
+        loading=YES;
+        AMZoomViewController *zvc=[AMZoomViewController sharedZoomViewController];
+        controller.zoomController=zvc;
+        [zvc.viewControllers addObject:controller];
+        int index=[zvc.viewControllers indexOfObject:controller];
+        [zvc pushToIndex:index];
+    }
+    return loading;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [self loadFaceBook];
-    [self loadTwitter];
     [General loadFonts];
     [AMSerializer loadSerializer];
     [AMFeedManager loadFeedManager];
@@ -260,92 +265,53 @@ static NSString *password=@"radicalnotion";
 
 
 -(void) postOnTwitter:(NSString*) twitterPost{
-    [twitterEngine setAccessToken:token];
-    NSLog(@"sendUpdate: connectionIdentifier = %@", [twitterEngine sendUpdate:twitterPost]);
+    BOOL loading=[self loadTwitter];
+    if (loading) {
+        twitterPostString=[twitterPost retain];
+    }else{
+        NSLog(@"sendUpdate: connectionIdentifier = %@", [engine sendUpdate:twitterPost]);
+    }
 }
 
-#pragma mark MGTwitterEngineDelegate methods
-
-
-- (void)requestSucceeded:(NSString *)connectionIdentifier
-{
-    NSLog(@"Request succeeded for connectionIdentifier = %@", connectionIdentifier);
+#pragma mark SA_OAuthTwitterEngineDelegate
+- (void) storeCachedTwitterOAuthData: (NSString *) data forUsername: (NSString *) username {
+	NSUserDefaults			*defaults = [NSUserDefaults standardUserDefaults];
+    
+	[defaults setObject: data forKey: @"authData"];
+	[defaults synchronize];
 }
 
-
-- (void)requestFailed:(NSString *)connectionIdentifier withError:(NSError *)error
-{
-    NSLog(@"Request failed for connectionIdentifier = %@, error = %@ (%@)", 
-          connectionIdentifier, 
-          [error localizedDescription], 
-          [error userInfo]);
+- (NSString *) cachedTwitterOAuthDataForUsername: (NSString *) username {
+	return [[NSUserDefaults standardUserDefaults] objectForKey: @"authData"];
 }
 
-
-- (void)statusesReceived:(NSArray *)statuses forRequest:(NSString *)connectionIdentifier
-{
-    NSLog(@"Got statuses for %@:\r%@", connectionIdentifier, statuses);
+//=============================================================================================================================
+#pragma mark SA_OAuthTwitterControllerDelegate
+- (void) OAuthTwitterController: (SA_OAuthTwitterController *) controller authenticatedWithUsername: (NSString *) username {
+	NSLog(@"Authenicated for %@", username);
+    if ([twitterPostString length]>0) {
+        [self postOnTwitter:twitterPostString];
+        twitterPostString=nil;
+    }
 }
 
-
-- (void)directMessagesReceived:(NSArray *)messages forRequest:(NSString *)connectionIdentifier
-{
-    NSLog(@"Got direct messages for %@:\r%@", connectionIdentifier, messages);
+- (void) OAuthTwitterControllerFailed: (SA_OAuthTwitterController *) controller {
+	NSLog(@"Authentication Failed!");
 }
 
-
-- (void)userInfoReceived:(NSArray *)userInfo forRequest:(NSString *)connectionIdentifier
-{
-    NSLog(@"Got user info for %@:\r%@", connectionIdentifier, userInfo);
+- (void) OAuthTwitterControllerCanceled: (SA_OAuthTwitterController *) controller {
+	NSLog(@"Authentication Canceled.");
 }
 
-
-- (void)miscInfoReceived:(NSArray *)miscInfo forRequest:(NSString *)connectionIdentifier
-{
-	NSLog(@"Got misc info for %@:\r%@", connectionIdentifier, miscInfo);
+//=============================================================================================================================
+#pragma mark TwitterEngineDelegate
+- (void) requestSucceeded: (NSString *) requestIdentifier {
+	NSLog(@"Request %@ succeeded", requestIdentifier);
 }
 
-
-- (void)searchResultsReceived:(NSArray *)searchResults forRequest:(NSString *)connectionIdentifier
-{
-	NSLog(@"Got search results for %@:\r%@", connectionIdentifier, searchResults);
+- (void) requestFailed: (NSString *) requestIdentifier withError: (NSError *) error {
+	NSLog(@"Request %@ failed with error: %@", requestIdentifier, error);
 }
-
-
-- (void)socialGraphInfoReceived:(NSArray *)socialGraphInfo forRequest:(NSString *)connectionIdentifier
-{
-	NSLog(@"Got social graph results for %@:\r%@", connectionIdentifier, socialGraphInfo);
-}
-
-- (void)userListsReceived:(NSArray *)userInfo forRequest:(NSString *)connectionIdentifier
-{
-    NSLog(@"Got user lists for %@:\r%@", connectionIdentifier, userInfo);
-}
-
-- (void)imageReceived:(UIImage *)image forRequest:(NSString *)connectionIdentifier
-{
-    NSLog(@"Got an image for %@: %@", connectionIdentifier, image);
-}
-
-- (void)connectionFinished:(NSString *)connectionIdentifier
-{
-    NSLog(@"Connection finished %@", connectionIdentifier);
-}
-
-- (void)accessTokenReceived:(OAToken *)aToken forRequest:(NSString *)connectionIdentifier
-{
-	NSLog(@"Access token received! %@",aToken);
-	token = [aToken retain];
-}
-
-#if YAJL_AVAILABLE || TOUCHJSON_AVAILABLE
-
-- (void)receivedObject:(NSDictionary *)dictionary forRequest:(NSString *)connectionIdentifier
-{
-    NSLog(@"Got an object for %@: %@", connectionIdentifier, dictionary);
-}
-
-#endif
 
 
 @end

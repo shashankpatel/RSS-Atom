@@ -16,6 +16,12 @@
 @synthesize currentIndex;
 @synthesize transitionType;
 
+static AMZoomViewController *singleton;
+
++(AMZoomViewController*) sharedZoomViewController{
+    return singleton;
+}
+
 #pragma mark - View lifecycle
 
 -(id) initWithViewController:(AMViewController*) viewController{
@@ -31,6 +37,7 @@
 -(id) initWithViewControllers:(NSArray*) controllers startIndex:(int) startIndex{
     self=[super initWithNibName:@"AMZoomViewController" bundle:nil];
     if (self) {
+        singleton=self;
         viewControllers=[[NSMutableArray alloc] initWithArray:controllers];
         self.currentViewController=[controllers objectAtIndex:startIndex];
         for (AMViewController *vc in self.viewControllers) {

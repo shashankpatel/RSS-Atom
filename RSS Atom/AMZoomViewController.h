@@ -25,6 +25,8 @@
 @property int currentIndex;
 @property int transitionType;
 
++(AMZoomViewController*) sharedZoomViewController;
+
 -(id) initWithViewController:(UIViewController*) viewController;
 -(id) initWithViewControllers:(NSArray*) controllers startIndex:(int) startIndex;
 

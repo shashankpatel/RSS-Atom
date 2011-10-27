@@ -9,18 +9,19 @@
 #import <UIKit/UIKit.h>
 #import "FBConnect.h"
 #import "MWFeedItem.h"
-#import "MGTwitterEngine.h"
+#import "SA_OAuthTwitterEngine.h"
+#import "SA_OAuthTwitterController.h"
 
 @class AMNouvelleViewController;
 
-@interface NouvelleAppDelegate : NSObject <UIApplicationDelegate,FBRequestDelegate,FBDialogDelegate,FBSessionDelegate>
+@interface NouvelleAppDelegate : NSObject <UIApplicationDelegate,FBRequestDelegate,FBDialogDelegate,FBSessionDelegate,SA_OAuthTwitterControllerDelegate>
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 
 @property (nonatomic, retain) IBOutlet AMNouvelleViewController *viewController;
 
 -(void) loadFaceBook;
--(void) loadTwitter;
+-(BOOL) loadTwitter;
 -(void)loginToFacebook;
 -(void)logoutFromfacebook;
 -(void) publishContent:(MWFeedItem*) feed withPostMessage:(NSString*) postMessage;

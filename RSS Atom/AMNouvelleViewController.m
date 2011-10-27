@@ -47,7 +47,6 @@
     [controllers addObject:wvc];
     [wvc release];
     
-    
     zvc=[[AMZoomViewController alloc] initWithViewControllers:controllers startIndex:1];
     [controllers release];
     [zvc pushToIndex:1];

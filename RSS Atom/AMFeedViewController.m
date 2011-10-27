@@ -39,6 +39,8 @@ static NSString *htmlWrapper;
 {
     fbStatusView.center=CGPointMake(160, -75);
     fbStatusView.alpha=0;
+    tweeterStatusView.center=CGPointMake(160, -60);
+    tweeterStatusView.alpha=0;
     UITapGestureRecognizer *singleFingerDTap = [[UITapGestureRecognizer alloc]
                                                 initWithTarget:self action:@selector(doubleTapReceived:)];
     singleFingerDTap.delegate=self;
@@ -95,7 +97,7 @@ static NSString *htmlWrapper;
 
 -(void) doubleTapReceived:(id) sender{
     NSLog(@"Double tap");
-    if (fbStatusView.alpha==1.0) {
+    if (fbStatusView.alpha==1.0 || tweeterStatusView.alpha==1.0) {
         return;
     }
     [self.zoomController popToIndex:2 shrink:YES];
@@ -189,9 +191,40 @@ static NSString *htmlWrapper;
     webView.userInteractionEnabled=YES;
 }
 
--(IBAction)twitterClicked{
+-(IBAction) cancelTweetTapped:(id)sender{
+    [UIView beginAnimations:@"Hide facebook view" context:nil];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+    [UIView setAnimationDuration:0.2];
+    tweeterStatusView.center=CGPointMake(160, -60);
+    tweeterStatusView.alpha=0;
+    [UIView commitAnimations];
+    webView.userInteractionEnabled=YES;
+}
+
+-(IBAction) tweetTapped:(id)sender{
     NouvelleAppDelegate *appDelegate=(NouvelleAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate postOnTwitter:@"Test post"];
+    NSString *post=[NSString stringWithFormat:@"%@ - %@",feed.title,[feed.link stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    [appDelegate postOnTwitter:post];
+    
+    [UIView beginAnimations:@"Show facebook view" context:nil];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+    [UIView setAnimationDuration:0.2];
+    tweeterStatusView.center=CGPointMake(160, -60);
+    tweeterStatusView.alpha=0;
+    [UIView commitAnimations];
+    webView.userInteractionEnabled=YES;
+    lblTweet.text=nil;
+}
+
+-(IBAction)twitterClicked{
+    lblTweet.text=[NSString stringWithFormat:@"%@ - %@",feed.title,feed.link];
+    [UIView beginAnimations:@"Show facebook view" context:nil];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+    [UIView setAnimationDuration:0.2];
+    tweeterStatusView.center=CGPointMake(160, 60);
+    tweeterStatusView.alpha=1;
+    [UIView commitAnimations];
+    webView.userInteractionEnabled=NO;
 }
 
 @end

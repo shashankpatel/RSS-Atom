@@ -21,9 +21,9 @@
     NSObject<FeedViewDelegate> *delegate;
     IBOutlet UIWebView *webView;
     MWFeedItem *feed;
-    IBOutlet UIView *fbStatusView;
+    IBOutlet UIView *fbStatusView,*tweeterStatusView;
     IBOutlet UITextField *tfMessage;
-    IBOutlet UILabel *lblTitle,*lblCaption,*lblDescription;
+    IBOutlet UILabel *lblTitle,*lblCaption,*lblDescription,*lblTweet;
     IBOutlet AMImageView *imageView;
     BOOL pageLoaded;
 }
@@ -39,5 +39,7 @@
 -(IBAction)twitterClicked;
 -(IBAction)postTapped:(id)sender;
 -(IBAction) cancelTapped:(id)sender;
+-(IBAction) cancelTweetTapped:(id)sender;
+-(IBAction) tweetTapped:(id)sender;
 
 @end
