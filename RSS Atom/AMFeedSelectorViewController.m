@@ -126,6 +126,9 @@
     [_tile removeFromSuperview];
     [gridTiles removeObject:_tile];
     
+    self.feedInfos=[AMFeedManager allFeedInfos];
+    self.allCategories=[[AMFeedManager allFeedCategories] allValues];
+    
     [UIView beginAnimations:@"Delete tile" context:nil];
     [UIView setAnimationDuration:0.3];
     
@@ -138,18 +141,27 @@
         int row=i / 3;
         int column=i % 3;
         AMCatTile *tile=[gridTiles objectAtIndex:i];
+        int index=[allCategories indexOfObject:tile.button.titleLabel.text];
+        if (index!=NSNotFound) {
+            NSLog(@"Index:%d",index);
+            tile.index=index;
+        }
         
         if (row==0) {
             if (column==0) {
                 [tile.button setBackgroundImage:[UIImage imageNamed:@"roundRectTL.png"] forState:UIControlStateNormal];
             }else if(column==2){
                 [tile.button setBackgroundImage:[UIImage imageNamed:@"roundRectTR.png"] forState:UIControlStateNormal];                
+            }else{
+                [tile.button setBackgroundImage:[UIImage imageNamed:@"rect.png"] forState:UIControlStateNormal];
             }
         }else if(row==totalRows-1){
             if (column==0) {
                 [tile.button setBackgroundImage:[UIImage imageNamed:@"roundRectBL.png"] forState:UIControlStateNormal];
             }else if(column==2){
                 [tile.button setBackgroundImage:[UIImage imageNamed:@"roundRectBR.png"] forState:UIControlStateNormal];                
+            }else{
+                [tile.button setBackgroundImage:[UIImage imageNamed:@"rect.png"] forState:UIControlStateNormal];
             }
         }
         
@@ -181,7 +193,7 @@
     
     AMCatTile *catTile=[AMCatTile catTile];
     catTile.index=kAddButtonTag;
-    [catTile.button setTitle:@"+" forState:UIControlStateNormal];
+    [catTile.button setTitle:@"✚" forState:UIControlStateNormal];
     [gridTiles addObject:catTile];
     [catOverlay addSubview:catTile];
     [catTile.button addTarget:self action:@selector(tilePressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -531,6 +543,10 @@ UITapGestureRecognizer *singleDTap;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    if (textField==tfFeedCat) {
+        [textField resignFirstResponder];
+        return YES;
+    }
     textField.tag=999;
     [AMFeedManager modifyCategoryNameFrom:[allCategories objectAtIndex:tableIndex] toName:textField.text];
     [self viewWillAppear:YES];
