@@ -129,10 +129,30 @@
     [UIView beginAnimations:@"Delete tile" context:nil];
     [UIView setAnimationDuration:0.3];
     
+    int totalRows=[gridTiles count] / 3;
+    if (totalRows!=[gridTiles count] / 3.0) {
+        totalRows++;
+    }
+    
     for (int i=0; i<[gridTiles count]; i++) {
         int row=i / 3;
         int column=i % 3;
         AMCatTile *tile=[gridTiles objectAtIndex:i];
+        
+        if (row==0) {
+            if (column==0) {
+                [tile.button setBackgroundImage:[UIImage imageNamed:@"roundRectTL.png"] forState:UIControlStateNormal];
+            }else if(column==2){
+                [tile.button setBackgroundImage:[UIImage imageNamed:@"roundRectTR.png"] forState:UIControlStateNormal];                
+            }
+        }else if(row==totalRows-1){
+            if (column==0) {
+                [tile.button setBackgroundImage:[UIImage imageNamed:@"roundRectBL.png"] forState:UIControlStateNormal];
+            }else if(column==2){
+                [tile.button setBackgroundImage:[UIImage imageNamed:@"roundRectBR.png"] forState:UIControlStateNormal];                
+            }
+        }
+        
         tile.frame=CGRectMake(10+column*100, 54+row*100, 100, 100);
     }
     [UIView commitAnimations];
@@ -169,12 +189,28 @@
     
     
     int totalRows=[gridTiles count] / 3;
+    if (totalRows!=[gridTiles count] / 3.0) {
+        totalRows++;
+    }
     
     for (int i=0; i<[gridTiles count]; i++) {
         int row=i / 3;
         int column=i % 3;
         AMCatTile *tile=[gridTiles objectAtIndex:i];
-    
+        if (row==0) {
+            if (column==0) {
+                [tile.button setBackgroundImage:[UIImage imageNamed:@"roundRectTL.png"] forState:UIControlStateNormal];
+            }else if(column==2){
+                [tile.button setBackgroundImage:[UIImage imageNamed:@"roundRectTR.png"] forState:UIControlStateNormal];                
+            }
+        }else if(row==totalRows-1){
+            if (column==0) {
+                [tile.button setBackgroundImage:[UIImage imageNamed:@"roundRectBL.png"] forState:UIControlStateNormal];
+            }else if(column==2){
+                [tile.button setBackgroundImage:[UIImage imageNamed:@"roundRectBR.png"] forState:UIControlStateNormal];                
+            }
+        }
+        
         tile.frame=CGRectMake(10+column*100, 54+row*100, 100, 100);
         if (i!=tableIndex) {
             int transX,transY;
