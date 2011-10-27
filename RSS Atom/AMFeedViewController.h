@@ -36,6 +36,7 @@
 -(IBAction) btnListPressed:(id)sender;
 -(void) loadDescription;
 -(IBAction)facebookClicked;
+-(IBAction)twitterClicked;
 -(IBAction)postTapped:(id)sender;
 -(IBAction) cancelTapped:(id)sender;
 

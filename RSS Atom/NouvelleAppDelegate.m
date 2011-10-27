@@ -22,7 +22,16 @@ static Facebook* facebook;
 static NSString* kAppId = @"274510792589386";
 static NSArray *permissions;
 static MWFeedItem *feedToPublish;
+static NSString *postMessage;
 static BOOL publishScheduled;
+
+static MGTwitterEngine *twitterEngine;
+static NSString *consumerKey=@"AfpVFBP5BGKqbK5yDiNisA";
+static NSString *consumerSecret=@"I9N5HCubJhB212YGBleAs1AY4KSq6ECUqHASNozTTdA";
+static OAToken *token;
+static NSString *twitterPostString;
+static NSString *userName=@"shashankpatel";
+static NSString *password=@"radicalnotion";
 
 -(void) loadFaceBook{
     publishScheduled=NO;
@@ -39,9 +48,19 @@ static BOOL publishScheduled;
     }
 }
 
+-(void) loadTwitter{
+    twitterEngine = [[MGTwitterEngine alloc] initWithDelegate:self];
+	[twitterEngine setUsesSecureConnection:NO];
+	[twitterEngine setConsumerKey:consumerKey secret:consumerSecret];
+    [twitterEngine setUsername:userName];
+    
+	[twitterEngine getXAuthAccessTokenForUsername:userName password:password];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [self loadFaceBook];
+    [self loadTwitter];
     [General loadFonts];
     [AMSerializer loadSerializer];
     [AMFeedManager loadFeedManager];
@@ -107,9 +126,10 @@ static BOOL publishScheduled;
     [facebook authorize:permissions];
 }
 
--(void) publishContent:(MWFeedItem*) feed{
+-(void) publishContent:(MWFeedItem*) feed withPostMessage:(NSString*) _postMessage{
     if (!facebook.isSessionValid) {
         feedToPublish=[feed retain];
+        postMessage=[_postMessage retain];
         publishScheduled=YES;
         [facebook authorize:permissions];
     }
@@ -146,7 +166,7 @@ static BOOL publishScheduled;
         [params setObject:feed.iconLink forKey:@"picture"];
     }
     
-    //[params setObject:@"Test" forKey:@"message"];
+    [params setObject:_postMessage forKey:@"message"];
     [params setObject:actionLinksStr forKey:@"actions"];
     
     [facebook requestWithGraphPath:@"me/feed"   // or use page ID instead of 'me'
@@ -169,7 +189,7 @@ static BOOL publishScheduled;
     [defaults synchronize];
     
     if (publishScheduled) {
-        [self publishContent:feedToPublish];
+        [self publishContent:feedToPublish withPostMessage:postMessage];
     }
     
     NSLog(@"Logged in");
@@ -224,9 +244,6 @@ static BOOL publishScheduled;
  * successfully.
  */
 - (void)request:(FBRequest *)request didFailWithError:(NSError *)error {
-    UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Error" message:@"Cannot post to Facebook. Please try again later or relogin" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil];
-    [alert show];
-    [alert release];
     NSLog(@"Request failed with error:%@",[error description]);
 };
 
@@ -240,5 +257,95 @@ static BOOL publishScheduled;
 -(void)dialogDidComplete:(FBDialog *)dialog {
     NSLog(@"published successfully");
 }
+
+
+-(void) postOnTwitter:(NSString*) twitterPost{
+    [twitterEngine setAccessToken:token];
+    NSLog(@"sendUpdate: connectionIdentifier = %@", [twitterEngine sendUpdate:twitterPost]);
+}
+
+#pragma mark MGTwitterEngineDelegate methods
+
+
+- (void)requestSucceeded:(NSString *)connectionIdentifier
+{
+    NSLog(@"Request succeeded for connectionIdentifier = %@", connectionIdentifier);
+}
+
+
+- (void)requestFailed:(NSString *)connectionIdentifier withError:(NSError *)error
+{
+    NSLog(@"Request failed for connectionIdentifier = %@, error = %@ (%@)", 
+          connectionIdentifier, 
+          [error localizedDescription], 
+          [error userInfo]);
+}
+
+
+- (void)statusesReceived:(NSArray *)statuses forRequest:(NSString *)connectionIdentifier
+{
+    NSLog(@"Got statuses for %@:\r%@", connectionIdentifier, statuses);
+}
+
+
+- (void)directMessagesReceived:(NSArray *)messages forRequest:(NSString *)connectionIdentifier
+{
+    NSLog(@"Got direct messages for %@:\r%@", connectionIdentifier, messages);
+}
+
+
+- (void)userInfoReceived:(NSArray *)userInfo forRequest:(NSString *)connectionIdentifier
+{
+    NSLog(@"Got user info for %@:\r%@", connectionIdentifier, userInfo);
+}
+
+
+- (void)miscInfoReceived:(NSArray *)miscInfo forRequest:(NSString *)connectionIdentifier
+{
+	NSLog(@"Got misc info for %@:\r%@", connectionIdentifier, miscInfo);
+}
+
+
+- (void)searchResultsReceived:(NSArray *)searchResults forRequest:(NSString *)connectionIdentifier
+{
+	NSLog(@"Got search results for %@:\r%@", connectionIdentifier, searchResults);
+}
+
+
+- (void)socialGraphInfoReceived:(NSArray *)socialGraphInfo forRequest:(NSString *)connectionIdentifier
+{
+	NSLog(@"Got social graph results for %@:\r%@", connectionIdentifier, socialGraphInfo);
+}
+
+- (void)userListsReceived:(NSArray *)userInfo forRequest:(NSString *)connectionIdentifier
+{
+    NSLog(@"Got user lists for %@:\r%@", connectionIdentifier, userInfo);
+}
+
+- (void)imageReceived:(UIImage *)image forRequest:(NSString *)connectionIdentifier
+{
+    NSLog(@"Got an image for %@: %@", connectionIdentifier, image);
+}
+
+- (void)connectionFinished:(NSString *)connectionIdentifier
+{
+    NSLog(@"Connection finished %@", connectionIdentifier);
+}
+
+- (void)accessTokenReceived:(OAToken *)aToken forRequest:(NSString *)connectionIdentifier
+{
+	NSLog(@"Access token received! %@",aToken);
+	token = [aToken retain];
+}
+
+#if YAJL_AVAILABLE || TOUCHJSON_AVAILABLE
+
+- (void)receivedObject:(NSDictionary *)dictionary forRequest:(NSString *)connectionIdentifier
+{
+    NSLog(@"Got an object for %@: %@", connectionIdentifier, dictionary);
+}
+
+#endif
+
 
 @end

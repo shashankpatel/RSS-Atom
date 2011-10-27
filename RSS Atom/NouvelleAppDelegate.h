@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "FBConnect.h"
 #import "MWFeedItem.h"
+#import "MGTwitterEngine.h"
 
 @class AMNouvelleViewController;
 
@@ -19,8 +20,10 @@
 @property (nonatomic, retain) IBOutlet AMNouvelleViewController *viewController;
 
 -(void) loadFaceBook;
+-(void) loadTwitter;
 -(void)loginToFacebook;
 -(void)logoutFromfacebook;
--(void) publishContent:(MWFeedItem*) feed;
+-(void) publishContent:(MWFeedItem*) feed withPostMessage:(NSString*) postMessage;
+-(void) postOnTwitter:(NSString*) twitterPost;
 
 @end

@@ -167,7 +167,8 @@ static NSString *htmlWrapper;
 -(IBAction)postTapped:(id)sender{
     [tfMessage resignFirstResponder];
     NouvelleAppDelegate *appDelegate=(NouvelleAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDelegate publishContent:feed];
+    [appDelegate publishContent:feed withPostMessage:tfMessage.text];
+    tfMessage.text=nil;
     [UIView beginAnimations:@"Hide facebook view" context:nil];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
     [UIView setAnimationDuration:0.2];
@@ -186,6 +187,11 @@ static NSString *htmlWrapper;
     fbStatusView.alpha=0;
     [UIView commitAnimations];
     webView.userInteractionEnabled=YES;
+}
+
+-(IBAction)twitterClicked{
+    NouvelleAppDelegate *appDelegate=(NouvelleAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [appDelegate postOnTwitter:@"Test post"];
 }
 
 @end
