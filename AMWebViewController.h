@@ -15,7 +15,7 @@
     IBOutlet UIButton *stopButton;
 }
 
--(void) openURLString:(NSURLRequest*) request;
+-(void) loadRequest:(NSURLRequest*) request;
 -(void) showLoadingView;
 -(void) hideLoadingView;
 

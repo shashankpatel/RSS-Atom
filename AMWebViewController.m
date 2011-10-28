@@ -19,7 +19,7 @@
     // Do any additional setup after loading the view from its nib.
 }
 
--(void) openURLString:(NSURLRequest*) request{
+-(void) loadRequest:(NSURLRequest*) request{
     [self showLoadingView];
     [webView loadRequest:request];
 }

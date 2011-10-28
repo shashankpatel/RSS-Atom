@@ -472,6 +472,16 @@
 			path = SAOAuthTwitterEngine;
 			sourceTree = "<group>";
 		};
+		980D3197145A644000BF255C /* Twitter */ = {
+			isa = PBXGroup;
+			children = (
+				980D311E145955B100BF255C /* Libraries & Headers */,
+				980D3132145955B100BF255C /* MGTwitterEngine */,
+				980D3153145955B100BF255C /* SAOAuthTwitterEngine */,
+			);
+			name = Twitter;
+			sourceTree = "<group>";
+		};
 		981F23A3145200B70047D124 /* FBConnect */ = {
 			isa = PBXGroup;
 			children = (
@@ -494,9 +504,7 @@
 		981F23A5145200C00047D124 /* Social */ = {
 			isa = PBXGroup;
 			children = (
-				980D311E145955B100BF255C /* Libraries & Headers */,
-				980D3132145955B100BF255C /* MGTwitterEngine */,
-				980D3153145955B100BF255C /* SAOAuthTwitterEngine */,
+				980D3197145A644000BF255C /* Twitter */,
 				981F23A3145200B70047D124 /* FBConnect */,
 			);
 			name = Social;

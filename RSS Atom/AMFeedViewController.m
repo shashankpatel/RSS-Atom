@@ -13,6 +13,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "AMFeedManager.h"
 #import "NSString+HTML.h"
+#import "General.h"
 
 @implementation AMFeedViewController
 
@@ -55,11 +56,26 @@ static NSString *htmlWrapper;
     //[self.view addGestureRecognizer:singleFingerSTap];
     [singleFingerSTap release];
     
+    [self makeViewTranparent:table];
+    
+    for (UIView *view in [webView subviews]) {
+        if ([view isKindOfClass:[UIScrollView class]]) {
+            webScrollView=(UIScrollView*) view;
+            [webScrollView addSubview:table];
+        }
+    }
+    
     [self processWebView];
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
 
+-(void) makeViewTranparent:(UIView *) view{
+    for (UIView *subView in [view subviews]) {
+        [self makeViewTranparent:subView];
+    }
+    view.backgroundColor=[UIColor clearColor];
+}
 
 -(void) processWebView{
     UIScrollView *webScroll=[[webView subviews] objectAtIndex:0];
@@ -82,6 +98,9 @@ static NSString *htmlWrapper;
 }
 
 -(void) viewWillAppear:(BOOL)animated{
+    [table reloadData];
+    table.frame=CGRectMake(0, -table.contentSize.height, 320, table.contentSize.height);
+    webScrollView.contentInset=UIEdgeInsetsMake(table.contentSize.height, 0, 0, 0);
     [tfMessage resignFirstResponder];
     pageLoaded=NO;
     webView.userInteractionEnabled=YES;
@@ -90,7 +109,7 @@ static NSString *htmlWrapper;
 
 -(void) loadDescription{
     NSAutoreleasePool *pool=[[NSAutoreleasePool alloc] init];
-    NSString *htmlDescription=[NSString stringWithFormat:htmlWrapper,feed.link,feed.title,feed.date,feed.author,[feed htmlStory]];
+    NSString *htmlDescription=[NSString stringWithFormat:htmlWrapper,[feed htmlStory]];
     [webView loadHTMLString:htmlDescription baseURL:[NSURL URLWithString:@"www.appmaggot.com\test"]];
     [pool release];
 }
@@ -127,7 +146,7 @@ static NSString *htmlWrapper;
     }
     
     AMWebViewController *wvc=(AMWebViewController*)[self.zoomController.viewControllers objectAtIndex:4];
-    [wvc openURLString:request];
+    [wvc loadRequest:request];
     [self.zoomController pushToIndex:4];
     
     return NO;
@@ -226,5 +245,72 @@ static NSString *htmlWrapper;
     [UIView commitAnimations];
     webView.userInteractionEnabled=NO;
 }
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 3;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *cellIdentifier=@"Cell";
+    UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (cell==nil) {
+        cell=[[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
+        cell.textLabel.font=indexPath.row==0?[General regularLabelFont]:[General descriptionFont];
+        cell.textLabel.textColor=[UIColor whiteColor];
+        cell.backgroundColor=[UIColor blackColor];
+        if (indexPath.row!=0) {
+            cell.textLabel.textAlignment=UITextAlignmentRight;
+        }else{
+            cell.textLabel.numberOfLines=10;
+        }
+        cell.selectionStyle=UITableViewCellSelectionStyleNone;
+    }
+    
+    switch (indexPath.row) {
+        case 0:
+            cell.textLabel.text=feed.title;
+            break;
+        case 1:
+            cell.textLabel.text=[feed.date description];
+            break;
+        case 2:
+            cell.textLabel.text=feed.author;
+            break;
+        default:
+            break;
+    }
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.row==0) {
+        static UILabel *lblSample=nil;
+        if (lblSample==nil) {
+            lblSample=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 44)];
+            lblSample.font=indexPath.row==0?[General regularLabelFont]:[General descriptionFont];
+            lblSample.textColor=[UIColor whiteColor];
+            lblSample.numberOfLines=10;
+        }
+        
+        lblSample.text=feed.title;
+        CGSize maximumLabelSize = CGSizeMake(300,9999);
+        CGSize expectedLabelSize = [feed.title sizeWithFont:lblSample.font 
+                                          constrainedToSize:maximumLabelSize 
+                                              lineBreakMode:lblSample.lineBreakMode]; 
+        
+        return expectedLabelSize.height+18;
+    }
+    return 30;
+}
+
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    AMWebViewController *wvc=(AMWebViewController*)[self.zoomController.viewControllers objectAtIndex:4];
+    [wvc loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:feed.link]]];
+    [self.zoomController pushToIndex:4];
+    return nil;
+}
+
+
+
 
 @end

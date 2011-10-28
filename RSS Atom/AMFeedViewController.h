@@ -17,7 +17,7 @@
 
 @end
 
-@interface AMFeedViewController : AMViewController<UIGestureRecognizerDelegate,UIWebViewDelegate>{
+@interface AMFeedViewController : AMViewController<UIGestureRecognizerDelegate,UIWebViewDelegate,UITableViewDataSource,UITableViewDelegate>{
     NSObject<FeedViewDelegate> *delegate;
     IBOutlet UIWebView *webView;
     MWFeedItem *feed;
@@ -26,6 +26,8 @@
     IBOutlet UILabel *lblTitle,*lblCaption,*lblDescription,*lblTweet;
     IBOutlet AMImageView *imageView;
     BOOL pageLoaded;
+    IBOutlet UITableView *table;
+    UIScrollView *webScrollView;
 }
 
 @property(nonatomic,retain) NSObject<FeedViewDelegate> *delegate;
@@ -34,6 +36,7 @@
 -(void) processWebView;
 
 -(IBAction) btnListPressed:(id)sender;
+-(void) makeViewTranparent:(UIView *) view;
 -(void) loadDescription;
 -(IBAction)facebookClicked;
 -(IBAction)twitterClicked;
