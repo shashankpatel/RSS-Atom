@@ -10,8 +10,38 @@
 
 @implementation AMSerializer
 
+
 static NSMutableDictionary *cacheDictionary;
 static NSString *cacheDictPath;
+
++(void) checkCacheStatus{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+	NSString *cachePath = [AMSerializer cache];    
+    NSString *filePath;
+    unsigned long long int folderSize = 0;
+    
+    NSArray *_documentsFileList = [fileManager subpathsAtPath:cachePath];
+    NSEnumerator *_documentsEnumerator = [_documentsFileList objectEnumerator];
+    while (filePath = [_documentsEnumerator nextObject]) {
+        NSDictionary *_documentFileAttributes = [fileManager attributesOfItemAtPath:[cachePath stringByAppendingPathComponent:filePath] error:nil];
+        folderSize += [_documentFileAttributes fileSize];
+    }
+    
+    float fSize=(folderSize/(1024.0*1024));
+    if (fSize>25) {
+        NSLog(@"Folder size:%f. Cleaning up",fSize);
+        if ([fileManager removeItemAtPath:cachePath error:nil]) {
+            if([fileManager createDirectoryAtPath:cachePath
+                      withIntermediateDirectories:NO
+                                       attributes:nil
+                                            error:nil])NSLog(@"Dir created");
+            [cacheDictionary release];
+            cacheDictionary=[[NSMutableDictionary alloc] init];
+        }else{
+            NSLog(@"Cannot remove cache");
+        }
+    }
+}
 
 +(void) loadSerializer{
     [super load];

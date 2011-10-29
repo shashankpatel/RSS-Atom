@@ -387,6 +387,9 @@
         cell.showsReorderControl = YES;
         
         AMImageView *amiv=[[AMImageView alloc] init];
+        amiv.image=[UIImage imageNamed:@"favicon.png"];
+        [amiv initAMImageView];
+        amiv.shouldLoadSmallImage=YES;
         amiv.tag=2222;
         [cell.contentView addSubview:amiv];
         amiv.frame=CGRectMake(15, 15, 16, 16);

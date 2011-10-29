@@ -290,7 +290,7 @@
 	
 	// Succeed
 	MWLog(@"MWFeedParser: Connection successful... received %d bytes of data", [asyncData length]);
-	[AMSerializer serializeData:asyncData forURLString:url];
+	//AMSerializer serializeData:asyncData forURLString:url];
 	// Parse
 	if (!stopped) [self startParsingData:asyncData];
 	

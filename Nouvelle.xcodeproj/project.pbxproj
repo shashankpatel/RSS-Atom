@@ -53,6 +53,7 @@
 		9832BAE21440E5B400391A7B /* tab.png in Resources */ = {isa = PBXBuildFile; fileRef = 9832BAE11440E5B300391A7B /* tab.png */; };
 		98342F50145C6CEF00CEF448 /* emailIconSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 98342F4F145C6CEF00CEF448 /* emailIconSmall.png */; };
 		98342F52145C6E1400CEF448 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98342F51145C6E1400CEF448 /* MessageUI.framework */; };
+		98342F57145C96C800CEF448 /* favicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 98342F56145C96C800CEF448 /* favicon.png */; };
 		98427F83142B9F5C0048C0B5 /* General.m in Sources */ = {isa = PBXBuildFile; fileRef = 98427F82142B9F5C0048C0B5 /* General.m */; };
 		98427F92142BA6580048C0B5 /* segoeui.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 98427F90142BA6580048C0B5 /* segoeui.ttf */; };
 		98427F93142BA6580048C0B5 /* segoeuib.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 98427F91142BA6580048C0B5 /* segoeuib.ttf */; };
@@ -240,6 +241,7 @@
 		9832BAE11440E5B300391A7B /* tab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab.png; sourceTree = "<group>"; };
 		98342F4F145C6CEF00CEF448 /* emailIconSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = emailIconSmall.png; sourceTree = "<group>"; };
 		98342F51145C6E1400CEF448 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		98342F56145C96C800CEF448 /* favicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = favicon.png; sourceTree = "<group>"; };
 		98427F81142B9F5C0048C0B5 /* General.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = General.h; sourceTree = "<group>"; };
 		98427F82142B9F5C0048C0B5 /* General.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = General.m; sourceTree = "<group>"; };
 		98427F90142BA6580048C0B5 /* segoeui.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = segoeui.ttf; sourceTree = "<group>"; };
@@ -694,6 +696,7 @@
 		98D62A6D142B5B3A00481EF9 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				98342F56145C96C800CEF448 /* favicon.png */,
 				98342F4F145C6CEF00CEF448 /* emailIconSmall.png */,
 				980D318F1459AA1900BF255C /* roundRectBL.png */,
 				980D31901459AA1A00BF255C /* roundRectBR.png */,
@@ -878,6 +881,7 @@
 				980D31951459AA1A00BF255C /* roundRectTL.png in Resources */,
 				980D31961459AA1A00BF255C /* roundRectTR.png in Resources */,
 				98342F50145C6CEF00CEF448 /* emailIconSmall.png in Resources */,
+				98342F57145C96C800CEF448 /* favicon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

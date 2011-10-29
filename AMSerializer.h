@@ -10,6 +10,8 @@
 
 @interface AMSerializer : NSObject
 
+
++(void) checkCacheStatus;
 +(void) loadSerializer;
 +(NSString*) cache;
 +(NSString*) documents;
