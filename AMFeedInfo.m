@@ -11,7 +11,7 @@
 @implementation AMFeedInfo
 
 @synthesize title,urlString,link,category;
-@synthesize feedID;
+@synthesize feedID,sortIndex;
 
 - (id)init
 {

@@ -24,5 +24,6 @@
 +(void) addFeeds:(NSArray*) feeds forFeedID:(int) feedID;
 +(void) modifyCategoryNameFrom:(NSString*) oldName toName:(NSString*) newName;
 +(NSString*) titleForFeedID:(int) feedID;
++(void) modifySortIndex:(int) sortIndex forFeedID:(int) feedID;
 
 @end

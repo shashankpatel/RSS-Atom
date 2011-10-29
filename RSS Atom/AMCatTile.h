@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface AMCatTile : UIView{
-    IBOutlet UIButton *button,*deleteButton;;
+    IBOutlet UIButton *button,*deleteButton;
     int index;
     NSDate *touchStartDate;
     NSObject *subTarget;

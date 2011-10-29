@@ -485,7 +485,26 @@ UITapGestureRecognizer *singleDTap;
     return YES;
 }
 
+
+
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath{
+    
+    NSString *category=[allCategories objectAtIndex:tableIndex];
+    NSMutableArray *feedInfoArray=[feedInfos objectForKey:category];
+    AMFeedInfo *sourceFeedInfo=[[feedInfoArray objectAtIndex:sourceIndexPath.row] retain];
+    
+    [feedInfoArray removeObject:sourceFeedInfo];
+    [feedInfoArray insertObject:sourceFeedInfo atIndex:destinationIndexPath.row];
+    [sourceFeedInfo release];
+    
+    for (AMFeedInfo *feedInfo in feedInfoArray) {
+        int feedInfoIndex=[feedInfoArray indexOfObject:feedInfo];
+        if (feedInfo.sortIndex!=feedInfoIndex) {
+            [AMFeedManager modifySortIndex:feedInfoIndex forFeedID:feedInfo.feedID];
+            feedInfo.sortIndex=feedInfoIndex;
+        }
+    }
+    
 }
 
 -(void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{

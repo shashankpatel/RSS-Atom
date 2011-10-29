@@ -602,10 +602,7 @@
 		98D62A36142B528800481EF9 = {
 			isa = PBXGroup;
 			children = (
-				9884DFDB145913D600A4830B /* libxml2.2.7.3.dylib */,
 				981F23A5145200C00047D124 /* Social */,
-				98F67FD21434FC6000B8C615 /* QuartzCore.framework */,
-				98D25E451432E4B20049235B /* libsqlite3.dylib */,
 				98C89D4614324DCF000D8F27 /* Supporting Frameworks */,
 				98D62A4B142B528800481EF9 /* RSS Atom */,
 				98D62A44142B528800481EF9 /* Frameworks */,
@@ -624,6 +621,9 @@
 		98D62A44142B528800481EF9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				98D25E451432E4B20049235B /* libsqlite3.dylib */,
+				9884DFDB145913D600A4830B /* libxml2.2.7.3.dylib */,
+				98F67FD21434FC6000B8C615 /* QuartzCore.framework */,
 				98D62A45142B528800481EF9 /* UIKit.framework */,
 				98D62A47142B528800481EF9 /* Foundation.framework */,
 				98D62A49142B528800481EF9 /* CoreGraphics.framework */,

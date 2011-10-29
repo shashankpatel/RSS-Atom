@@ -10,10 +10,10 @@
 
 @interface AMFeedInfo : NSObject{
     NSString *title,*urlString,*link,*category;
-    int feedID;
+    int feedID,sortIndex;
 }
 
 @property(nonatomic,retain) NSString *title,*urlString,*link,*category;
-@property int feedID;
+@property int feedID,sortIndex;
 
 @end

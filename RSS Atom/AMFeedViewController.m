@@ -284,19 +284,10 @@ static NSString *htmlWrapper;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row==0) {
-        static UILabel *lblSample=nil;
-        if (lblSample==nil) {
-            lblSample=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 44)];
-            lblSample.font=indexPath.row==0?[General regularLabelFont]:[General descriptionFont];
-            lblSample.textColor=[UIColor whiteColor];
-            lblSample.numberOfLines=10;
-        }
-        
-        lblSample.text=feed.title;
-        CGSize maximumLabelSize = CGSizeMake(300,9999);
-        CGSize expectedLabelSize = [feed.title sizeWithFont:lblSample.font 
+        CGSize maximumLabelSize = CGSizeMake(280,9999);
+        CGSize expectedLabelSize = [feed.title sizeWithFont:[General regularLabelFont]
                                           constrainedToSize:maximumLabelSize 
-                                              lineBreakMode:lblSample.lineBreakMode]; 
+                                              lineBreakMode:UILineBreakModeTailTruncation]; 
         
         return expectedLabelSize.height+18;
     }

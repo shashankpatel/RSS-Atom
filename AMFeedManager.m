@@ -29,7 +29,7 @@ static sqlite3 *feedDB;
 }
 
 +(void) addFeedInfo:(AMFeedInfo*) feedInfo{
-    NSString *addQuery=[NSString stringWithFormat:@"INSERT INTO feedURLs VALUES(NULL,'%@','%@','%@',(SELECT PID FROM feedCategories WHERE categoryName='%@'))",feedInfo.title,feedInfo.urlString,feedInfo.link,feedInfo.category];
+    NSString *addQuery=[NSString stringWithFormat:@"INSERT INTO feedURLs VALUES(NULL,'%@','%@','%@',(SELECT PID FROM feedCategories WHERE categoryName='%@'),(select count(*) FROM feedURLs))",feedInfo.title,feedInfo.urlString,feedInfo.link,feedInfo.category];
     int ret = sqlite3_exec(feedDB, [addQuery UTF8String],NULL,NULL, NULL);
     if (ret==SQLITE_OK) {
         NSLog(@"Feed added");
@@ -107,7 +107,7 @@ static sqlite3 *feedDB;
 
 +(NSMutableDictionary*) allFeedInfos{
     NSMutableDictionary *allFeedCats=[AMFeedManager allFeedCategories];
-    NSString *allFeedsQuery=@"SELECT * FROM feedURLs";
+    NSString *allFeedsQuery=@"SELECT * FROM feedURLs ORDER BY sortIndex";
 	sqlite3_stmt *stmt;
 	int ret = sqlite3_prepare_v2 (feedDB, [allFeedsQuery UTF8String], [allFeedsQuery length], &stmt, NULL);
     NSMutableDictionary *feeds=[[NSMutableDictionary alloc] init];
@@ -120,6 +120,7 @@ static sqlite3 *feedDB;
             feedInfo.urlString=[NSString stringWithUTF8String:(char*)sqlite3_column_text(stmt, 2)];
             feedInfo.link=[NSString stringWithUTF8String:(char*)sqlite3_column_text(stmt, 3)];
             feedInfo.category=[allFeedCats objectForKey:[NSNumber numberWithInt:sqlite3_column_int(stmt, 4)]];
+            feedInfo.sortIndex=sqlite3_column_int(stmt, 5);
             
             NSMutableArray *feedsArray=[feeds objectForKey:feedInfo.category];
             if (!feedsArray) {
@@ -259,6 +260,14 @@ static sqlite3 *feedDB;
 	}
     sqlite3_finalize(stmt);
     return feedTitle;
+}
+
++(void) modifySortIndex:(int) sortIndex forFeedID:(int) feedID{
+    NSString *modifyQuery=[NSString stringWithFormat:@"UPDATE feedURLs SET sortIndex=%d WHERE feedID=%d",sortIndex,feedID];
+    int ret = sqlite3_exec(feedDB, [modifyQuery UTF8String],NULL,NULL, NULL);
+    if (ret!=SQLITE_OK){
+        NSLog(@"Error:%s",sqlite3_errmsg(feedDB));
+    }
 }
 
 @end
