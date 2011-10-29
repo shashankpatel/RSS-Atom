@@ -231,7 +231,7 @@ static BOOL skip=YES;
 
 - (void)feedParserDidStart:(MWFeedParser *)parser{
     NSLog(@"Parsing started");
-    self.view.window.userInteractionEnabled=NO;
+    //self.view.window.userInteractionEnabled=NO;
     [tempFeeds removeAllObjects];
 }
 
@@ -255,11 +255,12 @@ static BOOL skip=YES;
     NSLog(@"Parsing finished");
     [table reloadData];
     [self stopLoading];
-    self.view.window.userInteractionEnabled=YES;
+    //self.view.window.userInteractionEnabled=YES;
 }
 
 - (void)feedParser:(MWFeedParser *)parser didFailWithError:(NSError *)error{
-    
+    NSLog(@"Error:%@",[error description]);
+    [self stopLoading];
 }
 
 #pragma UIScrollViewDelegate methods

@@ -10,6 +10,7 @@
 #import "AMViewController.h"
 #import "MWFeedItem.h"
 #import "AMImageView.h"
+#import <MessageUI/MessageUI.h>
 
 @protocol FeedViewDelegate <NSObject>
 
@@ -17,7 +18,7 @@
 
 @end
 
-@interface AMFeedViewController : AMViewController<UIGestureRecognizerDelegate,UIWebViewDelegate,UITableViewDataSource,UITableViewDelegate>{
+@interface AMFeedViewController : AMViewController<UIGestureRecognizerDelegate,UIWebViewDelegate,UITableViewDataSource,UITableViewDelegate,MFMailComposeViewControllerDelegate>{
     NSObject<FeedViewDelegate> *delegate;
     IBOutlet UIWebView *webView;
     MWFeedItem *feed;
@@ -40,9 +41,11 @@
 -(void) loadDescription;
 -(IBAction)facebookClicked;
 -(IBAction)twitterClicked;
+-(IBAction)emailClicked:(id)sender;
 -(IBAction)postTapped:(id)sender;
 -(IBAction) cancelTapped:(id)sender;
 -(IBAction) cancelTweetTapped:(id)sender;
 -(IBAction) tweetTapped:(id)sender;
+-(void) reloadTable;
 
 @end

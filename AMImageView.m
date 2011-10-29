@@ -26,7 +26,7 @@
 
 -(void) setImageWithContentsOfURLString:(NSString*) _urlString{
     self.image=nil;
-    self.urlString=_urlString;
+    self.urlString=[_urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     [self.connection cancel];
     self.connection=nil;
     if ((self.image=[AMSerializer imageForURLString:urlString])) {

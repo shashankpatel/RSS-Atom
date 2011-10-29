@@ -98,17 +98,21 @@ static NSString *htmlWrapper;
 }
 
 -(void) viewWillAppear:(BOOL)animated{
-    [table reloadData];
-    table.frame=CGRectMake(0, -table.contentSize.height, 320, table.contentSize.height);
-    webScrollView.contentInset=UIEdgeInsetsMake(table.contentSize.height, 0, 0, 0);
     [tfMessage resignFirstResponder];
     pageLoaded=NO;
     webView.userInteractionEnabled=YES;
     [super viewWillAppear:animated];
 }
 
+-(void) reloadTable{
+    [table reloadData];
+    table.frame=CGRectMake(0, -table.contentSize.height, 320, table.contentSize.height);
+    webScrollView.contentInset=UIEdgeInsetsMake(table.contentSize.height, 0, 0, 0);
+}
+
 -(void) loadDescription{
     NSAutoreleasePool *pool=[[NSAutoreleasePool alloc] init];
+    [self performSelectorOnMainThread:@selector(reloadTable) withObject:nil waitUntilDone:YES];
     NSString *htmlDescription=[NSString stringWithFormat:htmlWrapper,[feed htmlStory]];
     [webView loadHTMLString:htmlDescription baseURL:[NSURL URLWithString:@"www.appmaggot.com\test"]];
     [pool release];
@@ -244,6 +248,25 @@ static NSString *htmlWrapper;
     tweeterStatusView.alpha=1;
     [UIView commitAnimations];
     webView.userInteractionEnabled=NO;
+}
+
+-(IBAction)emailClicked:(id)sender{
+    if ([MFMailComposeViewController canSendMail]) {
+        MFMailComposeViewController *mailComposer=[[MFMailComposeViewController alloc] init];
+        NSString *title=[NSString stringWithFormat:@"<a href='%@'><b>%@</b></a><hr><b>Published on</b> %@ <br><b>On</b> %@<br><hr><br>",feed.link,feed.title,[AMFeedManager titleForFeedID:feed.feedID],feed.date];
+        NSString *htmlDescription=[NSString stringWithFormat:@"%@%@ <br><div style='background-color:white;link:orange;text-align:center'> <hr> <a href='http://www.appmaggot.com/nouvelle/itunes.php'> I want Nouvelle for iOS</a><hr></div>",title, [feed htmlStory]];
+        NSString *mailTitle=[NSString stringWithFormat:@"%@ - Sent by Nouvelle for iOS",feed.title];
+        mailComposer.mailComposeDelegate = self;
+        
+        [mailComposer setSubject:mailTitle];
+        [mailComposer setMessageBody:htmlDescription isHTML:YES];
+        [self presentModalViewController:mailComposer animated:YES];
+        [mailComposer release];
+    }
+}
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error{
+    [controller dismissModalViewControllerAnimated:YES];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
