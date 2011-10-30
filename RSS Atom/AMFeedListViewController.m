@@ -29,6 +29,9 @@
 
 - (void)viewDidLoad
 {
+    settingsView.frame=CGRectMake(0, -341, 320, 341);
+    settingsView.alpha=0;
+    [self.view addSubview:settingsView];
     feedTitle.font=[General regularLabelFont];
     [self addPullToRefreshHeader];
     [self initController];
@@ -400,9 +403,34 @@ static BOOL skip=YES;
     //[self performSelector:@selector(stopLoading) withObject:nil afterDelay:2.0];
 }
 
--(IBAction) wrenchPressed:(id)sender{
-    NouvelleAppDelegate *appDelegate=(NouvelleAppDelegate*) [[UIApplication sharedApplication] delegate];
-    [appDelegate logoutFromfacebook];
+-(IBAction) wrenchPressed{
+    [self showSettingsTable];
+}
+
+-(IBAction) cancelSettingsPressed{
+    [self hideSettingsTable];
+}
+
+-(void) showSettingsTable{
+    [UIView beginAnimations:@"Show settings view" context:nil];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+    [UIView setAnimationDuration:0.2];
+    settingsView.frame=CGRectMake(0, 0, 320, 341);
+    settingsView.alpha=1;
+    table.alpha=0.5;
+    [UIView commitAnimations];
+    table.userInteractionEnabled=NO;
+}
+
+-(IBAction) hideSettingsTable{
+    [UIView beginAnimations:@"Hide settings view" context:nil];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+    [UIView setAnimationDuration:0.2];
+    settingsView.frame=CGRectMake(0, -341, 320, 341);
+    settingsView.alpha=0;
+    table.alpha=1;
+    [UIView commitAnimations];
+    table.userInteractionEnabled=YES;
 }
 
 @end

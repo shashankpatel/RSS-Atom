@@ -10,7 +10,7 @@
 #import "AMZoomViewController.h"
 
 #import "AMFeedSearchViewController.h"
-#import "AMFeedSelectorViewController.h"
+#import "AMSourceSelectorViewController.h"
 #import "AMFeedListViewController.h"
 #import "AMFeedViewController.h"
 #import "AMWebViewController.h"
@@ -29,7 +29,7 @@
     [controllers addObject:vc];
     [vc release];
     
-    AMFeedSelectorViewController *fsvc=[[AMFeedSelectorViewController alloc] initWithNibName:@"AMFeedSelectorViewController" bundle:nil];
+    AMSourceSelectorViewController *fsvc=[[AMSourceSelectorViewController alloc] initWithNibName:@"AMSourceSelectorViewController" bundle:nil];
     [controllers addObject:fsvc];
     [fsvc release];
     

@@ -441,6 +441,7 @@ static NSString *htmlWrapper;
     [UIView setAnimationDuration:0.2];
     boastView.frame=CGRectMake(0, 0, 320, 297);
     boastView.alpha=1;
+    webView.alpha=0.5;
     [UIView commitAnimations];
     webView.userInteractionEnabled=NO;
 }
@@ -451,6 +452,7 @@ static NSString *htmlWrapper;
     [UIView setAnimationDuration:0.2];
     boastView.frame=CGRectMake(0, -297, 320, 297);
     boastView.alpha=0;
+    webView.alpha=1;
     [UIView commitAnimations];
     webView.userInteractionEnabled=YES;
 }

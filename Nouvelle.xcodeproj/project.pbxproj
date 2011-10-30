@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9804CE37145D76BC007F8CE5 /* AMSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9804CE36145D76BC007F8CE5 /* AMSettingsViewController.m */; };
+		9804CE39145D7AF1007F8CE5 /* helpIconSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 9804CE38145D7AF1007F8CE5 /* helpIconSmall.png */; };
 		980D3159145955B100BF255C /* jQueryInject.txt in Resources */ = {isa = PBXBuildFile; fileRef = 980D311F145955B100BF255C /* jQueryInject.txt */; };
 		980D315A145955B100BF255C /* jQueryInjectLandscape.txt in Resources */ = {isa = PBXBuildFile; fileRef = 980D3120145955B100BF255C /* jQueryInjectLandscape.txt */; };
 		980D315B145955B100BF255C /* libOAuth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 980D3121145955B100BF255C /* libOAuth.a */; };
@@ -114,8 +116,8 @@
 		98D62A6F142B5B5600481EF9 /* gridIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D62A6E142B5B5600481EF9 /* gridIcon.png */; };
 		98D62A71142B5BC400481EF9 /* blackSteel.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 98D62A70142B5BC400481EF9 /* blackSteel.jpg */; };
 		98D62A73142B5CA600481EF9 /* wrenchIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D62A72142B5CA600481EF9 /* wrenchIcon.png */; };
-		98D62A8E142B66C900481EF9 /* AMFeedSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98D62A8C142B66C900481EF9 /* AMFeedSelectorViewController.m */; };
-		98D62A8F142B66C900481EF9 /* AMFeedSelectorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98D62A8D142B66C900481EF9 /* AMFeedSelectorViewController.xib */; };
+		98D62A8E142B66C900481EF9 /* AMSourceSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 98D62A8C142B66C900481EF9 /* AMSourceSelectorViewController.m */; };
+		98D62A8F142B66C900481EF9 /* AMSourceSelectorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98D62A8D142B66C900481EF9 /* AMSourceSelectorViewController.xib */; };
 		98E0418D1441DC5000DAF138 /* removeIconSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 98E0418C1441DC5000DAF138 /* removeIconSmall.png */; };
 		98F005921434BF810013B44D /* AMFeedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 98F005911434BF810013B44D /* AMFeedCell.m */; };
 		98F005951434BFB90013B44D /* AMFeedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98F005941434BFB90013B44D /* AMFeedCell.xib */; };
@@ -144,6 +146,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9804CE35145D76BC007F8CE5 /* AMSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMSettingsViewController.h; sourceTree = "<group>"; };
+		9804CE36145D76BC007F8CE5 /* AMSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMSettingsViewController.m; sourceTree = "<group>"; };
+		9804CE38145D7AF1007F8CE5 /* helpIconSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = helpIconSmall.png; sourceTree = "<group>"; };
 		980D311F145955B100BF255C /* jQueryInject.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = jQueryInject.txt; sourceTree = "<group>"; };
 		980D3120145955B100BF255C /* jQueryInjectLandscape.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = jQueryInjectLandscape.txt; sourceTree = "<group>"; };
 		980D3121145955B100BF255C /* libOAuth.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libOAuth.a; sourceTree = "<group>"; };
@@ -327,9 +332,9 @@
 		98D62A6E142B5B5600481EF9 /* gridIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gridIcon.png; sourceTree = "<group>"; };
 		98D62A70142B5BC400481EF9 /* blackSteel.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = blackSteel.jpg; sourceTree = "<group>"; };
 		98D62A72142B5CA600481EF9 /* wrenchIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wrenchIcon.png; sourceTree = "<group>"; };
-		98D62A8B142B66C900481EF9 /* AMFeedSelectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMFeedSelectorViewController.h; sourceTree = "<group>"; };
-		98D62A8C142B66C900481EF9 /* AMFeedSelectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AMFeedSelectorViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		98D62A8D142B66C900481EF9 /* AMFeedSelectorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AMFeedSelectorViewController.xib; sourceTree = "<group>"; };
+		98D62A8B142B66C900481EF9 /* AMSourceSelectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMSourceSelectorViewController.h; sourceTree = "<group>"; };
+		98D62A8C142B66C900481EF9 /* AMSourceSelectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AMSourceSelectorViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		98D62A8D142B66C900481EF9 /* AMSourceSelectorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AMSourceSelectorViewController.xib; sourceTree = "<group>"; };
 		98E0418C1441DC5000DAF138 /* removeIconSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = removeIconSmall.png; sourceTree = "<group>"; };
 		98F005901434BF810013B44D /* AMFeedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMFeedCell.h; sourceTree = "<group>"; };
 		98F005911434BF810013B44D /* AMFeedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AMFeedCell.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -654,9 +659,11 @@
 				98D62A65142B550B00481EF9 /* AMFeedListViewController.h */,
 				98D62A66142B550B00481EF9 /* AMFeedListViewController.m */,
 				98D62A67142B550B00481EF9 /* AMFeedListViewController.xib */,
-				98D62A8B142B66C900481EF9 /* AMFeedSelectorViewController.h */,
-				98D62A8C142B66C900481EF9 /* AMFeedSelectorViewController.m */,
-				98D62A8D142B66C900481EF9 /* AMFeedSelectorViewController.xib */,
+				9804CE35145D76BC007F8CE5 /* AMSettingsViewController.h */,
+				9804CE36145D76BC007F8CE5 /* AMSettingsViewController.m */,
+				98D62A8B142B66C900481EF9 /* AMSourceSelectorViewController.h */,
+				98D62A8C142B66C900481EF9 /* AMSourceSelectorViewController.m */,
+				98D62A8D142B66C900481EF9 /* AMSourceSelectorViewController.xib */,
 				98427F81142B9F5C0048C0B5 /* General.h */,
 				98427F82142B9F5C0048C0B5 /* General.m */,
 				98B1F789142C7F0A003A4B0D /* AMFeedViewController.h */,
@@ -696,6 +703,7 @@
 		98D62A6D142B5B3A00481EF9 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				9804CE38145D7AF1007F8CE5 /* helpIconSmall.png */,
 				98342F56145C96C800CEF448 /* favicon.png */,
 				98342F4F145C6CEF00CEF448 /* emailIconSmall.png */,
 				980D318F1459AA1900BF255C /* roundRectBL.png */,
@@ -833,7 +841,7 @@
 				98D62A6F142B5B5600481EF9 /* gridIcon.png in Resources */,
 				98D62A71142B5BC400481EF9 /* blackSteel.jpg in Resources */,
 				98D62A73142B5CA600481EF9 /* wrenchIcon.png in Resources */,
-				98D62A8F142B66C900481EF9 /* AMFeedSelectorViewController.xib in Resources */,
+				98D62A8F142B66C900481EF9 /* AMSourceSelectorViewController.xib in Resources */,
 				98427F92142BA6580048C0B5 /* segoeui.ttf in Resources */,
 				98427F93142BA6580048C0B5 /* segoeuib.ttf in Resources */,
 				98B1F78D142C7F0A003A4B0D /* AMFeedViewController.xib in Resources */,
@@ -882,6 +890,7 @@
 				980D31961459AA1A00BF255C /* roundRectTR.png in Resources */,
 				98342F50145C6CEF00CEF448 /* emailIconSmall.png in Resources */,
 				98342F57145C96C800CEF448 /* favicon.png in Resources */,
+				9804CE39145D7AF1007F8CE5 /* helpIconSmall.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -896,7 +905,7 @@
 				98D62A56142B528800481EF9 /* NouvelleAppDelegate.m in Sources */,
 				98D62A5C142B528800481EF9 /* AMNouvelleViewController.m in Sources */,
 				98D62A68142B550B00481EF9 /* AMFeedListViewController.m in Sources */,
-				98D62A8E142B66C900481EF9 /* AMFeedSelectorViewController.m in Sources */,
+				98D62A8E142B66C900481EF9 /* AMSourceSelectorViewController.m in Sources */,
 				98427F83142B9F5C0048C0B5 /* General.m in Sources */,
 				98427FAD142C61FF0048C0B5 /* AMImageView.m in Sources */,
 				98B1F788142C700C003A4B0D /* AMSerializer.m in Sources */,
@@ -962,6 +971,7 @@
 				980D3169145955B100BF255C /* NSString+UUID.m in Sources */,
 				980D316A145955B100BF255C /* SA_OAuthTwitterController.m in Sources */,
 				980D316B145955B100BF255C /* SA_OAuthTwitterEngine.m in Sources */,
+				9804CE37145D76BC007F8CE5 /* AMSettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

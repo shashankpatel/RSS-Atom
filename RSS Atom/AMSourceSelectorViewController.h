@@ -25,7 +25,7 @@
 
 @end
 
-@interface AMFeedSelectorViewController : AMViewController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>{
+@interface AMSourceSelectorViewController : AMViewController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>{
     IBOutlet UITableView *table;
     NSMutableDictionary *feedInfos;
     NSObject<FeedSelectorDelegate> *delegate;
@@ -44,6 +44,7 @@
     IBOutlet UIButton *deleteButton;
     IBOutlet UIView *mainTitleBar;
     int catMode;
+    IBOutlet UILabel *titleLabel;
 }
 
 @property(nonatomic,retain) NSObject<FeedSelectorDelegate> *delegate;

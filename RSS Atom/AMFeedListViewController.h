@@ -7,13 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AMFeedSelectorViewController.h"
+#import "AMSourceSelectorViewController.h"
 #import "AMFeedViewController.h"
 #import "AMViewController.h"
 #import "MWFeedParser.h"
+#import "AMSettingsViewController.h"
 
 @interface AMFeedListViewController : AMViewController<FeedSelectorDelegate,FeedViewDelegate,MWFeedParserDelegate>{
-    AMFeedSelectorViewController *feedSelector;
+    AMSourceSelectorViewController *feedSelector;
     AMFeedViewController *feedViewController;
     IBOutlet UITableView *table;
     IBOutlet UIView *detachableView;
@@ -34,6 +35,8 @@
     NSString *textLoading;
     NSMutableArray *cells;
     IBOutlet UILabel *feedTitle;
+    IBOutlet AMSettingsViewController *settingsController;
+    IBOutlet UIView *settingsView;
 }
 
 @property(nonatomic,retain) UIView *currentView;
@@ -61,6 +64,9 @@
 -(IBAction) backgroundButtonPressed:(id)sender;
 
 -(void) makeViewTranparent:(UIView *) view;
--(IBAction) wrenchPressed:(id)sender;
+-(IBAction) wrenchPressed;
+-(IBAction) cancelSettingsPressed;
+-(void) showSettingsTable;
+-(IBAction) hideSettingsTable;
 
 @end

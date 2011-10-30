@@ -6,7 +6,7 @@
 //  Copyright 2011 Not Applicable. All rights reserved.
 //
 
-#import "AMFeedSelectorViewController.h"
+#import "AMSourceSelectorViewController.h"
 #import "General.h"
 #import "AMImageView.h"
 #import "AMFeedListViewController.h"
@@ -15,7 +15,7 @@
 #import "AMFeedSearchViewController.h"
 #import "AMCatTile.h"
 
-@implementation AMFeedSelectorViewController
+@implementation AMSourceSelectorViewController
 
 @synthesize delegate;
 @synthesize feedInfos;
@@ -39,7 +39,7 @@
     }else{
         self.tableIndex=0;
     }
-    
+    titleLabel.font=[General regularLabelFont];
     bottomFrame=CGRectMake(0, 416, 320, 328);
     topFrame=CGRectMake(0, 44, 320, 328);
     manageButton.hidden=YES;
