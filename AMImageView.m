@@ -27,8 +27,7 @@
 -(void) setImageWithContentsOfURLString:(NSString*) _urlString{
     self.image=nil;
     self.urlString=[_urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    [self.connection cancel];
-    self.connection=nil;
+    [self stopLoading];
     if ((self.image=[AMSerializer imageForURLString:urlString])) {
         [delegate imageSuccessfullyLoadedLocally];
     }
@@ -36,7 +35,16 @@
     [self resetImage];
 }
 
+-(void) stopLoading{
+    [self.connection cancel];
+    [connection release];
+    connection=nil;
+    
+}
+
 -(void) resetImage{
+    [self stopLoading];
+    
     if (self.image) {
         return;
     }
@@ -47,11 +55,7 @@
     
     NSURL *url=[NSURL URLWithString:urlString];
     NSURLRequest *request=[NSURLRequest requestWithURL:url];
-    [self.connection cancel];
-    self.connection=[[NSURLConnection alloc] initWithRequest:request delegate:self];
-    [connection release];
-    if (connection) {
-    }
+    self.connection=[NSURLConnection connectionWithRequest:request delegate:self];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response{

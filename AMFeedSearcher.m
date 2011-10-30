@@ -32,8 +32,9 @@
 
 -(void) dataDownloadSucceededWithData:(NSData*) data{
     NSMutableArray *feedInfos=[[NSMutableArray alloc] init];
+    NSString *receivedString;
     @try {
-        NSString *receivedString=[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        receivedString=[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         NSDictionary *receivedDict=[receivedString JSONValue];
         NSArray *entries=[[receivedDict objectForKey:@"responseData"] objectForKey:@"entries"];
         for(NSDictionary *entry in entries){
@@ -44,10 +45,12 @@
             [feedInfos addObject:feedInfo];
             [feedInfo release];
         }
+        [receivedString release];
     }
     @catch (NSException *exception) {
+        [receivedString release];
     }
-    [feedSearchDelegate feedInfosReceived:feedInfos];
+    [feedSearchDelegate feedInfosReceived:[feedInfos autorelease]];
 }
 
 -(void) dataDownloadFailedWithError:(NSError*) error{

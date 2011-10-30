@@ -35,7 +35,7 @@
     BOOL editMode;
     IBOutlet UIButton *addCat,*removeCat;
     int tableIndex,tableTransition;
-    IBOutlet UIButton *upButton,*downButton,*removeButton,*manageButton;
+    IBOutlet UIButton *removeButton,*manageButton;
     CGRect bottomFrame,topFrame;
     IBOutlet UIView *addFeedCatView;
     IBOutlet UITextField *tfFeedCat;
@@ -61,10 +61,7 @@
 
 -(IBAction) editPressed:(id)sender;
 
--(IBAction) upPressed;
--(IBAction) downPressed;
 -(void) processTableChange;
--(void) setButtonTexts;
 -(void) addFeedCatPressed;
 -(void) regenerateGrid;
 -(IBAction) gridPressed:(id)sender;

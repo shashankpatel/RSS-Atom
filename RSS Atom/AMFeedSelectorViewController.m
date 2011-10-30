@@ -40,8 +40,6 @@
         self.tableIndex=0;
     }
     
-    upButton.titleLabel.font=[General regularLabelFont];
-    downButton.titleLabel.font=[General regularLabelFont];
     bottomFrame=CGRectMake(0, 416, 320, 328);
     topFrame=CGRectMake(0, 44, 320, 328);
     manageButton.hidden=YES;
@@ -60,26 +58,6 @@
     [defaults setObject:[NSNumber numberWithInt:tableIndex] forKey:@"tableIndex"];
     [defaults synchronize];
     
-    [upButton setTitle:nil forState:UIControlStateNormal];
-    [downButton setTitle:nil forState:UIControlStateNormal];
-}
-
--(void) setButtonTexts{
-    if(tableIndex>0){
-        [upButton setTitle:[allCategories objectAtIndex:tableIndex-1] forState:UIControlStateNormal];
-        //upButton.hidden=NO;
-    }else{
-        [upButton setTitle:@"✚" forState:UIControlStateNormal];
-        //upButton.hidden=YES;
-    }
-    
-    if(tableIndex<[allCategories count]-1){
-        [downButton setTitle:[allCategories objectAtIndex:tableIndex+1] forState:UIControlStateNormal];
-        //downButton.hidden=NO;
-    }else{
-        [downButton setTitle:@"✚" forState:UIControlStateNormal];
-        //downButton.hidden=YES;
-    }
 }
 
 -(int) tableIndex{
@@ -101,6 +79,10 @@
     self.feedInfos=[AMFeedManager allFeedInfos];
     self.allCategories=[[AMFeedManager allFeedCategories] allValues];
     [self regenerateGrid];
+    int countUpperBound=[allCategories count]-1;
+    if (tableIndex>countUpperBound){
+        [self gridPressed:nil];
+    }
     [table reloadData];
     [super viewWillAppear:animated];
 }
@@ -302,8 +284,10 @@
 
 
 -(IBAction) gridPressed:(id)sender{
-    AMCatTile *tile=[gridTiles objectAtIndex:tableIndex];
-    tile.transform=CGAffineTransformMakeScale(1, 1);
+    if (tableIndex<[allCategories count]){
+        AMCatTile *tile=[gridTiles objectAtIndex:tableIndex];
+        tile.transform=CGAffineTransformMakeScale(1, 1);
+    }
     [UIView beginAnimations:@"" context:nil];
     [UIView setAnimationDuration:0.4];
     catOverlay.alpha=1.0;
@@ -321,8 +305,6 @@
     }
     mainTitleBar.hidden=YES;
     table.alpha=0;
-    upButton.alpha=0;
-    downButton.alpha=0;
     [UIView commitAnimations];
 }
 
@@ -380,6 +362,14 @@
     //[self viewWillAppear:YES];
 }
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    int sectionCount=0;
+    if (tableIndex<[allCategories count]) {
+        return sectionCount=1;
+    }
+    return sectionCount;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return [[feedInfos objectForKey:[allCategories objectAtIndex:tableIndex]] count];
 }
@@ -426,11 +416,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 3;
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
-    return [allCategories count];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -596,24 +581,6 @@ UITapGestureRecognizer *singleDTap;
     [table reloadSections:indexSet withRowAnimation:UITableViewRowAnimationFade];
 }
 
--(IBAction) upPressed{
-    if (tableIndex==0) {
-        [self addFeedCatPressed];
-        return;
-    }
-    self.tableIndex--;
-    [self processTableChange];
-}
-
--(IBAction) downPressed{
-    if (tableIndex==[allCategories count]-1) {
-        [self addFeedCatPressed];
-        return;
-    }
-    self.tableIndex++;
-    [self processTableChange];
-}
-
 -(void) processTableChange{
     float animationDuration=tableTransition==kTableTransitionNegative ? 0.3 : 0.2;
     [UIView beginAnimations:@"Table move" context:nil];
@@ -635,7 +602,6 @@ UITapGestureRecognizer *singleDTap;
     [UIView setAnimationDuration:animationDuration];
     [UIView setAnimationDelegate:nil];
     table.frame=CGRectMake(0, 44, 320, 416);
-    [self setButtonTexts];
     [UIView commitAnimations];
 }
 

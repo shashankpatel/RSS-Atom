@@ -57,7 +57,7 @@ static BOOL initialized=NO;
     if (self.zoomController.transitionType==kTransitionTypePop) {
         for (AMFeedCell *cell in cells) {
             cell.feedImage.shouldLoadImage=YES;
-            [cell.feedImage resetImage];
+            [cell.feedImage stopLoading];
         }
         [feeds removeAllObjects];
         [table reloadData];
@@ -165,7 +165,7 @@ static BOOL skip=YES;
     static NSString *FeedCell=@"AMFEEDCELL";
     AMFeedCell *cell=(AMFeedCell*) [tableView dequeueReusableCellWithIdentifier:FeedCell];
     if (!cell) {
-        cell=[AMFeedCell cell];
+        cell=[[AMFeedCell cell] autorelease];
         cell.titleLabel.font=[General regularLabelFont];
         cell.titleLabel.numberOfLines=1;
         cell.descriptionLabel.font=[General descriptionFont];

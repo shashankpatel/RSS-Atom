@@ -27,6 +27,7 @@
     [title release];
     [urlString release];
     [link release];
+    [category release];
     [super dealloc];
 }
 

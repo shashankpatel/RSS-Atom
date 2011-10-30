@@ -31,6 +31,7 @@
 
 - (void)initAMImageView;
 -(void) setImageWithContentsOfURLString:(NSString*) urlString;
+-(void) stopLoading;
 -(void) resetImage;
 -(UIImage*) thumbmnailFromImage:(UIImage*) image;
 
