@@ -7,9 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NouvelleAppDelegate.h"
+#import <MessageUI/MessageUI.h>
 
-@interface AMSettingsViewController : NSObject<UITableViewDataSource,UITableViewDelegate>{
-    
+@class AMFeedListViewController;
+
+@interface AMSettingsViewController : NSObject<UITableViewDataSource,UITableViewDelegate,MFMailComposeViewControllerDelegate>{
+    NouvelleAppDelegate *appDelegate;
+    IBOutlet AMFeedListViewController *source;
 }
+
+@property(nonatomic,retain) AMFeedListViewController *source;
+
+-(int) countForLoggedSocialNetworks;
 
 @end

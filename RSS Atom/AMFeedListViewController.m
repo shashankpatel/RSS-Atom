@@ -29,7 +29,7 @@
 
 - (void)viewDidLoad
 {
-    settingsView.frame=CGRectMake(0, -341, 320, 341);
+    settingsView.frame=CGRectMake(0, -settingsTable.contentSize.height, 320, settingsTable.contentSize.height);
     settingsView.alpha=0;
     [self.view addSubview:settingsView];
     feedTitle.font=[General regularLabelFont];
@@ -101,7 +101,7 @@ static BOOL initialized=NO;
 static BOOL skip=YES;
 
 -(void) viewWillAppear:(BOOL)animated{
-    if (skip) {
+    if (NO && skip) {
         skip=NO;
         return;
     }
@@ -368,7 +368,7 @@ static BOOL skip=YES;
 
 - (void)stopLoading {
     isLoading = NO;
-    
+    loadingView.alpha=0;
     // Hide the header
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDelegate:self];
@@ -390,16 +390,19 @@ static BOOL skip=YES;
     // This is just a demo. Override this method with your custom reload action.
     // Don't forget to call stopLoading at the end.
     [feedParser parse];
+    loadingView.alpha=1.0;
     //[self performSelector:@selector(stopLoading) withObject:nil afterDelay:2.0];
 }
 
 - (void) reloadFeeds {
     // This is just a demo. Override this method with your custom reload action.
     // Don't forget to call stopLoading at the end.
+    NSLog(@"reload called");
     stopIssued=YES;
     [feedParser stopParsing];
     [feedParser reset];
     [feedParser parse];
+    loadingView.alpha=1.0;
     //[self performSelector:@selector(stopLoading) withObject:nil afterDelay:2.0];
 }
 
@@ -412,10 +415,11 @@ static BOOL skip=YES;
 }
 
 -(void) showSettingsTable{
+    [settingsTable reloadData];
     [UIView beginAnimations:@"Show settings view" context:nil];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
     [UIView setAnimationDuration:0.2];
-    settingsView.frame=CGRectMake(0, 0, 320, 341);
+    settingsView.frame=CGRectMake(0, 0, 320, settingsTable.contentSize.height);
     settingsView.alpha=1;
     table.alpha=0.5;
     [UIView commitAnimations];
@@ -426,11 +430,34 @@ static BOOL skip=YES;
     [UIView beginAnimations:@"Hide settings view" context:nil];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
     [UIView setAnimationDuration:0.2];
-    settingsView.frame=CGRectMake(0, -341, 320, 341);
+    settingsView.frame=CGRectMake(0, -settingsTable.contentSize.height, 320, settingsTable.contentSize.height);
     settingsView.alpha=0;
     table.alpha=1;
     [UIView commitAnimations];
     table.userInteractionEnabled=YES;
+}
+
+-(void) tutorialSelected{
+     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.appmaggot.com/nouvelle/tutorial"]];
+    [self hideSettingsTable];
+}
+
+-(void) feedbackSelected{
+    //Feedback & support
+    MFMailComposeViewController *mailComposer=[[MFMailComposeViewController alloc] init];
+    mailComposer.navigationBar.tintColor=[UIColor blackColor];
+    mailComposer.mailComposeDelegate = self;
+    
+    [mailComposer setToRecipients:[NSArray arrayWithObject:@"support@appmaggot.com"]];
+    [mailComposer setSubject:@"Feedback and Support"];
+    [mailComposer setMessageBody:nil isHTML:NO];
+    [self presentModalViewController:mailComposer animated:YES];
+    [mailComposer release];
+    [self hideSettingsTable];
+}
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error{
+    [controller dismissModalViewControllerAnimated:YES];
 }
 
 @end

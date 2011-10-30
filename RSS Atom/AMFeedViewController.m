@@ -118,6 +118,7 @@ static NSString *htmlWrapper;
     [table reloadData];
     table.frame=CGRectMake(0, -table.contentSize.height, 320, table.contentSize.height);
     webScrollView.contentInset=UIEdgeInsetsMake(table.contentSize.height, 0, 0, 0);
+    [webScrollView scrollRectToVisible:CGRectMake(0, 0, 320, webView.frame.size.height) animated:NO];
 }
 
 -(void) loadDescription{
@@ -262,6 +263,7 @@ static NSString *htmlWrapper;
 -(IBAction)emailClicked:(id)sender{
     if ([MFMailComposeViewController canSendMail]) {
         MFMailComposeViewController *mailComposer=[[MFMailComposeViewController alloc] init];
+        mailComposer.navigationBar.tintColor=[UIColor blackColor];
         NSString *title=[NSString stringWithFormat:@"<a href='%@'><b>%@</b></a><hr><b>Published on</b> %@ <br><b>On</b> %@<br><hr><br>",feed.link,feed.title,[AMFeedManager titleForFeedID:feed.feedID],feed.date];
         NSString *htmlDescription=[NSString stringWithFormat:@"%@%@ <br><div style='background-color:white;link:orange;text-align:center'> <hr> <a href='http://www.appmaggot.com/nouvelle/itunes.php'> I want Nouvelle for iOS</a><hr></div>",title, [feed htmlStory]];
         NSString *mailTitle=[NSString stringWithFormat:@"%@ - Sent by Nouvelle for iOS",feed.title];

@@ -31,6 +31,14 @@ static NSString *kOAuthConsumerSecret=@"I9N5HCubJhB212YGBleAs1AY4KSq6ECUqHASNozT
 
 static NSString *twitterPostString;
 
++(Facebook*) sharedFacebook{
+    return  facebook;
+}
+
++(SA_OAuthTwitterEngine*) sharedTwitter{
+    return engine;
+}
+
 -(void) loadFaceBook{
     publishScheduled=NO;
     permissions =  [[NSArray arrayWithObjects:
@@ -53,6 +61,7 @@ static NSString *twitterPostString;
 	engine.consumerKey = kOAuthConsumerKey;
 	engine.consumerSecret = kOAuthConsumerSecret;
 	AMViewController *controller = [SA_OAuthTwitterController controllerToEnterCredentialsWithTwitterEngine: engine delegate: self];
+    controller.navigationController.navigationBar.tintColor=[UIColor blackColor];
 	if (controller) {
         loading=YES;
         AMZoomViewController *zvc=[AMZoomViewController sharedZoomViewController];
@@ -187,6 +196,10 @@ static NSString *twitterPostString;
  */
 - (void)logoutFromfacebook {
     [facebook logout:self];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults removeObjectForKey:@"FBAccessTokenKey"];
+    [defaults removeObjectForKey:@"FBExpirationDateKey"];
+    [defaults synchronize];
 }
 
 - (void)fbDidLogin {

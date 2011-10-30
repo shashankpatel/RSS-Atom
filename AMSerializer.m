@@ -48,6 +48,10 @@ static NSString *cacheDictPath;
     NSLog(@"Searializer loaded");
     if(!cacheDictionary) {
         cacheDictPath=[[[AMSerializer cache] stringByAppendingPathComponent:@"cacheDict.plist"] retain];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:[NSNumber numberWithInt:4] forKey:@"tableIndex"];
+        [defaults synchronize];
+        
         if([[NSFileManager defaultManager] createDirectoryAtPath:[AMSerializer cache]
                                      withIntermediateDirectories:NO
                                                       attributes:nil

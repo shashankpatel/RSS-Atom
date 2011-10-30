@@ -12,8 +12,9 @@
 #import "AMViewController.h"
 #import "MWFeedParser.h"
 #import "AMSettingsViewController.h"
+#import <MessageUI/MessageUI.h>
 
-@interface AMFeedListViewController : AMViewController<FeedSelectorDelegate,FeedViewDelegate,MWFeedParserDelegate>{
+@interface AMFeedListViewController : AMViewController<FeedSelectorDelegate,FeedViewDelegate,MWFeedParserDelegate,MFMailComposeViewControllerDelegate>{
     AMSourceSelectorViewController *feedSelector;
     AMFeedViewController *feedViewController;
     IBOutlet UITableView *table;
@@ -37,6 +38,8 @@
     IBOutlet UILabel *feedTitle;
     IBOutlet AMSettingsViewController *settingsController;
     IBOutlet UIView *settingsView;
+    IBOutlet UITableView *settingsTable;
+    IBOutlet UIView *loadingView;
 }
 
 @property(nonatomic,retain) UIView *currentView;
@@ -68,5 +71,8 @@
 -(IBAction) cancelSettingsPressed;
 -(void) showSettingsTable;
 -(IBAction) hideSettingsTable;
+
+-(void) tutorialSelected;
+-(void) feedbackSelected;
 
 @end

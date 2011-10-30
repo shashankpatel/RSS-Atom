@@ -13,6 +13,8 @@
     IBOutlet UIWebView *webView;
     IBOutlet UIView *loadingView;
     IBOutlet UIButton *stopButton;
+    IBOutlet UIView *moreView;
+    IBOutlet UITableView *moreTable;
 }
 
 -(void) loadRequest:(NSURLRequest*) request;

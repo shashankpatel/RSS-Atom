@@ -59,7 +59,7 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
-								<string key="IBUINormalTitle">✚</string>
+								<string key="IBUINormalTitle">+</string>
 								<object class="NSColor" key="IBUIHighlightedTitleColor" id="488333354">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MQA</bytes>
@@ -68,6 +68,10 @@
 								<object class="NSColor" key="IBUINormalTitleShadowColor" id="363030074">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MC41AA</bytes>
+								</object>
+								<object class="NSCustomResource" key="IBUINormalImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">addIconSmall.png</string>
 								</object>
 								<object class="IBUIFontDescription" key="IBUIFontDescription" id="932674056">
 									<string key="name">Helvetica-Bold</string>
@@ -93,10 +97,14 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
-								<string key="IBUINormalTitle">－</string>
+								<string key="IBUINormalTitle">-</string>
 								<reference key="IBUIHighlightedTitleColor" ref="488333354"/>
 								<reference key="IBUINormalTitleColor" ref="488333354"/>
 								<reference key="IBUINormalTitleShadowColor" ref="363030074"/>
+								<object class="NSCustomResource" key="IBUINormalImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">removeIconSmall.png</string>
+								</object>
 								<reference key="IBUIFontDescription" ref="932674056"/>
 								<reference key="IBUIFont" ref="1041743508"/>
 							</object>
@@ -996,13 +1004,17 @@
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
+				<string>addIconSmall.png</string>
 				<string>dustBinIconSmall.png</string>
 				<string>gridIcon.png</string>
+				<string>removeIconSmall.png</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
+				<string>{22, 22}</string>
 				<string>{30, 30}</string>
 				<string>{19, 20}</string>
+				<string>{22, 22}</string>
 			</object>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">933</string>

@@ -29,5 +29,7 @@
 -(void) askForFacebookBoast;
 -(void) boastOnFacebook;
 -(void) boastOnTwitter;
++(Facebook*) sharedFacebook;
++(SA_OAuthTwitterEngine*) sharedTwitter;
 
 @end

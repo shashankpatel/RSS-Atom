@@ -77,7 +77,7 @@
 
 -(void) viewWillAppear:(BOOL)animated{
     self.feedInfos=[AMFeedManager allFeedInfos];
-    self.allCategories=[[AMFeedManager allFeedCategories] allValues];
+    self.allCategories=[[[AMFeedManager allFeedCategories] allValues] sortedArrayUsingSelector:@selector(compare:)];
     [self regenerateGrid];
     int countUpperBound=[allCategories count]-1;
     if (tableIndex>countUpperBound){
@@ -117,7 +117,7 @@
     [gridTiles removeObject:_tile];
     
     self.feedInfos=[AMFeedManager allFeedInfos];
-    self.allCategories=[[AMFeedManager allFeedCategories] allValues];
+    self.allCategories=[[[AMFeedManager allFeedCategories] allValues] sortedArrayUsingSelector:@selector(compare:)];
     
     [UIView beginAnimations:@"Delete tile" context:nil];
     [UIView setAnimationDuration:0.3];
@@ -181,14 +181,14 @@
         [catTile.deleteButton addTarget:self action:@selector(deleteCatTile:) forControlEvents:UIControlEventTouchUpInside];
     }
     
-    AMCatTile *catTile=[AMCatTile catTile];
-    catTile.index=kAddButtonTag;
-    [catTile.button setTitle:@"✚" forState:UIControlStateNormal];
-    [gridTiles addObject:catTile];
-    [catOverlay addSubview:catTile];
-    [catTile.button addTarget:self action:@selector(tilePressed:) forControlEvents:UIControlEventTouchUpInside];
-    [catTile.deleteButton addTarget:self action:@selector(deleteCatTile:) forControlEvents:UIControlEventTouchUpInside];
-    
+    if ([allCategories count]<12) {
+        AMCatTile *catTile=[AMCatTile catTile];
+        catTile.index=kAddButtonTag;
+        [catTile.button setTitle:@"✚" forState:UIControlStateNormal];
+        [gridTiles addObject:catTile];
+        [catOverlay addSubview:catTile];
+        [catTile.button addTarget:self action:@selector(tilePressed:) forControlEvents:UIControlEventTouchUpInside];
+    }
     
     int totalRows=[gridTiles count] / 3;
     if (totalRows!=[gridTiles count] / 3.0) {
@@ -245,6 +245,7 @@
     [UIView setAnimationDelegate:self];
     [UIView setAnimationDidStopSelector:@selector(tileAnimationEnded)];
     tile.frame=CGRectMake(0, 44, 320, 44);
+    [tile.button setBackgroundImage:nil forState:UIControlStateNormal];
     table.alpha=1;
     int totalRows=[gridTiles count] / 3;
     for (int i=0; i<[gridTiles count]; i++) {
@@ -291,6 +292,10 @@
     [UIView beginAnimations:@"" context:nil];
     [UIView setAnimationDuration:0.4];
     catOverlay.alpha=1.0;
+    int totalRows=[gridTiles count] / 3;
+    if (totalRows!=[gridTiles count] / 3.0) {
+        totalRows++;
+    }
     for (int i=0; i<[gridTiles count]; i++) {
         AMCatTile *tile=[gridTiles objectAtIndex:i];
         if (i!=tableIndex) {
@@ -300,6 +305,23 @@
             int row=i / 3;
             int column=i % 3;
             tile.frame=CGRectMake(10+column*100, 54+row*100, 100, 100);
+            if (row==0) {
+                if (column==0) {
+                    [tile.button setBackgroundImage:[UIImage imageNamed:@"roundRectTL.png"] forState:UIControlStateNormal];
+                }else if(column==2){
+                    [tile.button setBackgroundImage:[UIImage imageNamed:@"roundRectTR.png"] forState:UIControlStateNormal];                
+                }else{
+                    [tile.button setBackgroundImage:[UIImage imageNamed:@"rect.png"] forState:UIControlStateNormal];
+                }
+            }else if(row==totalRows-1){
+                if (column==0) {
+                    [tile.button setBackgroundImage:[UIImage imageNamed:@"roundRectBL.png"] forState:UIControlStateNormal];
+                }else if(column==2){
+                    [tile.button setBackgroundImage:[UIImage imageNamed:@"roundRectBR.png"] forState:UIControlStateNormal];                
+                }else{
+                    [tile.button setBackgroundImage:[UIImage imageNamed:@"rect.png"] forState:UIControlStateNormal];
+                }
+            }
         }
         tile.alpha=1;
     }
@@ -333,7 +355,7 @@
     addFeedCatView.alpha=0;
     for (int i=0; i<[gridTiles count]; i++) {
         AMCatTile *tile=[gridTiles objectAtIndex:i];
-        tile.backgroundColor=[UIColor blackColor];
+        tile.backgroundColor=[UIColor clearColor];
         tile.userInteractionEnabled=YES;
     }
     [UIView commitAnimations];
@@ -347,7 +369,7 @@
     }
     [AMFeedManager addFeedCat:tfFeedCat.text];
     self.feedInfos=[AMFeedManager allFeedInfos];
-    self.allCategories=[[AMFeedManager allFeedCategories] allValues];
+    self.allCategories=[[[AMFeedManager allFeedCategories] allValues] sortedArrayUsingSelector:@selector(compare:)];
     [UIView beginAnimations:@"Show addCatView" context:nil];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
     [UIView setAnimationDuration:0.3];
@@ -365,7 +387,8 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     int sectionCount=0;
     if (tableIndex<[allCategories count]) {
-        return sectionCount=1;
+        sectionCount=1;
+        return sectionCount;
     }
     return sectionCount;
 }
@@ -509,7 +532,7 @@ UITapGestureRecognizer *singleDTap;
     [AMFeedManager removeFeedInfo:feedInfo];
     
     self.feedInfos=[AMFeedManager allFeedInfos];
-    self.allCategories=[[AMFeedManager allFeedCategories] allValues];
+    self.allCategories=[[[AMFeedManager allFeedCategories] allValues] sortedArrayUsingSelector:@selector(compare:)];
     
     [table deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationRight];
     if ([[feedInfos objectForKey:[allCategories objectAtIndex:tableIndex]] count]==0) {
