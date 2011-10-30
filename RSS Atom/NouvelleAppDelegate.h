@@ -26,5 +26,8 @@
 -(void)logoutFromfacebook;
 -(void) publishContent:(MWFeedItem*) feed withPostMessage:(NSString*) postMessage;
 -(void) postOnTwitter:(NSString*) twitterPost;
+-(void) askForFacebookBoast;
+-(void) boastOnFacebook;
+-(void) boastOnTwitter;
 
 @end

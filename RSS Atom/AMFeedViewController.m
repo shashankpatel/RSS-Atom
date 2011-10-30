@@ -36,6 +36,13 @@ static NSString *htmlWrapper;
     return self;
 }
 
+-(void) makeViewTranparent:(UIView *) view{
+    for (UIView *subView in [view subviews]) {
+        [self makeViewTranparent:subView];
+    }
+    view.backgroundColor=[UIColor clearColor];
+}
+
 - (void)viewDidLoad
 {
     fbStatusView.center=CGPointMake(160, -75);
@@ -66,15 +73,13 @@ static NSString *htmlWrapper;
     }
     
     [self processWebView];
+    
+    [self.view addSubview:boastView];
+    boastView.frame=CGRectMake(0, -297, 320, 297);
+    boastView.alpha=0;
+    [self makeViewTranparent:boastTable];
+    
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-}
-
--(void) makeViewTranparent:(UIView *) view{
-    for (UIView *subView in [view subviews]) {
-        [self makeViewTranparent:subView];
-    }
-    view.backgroundColor=[UIColor clearColor];
 }
 
 -(void) processWebView{
@@ -104,6 +109,11 @@ static NSString *htmlWrapper;
     [super viewWillAppear:animated];
 }
 
+-(void) viewWillDisappear:(BOOL)animated{
+    [self hideBoastTable];
+    [super viewWillDisappear:animated];
+}
+
 -(void) reloadTable{
     [table reloadData];
     table.frame=CGRectMake(0, -table.contentSize.height, 320, table.contentSize.height);
@@ -120,7 +130,7 @@ static NSString *htmlWrapper;
 
 -(void) doubleTapReceived:(id) sender{
     NSLog(@"Double tap");
-    if (fbStatusView.alpha==1.0 || tweeterStatusView.alpha==1.0) {
+    if (fbStatusView.alpha==1.0 || tweeterStatusView.alpha==1.0 || boastView.alpha>0) {
         return;
     }
     [self.zoomController popToIndex:2 shrink:YES];
@@ -161,7 +171,6 @@ static NSString *htmlWrapper;
 }
 
 -(IBAction)facebookClicked{
-    
     NSString *caption=[[AMFeedManager titleForFeedID:feed.feedID] stringByConvertingHTMLToPlainText];
     
     lblTitle.text=feed.title;
@@ -229,7 +238,7 @@ static NSString *htmlWrapper;
     NSString *post=[NSString stringWithFormat:@"%@ - %@",feed.title,[feed.link stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     [appDelegate postOnTwitter:post];
     
-    [UIView beginAnimations:@"Show facebook view" context:nil];
+    [UIView beginAnimations:@"Show Twitter view" context:nil];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
     [UIView setAnimationDuration:0.2];
     tweeterStatusView.center=CGPointMake(160, -60);
@@ -269,62 +278,181 @@ static NSString *htmlWrapper;
     [controller dismissModalViewControllerAnimated:YES];
 }
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    if (table==tableView) {
+        return 1;
+    }else{
+        return 2;
+    }
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 3;
+    if (tableView==table) {
+        return 3;
+    }else{
+        if (section==0) {
+            return 2;
+        }else{
+            return 1;
+        }
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *cellIdentifier=@"Cell";
-    UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (cell==nil) {
-        cell=[[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
-        cell.textLabel.font=indexPath.row==0?[General regularLabelFont]:[General descriptionFont];
-        cell.textLabel.textColor=[UIColor whiteColor];
-        cell.backgroundColor=[UIColor blackColor];
-        if (indexPath.row!=0) {
-            cell.textLabel.textAlignment=UITextAlignmentRight;
-        }else{
-            cell.textLabel.numberOfLines=10;
+    if (tableView==table) {
+        static NSString *cellIdentifier=@"Cell";
+        UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        if (cell==nil) {
+            cell=[[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
+            cell.textLabel.font=indexPath.row==0?[General regularLabelFont]:[General descriptionFont];
+            cell.textLabel.textColor=[UIColor whiteColor];
+            cell.backgroundColor=[UIColor blackColor];
+            if (indexPath.row!=0) {
+                cell.textLabel.textAlignment=UITextAlignmentRight;
+            }else{
+                cell.textLabel.numberOfLines=10;
+            }
+            cell.selectionStyle=UITableViewCellSelectionStyleNone;
         }
-        cell.selectionStyle=UITableViewCellSelectionStyleNone;
+        
+        switch (indexPath.row) {
+            case 0:
+                cell.textLabel.text=feed.title;
+                break;
+            case 1:
+                cell.textLabel.text=[feed.date description];
+                break;
+            case 2:
+                cell.textLabel.text=feed.author;
+                break;
+            default:
+                break;
+        }
+        return cell;
+    }else{
+        static NSString *cellIdentifier=@"ShareCell";
+        UITableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        if (cell==nil) {
+            cell=[[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier] autorelease];
+            cell.textLabel.font=[General regularLabelFont];
+            cell.textLabel.textColor=[UIColor whiteColor];
+            cell.backgroundColor=[UIColor blackColor];
+        }
+        
+        if (indexPath.section==0) {
+            switch (indexPath.row) {
+                case 0:
+                    cell.textLabel.text=@"On Facebook";
+                    break;
+                case 1:
+                    cell.textLabel.text=@"On Twitter";
+                    break;
+            }
+        }else{
+            cell.textLabel.text=@"Leave us review on iTunes";
+        }
+        
+        return cell;
     }
     
-    switch (indexPath.row) {
-        case 0:
-            cell.textLabel.text=feed.title;
-            break;
-        case 1:
-            cell.textLabel.text=[feed.date description];
-            break;
-        case 2:
-            cell.textLabel.text=feed.author;
-            break;
-        default:
-            break;
-    }
-    return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row==0) {
-        CGSize maximumLabelSize = CGSizeMake(280,9999);
-        CGSize expectedLabelSize = [feed.title sizeWithFont:[General regularLabelFont]
-                                          constrainedToSize:maximumLabelSize 
-                                              lineBreakMode:UILineBreakModeTailTruncation]; 
-        
-        return expectedLabelSize.height+18;
+    if (tableView==table) {
+        if (indexPath.row==0) {
+            CGSize maximumLabelSize = CGSizeMake(280,9999);
+            CGSize expectedLabelSize = [feed.title sizeWithFont:[General regularLabelFont]
+                                              constrainedToSize:maximumLabelSize 
+                                                  lineBreakMode:UILineBreakModeTailTruncation]; 
+            
+            return expectedLabelSize.height+18;
+        }
+        return 30;
+    }else{
+        return 44;
     }
-    return 30;
 }
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    AMWebViewController *wvc=(AMWebViewController*)[self.zoomController.viewControllers objectAtIndex:4];
-    [wvc loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:feed.link]]];
-    [self.zoomController pushToIndex:4];
-    return nil;
+    if (tableView==table) {
+        AMWebViewController *wvc=(AMWebViewController*)[self.zoomController.viewControllers objectAtIndex:4];
+        [wvc loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:feed.link]]];
+        [self.zoomController pushToIndex:4];
+        return nil;
+    }
+    return indexPath;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (table==tableView) {
+        return;
+    }
+    
+    
+    NouvelleAppDelegate *appDelegate=(NouvelleAppDelegate*)[[UIApplication sharedApplication] delegate];
+    
+    if (indexPath.section==0) {
+        if (indexPath.row==0) {
+            [appDelegate boastOnFacebook];
+        }else{
+            [appDelegate boastOnTwitter];
+        }
+    }else{
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.appmaggot.com/nouvelle/itunes.php"]];
+    }
+    [self hideBoastTable];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    if (tableView==table) {
+        return nil;
+    }
+    UILabel *label=[[[UILabel alloc] initWithFrame:CGRectMake(10, 0, 300, 44)] autorelease];
+    label.font=[General regularLabelFont];
+    label.textColor=[UIColor whiteColor];
+    label.backgroundColor=[UIColor clearColor];
+    
+    UIView *headerView=[[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 44)] autorelease];
+    [headerView addSubview:label];
+    
+    if (section==0) {
+        label.text=@"Share your love for us on";
+    }else{
+        label.text=@"Or alternatively";
+    }
+    return headerView;
+}
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if (table==tableView) {
+        return 0;
+    }
+    return 44;
+}
+
+-(IBAction) heartTapped:(id)sender{
+    [self showBoastTable];
+}
+
+-(void) showBoastTable{
+    [UIView beginAnimations:@"Show boast view" context:nil];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+    [UIView setAnimationDuration:0.2];
+    boastView.frame=CGRectMake(0, 0, 320, 297);
+    boastView.alpha=1;
+    [UIView commitAnimations];
+    webView.userInteractionEnabled=NO;
+}
+
+-(IBAction) hideBoastTable{
+    [UIView beginAnimations:@"Hide boast view" context:nil];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
+    [UIView setAnimationDuration:0.2];
+    boastView.frame=CGRectMake(0, -297, 320, 297);
+    boastView.alpha=0;
+    [UIView commitAnimations];
+    webView.userInteractionEnabled=YES;
+}
 
 @end

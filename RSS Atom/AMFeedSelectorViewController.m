@@ -31,13 +31,20 @@
     addFeedCatView.center=CGPointMake(160, -69);
     addFeedCatView.alpha=0;
     headerViews=[[NSMutableDictionary alloc] init];
-    self.tableIndex=0;
+    NSLog(@"View did load");
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults objectForKey:@"tableIndex"]!=nil) {
+        NSNumber *lastTableIndex=[defaults objectForKey:@"tableIndex"];
+        self.tableIndex=[lastTableIndex intValue];
+    }else{
+        self.tableIndex=0;
+    }
+    
     upButton.titleLabel.font=[General regularLabelFont];
     downButton.titleLabel.font=[General regularLabelFont];
     bottomFrame=CGRectMake(0, 416, 320, 328);
     topFrame=CGRectMake(0, 44, 320, 328);
     manageButton.hidden=YES;
-    tableIndex=NSNotFound;
     [self makeViewTranparent:table];
     [super viewDidLoad];
 }
@@ -49,6 +56,9 @@
         tableTransition=kTableTransitionPositive;
     }
     tableIndex=_tableIndex;
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:[NSNumber numberWithInt:tableIndex] forKey:@"tableIndex"];
+    [defaults synchronize];
     
     [upButton setTitle:nil forState:UIControlStateNormal];
     [downButton setTitle:nil forState:UIControlStateNormal];
@@ -90,8 +100,6 @@
 -(void) viewWillAppear:(BOOL)animated{
     self.feedInfos=[AMFeedManager allFeedInfos];
     self.allCategories=[[AMFeedManager allFeedCategories] allValues];
-    if(self.tableIndex==NSNotFound) self.tableIndex=0;
-    [self setButtonTexts];
     [self regenerateGrid];
     [table reloadData];
     [super viewWillAppear:animated];

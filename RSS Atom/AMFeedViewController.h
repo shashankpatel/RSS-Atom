@@ -27,8 +27,10 @@
     IBOutlet UILabel *lblTitle,*lblCaption,*lblDescription,*lblTweet;
     IBOutlet AMImageView *imageView;
     BOOL pageLoaded;
-    IBOutlet UITableView *table;
+    IBOutlet UITableView *table,*boastTable;
+    IBOutlet UIView *boastView;
     UIScrollView *webScrollView;
+    IBOutlet UIButton *heartButton;
 }
 
 @property(nonatomic,retain) NSObject<FeedViewDelegate> *delegate;
@@ -46,6 +48,9 @@
 -(IBAction) cancelTapped:(id)sender;
 -(IBAction) cancelTweetTapped:(id)sender;
 -(IBAction) tweetTapped:(id)sender;
+-(IBAction) heartTapped:(id)sender;
 -(void) reloadTable;
+-(void) showBoastTable;
+-(IBAction) hideBoastTable;
 
 @end

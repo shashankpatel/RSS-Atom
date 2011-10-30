@@ -23,6 +23,7 @@ static NSArray *permissions;
 static MWFeedItem *feedToPublish;
 static NSString *postMessage;
 static BOOL publishScheduled;
+static BOOL fbBoastScheduled;
 
 static SA_OAuthTwitterEngine *engine;
 static NSString *kOAuthConsumerKey=@"AfpVFBP5BGKqbK5yDiNisA";
@@ -143,7 +144,7 @@ static NSString *twitterPostString;
     SBJSON *jsonWriter = [[SBJSON new] autorelease];
     
     NSArray* actionLinks = [NSArray arrayWithObjects:[NSDictionary 
-                                                           dictionaryWithObjectsAndKeys: @"I want Nouvelle for iOS",@"name",@"http://appmaggot.com/nouvelle",
+                                                           dictionaryWithObjectsAndKeys: @"I want Nouvelle for iOS",@"name",@"http://www.appmaggot.com/nouvelle",
                                                            @"link", nil], nil];
     NSString *actionLinksStr = [jsonWriter stringWithObject:[actionLinks objectAtIndex:0]];
     
@@ -198,7 +199,56 @@ static NSString *twitterPostString;
         [self publishContent:feedToPublish withPostMessage:postMessage];
     }
     
+    if (fbBoastScheduled) {
+        [self boastOnFacebook];
+    }
+    
     NSLog(@"Logged in");
+}
+
+-(void) askForFacebookBoast{
+    
+}
+
+-(void) boastOnFacebook{
+    if (!facebook.isSessionValid) {
+        fbBoastScheduled=YES;
+        [facebook authorize:permissions];
+    }
+    
+    SBJSON *jsonWriter = [[SBJSON new] autorelease];
+    
+    NSArray* actionLinks = [NSArray arrayWithObjects:[NSDictionary 
+                                                      dictionaryWithObjectsAndKeys: @"I want Nouvelle for iOS",@"name",@"http://www.appmaggot.com/nouvelle",
+                                                      @"link", nil], nil];
+    NSString *actionLinksStr = [jsonWriter stringWithObject:[actionLinks objectAtIndex:0]];
+    
+    NSString *caption=@"Nouvelle for iOS. Simplicity with style and substance.";
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setObject:@"I use Nouvelle for iOS to read RSS feeds everywhere. Even while offline." forKey:@"name"];
+    [params setObject:caption forKey:@"caption"];
+    
+    
+    NSString *description=@"Nouvelle for iOS is a super simple and intuitive app to read RSS feeds. Designed for simplicity and usability, it makes it a fun to read the news on your iOS based devices. Who said news have to be tasteless?";
+    
+    [params setObject:description forKey:@"description"];
+    
+    [params setObject:@"http://www.appmaggot.com/nouvelle/" forKey:@"link"];
+    [params setObject:@"http://www.appmaggot.com/nouvelle/index_files/nouvelleAppIcon.jpg" forKey:@"picture"];
+    
+    
+    [params setObject:actionLinksStr forKey:@"actions"];
+    
+    [facebook requestWithGraphPath:@"me/feed"   // or use page ID instead of 'me'
+                         andParams:params
+                     andHttpMethod:@"POST"
+                       andDelegate:self];
+}
+
+-(void) boastOnTwitter{
+    NSString *boastPostForTwitter=@"Loving Nouvelle for iOS to read RSS feeds everywhere. A very simple and intuitive design. Get it here: http://www.appmaggot.com/nouvelle";
+    [self postOnTwitter:boastPostForTwitter];
 }
 
 /**
