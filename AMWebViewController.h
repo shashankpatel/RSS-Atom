@@ -15,7 +15,10 @@
     IBOutlet UIButton *stopButton;
     IBOutlet UIView *moreView;
     IBOutlet UITableView *moreTable;
+    NSURL *URL;
 }
+
+@property(nonatomic,retain) NSURL *URL;
 
 -(void) loadRequest:(NSURLRequest*) request;
 -(void) showLoadingView;

@@ -11,6 +11,8 @@
 
 @implementation AMWebViewController
 
+@synthesize URL;
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
@@ -24,6 +26,7 @@
 }
 
 -(void) loadRequest:(NSURLRequest*) request{
+    self.URL=request.URL;
     [self showLoadingView];
     [webView loadRequest:request];
 }
@@ -135,7 +138,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     switch (indexPath.row) {
         case 0:
-            [[UIApplication sharedApplication] openURL:webView.request.URL];
+            [[UIApplication sharedApplication] openURL:self.URL];
             [self cancelPressed];
             break;
         default:

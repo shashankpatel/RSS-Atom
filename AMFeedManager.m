@@ -10,6 +10,7 @@
 #import "AMSerializer.h"
 #import "MWFeedItem.h"
 #import "JSON.h"
+#import "FlurryAnalytics.h"
 
 @implementation AMFeedManager
 
@@ -33,6 +34,13 @@ static sqlite3 *feedDB;
     int ret = sqlite3_exec(feedDB, [addQuery UTF8String],NULL,NULL, NULL);
     if (ret==SQLITE_OK) {
         NSLog(@"Feed added");
+        NSMutableDictionary *feedInfoDict=[[NSMutableDictionary alloc] init];
+        [feedInfoDict setObject:feedInfo.title forKey:@"feedTitle"];
+        [feedInfoDict setObject:feedInfo.urlString forKey:@"feedURLString"];
+        [feedInfoDict setObject:feedInfo.link forKey:@"feedLink"];
+        
+        [FlurryAnalytics logEvent:@"FeedURL_Added" withParameters:feedInfoDict];
+        [feedInfoDict release];
     }else{
         printf("\n%s",sqlite3_errmsg(feedDB));
     }

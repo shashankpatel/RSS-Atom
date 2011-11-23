@@ -94,6 +94,7 @@
 		98C89D6614325DAD000D8F27 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 98C89D6314325DAD000D8F27 /* GTMNSString+HTML.m */; };
 		98C89D6714325DAD000D8F27 /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 98C89D6514325DAD000D8F27 /* NSString+HTML.m */; };
 		98C89D6A1432664C000D8F27 /* checkMarkIconSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 98C89D691432664C000D8F27 /* checkMarkIconSmall.png */; };
+		98D008B1147D58CF005439F9 /* disclosureIconSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D008B0147D58CF005439F9 /* disclosureIconSmall.png */; };
 		98D25E3C143277EF0049235B /* backIconSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D25E3B143277EF0049235B /* backIconSmall.png */; };
 		98D25E441432E3F50049235B /* AMFeedManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 98D25E431432E3F50049235B /* AMFeedManager.m */; };
 		98D25E461432E4B20049235B /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 98D25E451432E4B20049235B /* libsqlite3.dylib */; };
@@ -122,6 +123,7 @@
 		98D8B05F145DEB6400380261 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D8B05E145DEB6400380261 /* Default.png */; };
 		98D8B061145DEB6900380261 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 98D8B060145DEB6800380261 /* Default@2x.png */; };
 		98E0418D1441DC5000DAF138 /* removeIconSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 98E0418C1441DC5000DAF138 /* removeIconSmall.png */; };
+		98E2A8BB1473800F003B751F /* libFlurryAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 98E2A8BA1473800F003B751F /* libFlurryAnalytics.a */; };
 		98F005921434BF810013B44D /* AMFeedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 98F005911434BF810013B44D /* AMFeedCell.m */; };
 		98F005951434BFB90013B44D /* AMFeedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98F005941434BFB90013B44D /* AMFeedCell.xib */; };
 		98F005BD1434C85D0013B44D /* CDataChunk.m in Sources */ = {isa = PBXBuildFile; fileRef = 98F0059C1434C85D0013B44D /* CDataChunk.m */; };
@@ -306,6 +308,7 @@
 		98C89D6514325DAD000D8F27 /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HTML.m"; sourceTree = "<group>"; };
 		98C89D6814325E57000D8F27 /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
 		98C89D691432664C000D8F27 /* checkMarkIconSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkMarkIconSmall.png; sourceTree = "<group>"; };
+		98D008B0147D58CF005439F9 /* disclosureIconSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = disclosureIconSmall.png; sourceTree = "<group>"; };
 		98D25E3B143277EF0049235B /* backIconSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backIconSmall.png; sourceTree = "<group>"; };
 		98D25E421432E3F40049235B /* AMFeedManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMFeedManager.h; sourceTree = "<group>"; };
 		98D25E431432E3F50049235B /* AMFeedManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMFeedManager.m; sourceTree = "<group>"; };
@@ -342,6 +345,8 @@
 		98D8B05E145DEB6400380261 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		98D8B060145DEB6800380261 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		98E0418C1441DC5000DAF138 /* removeIconSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = removeIconSmall.png; sourceTree = "<group>"; };
+		98E2A8B91473800F003B751F /* FlurryAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAnalytics.h; sourceTree = "<group>"; };
+		98E2A8BA1473800F003B751F /* libFlurryAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurryAnalytics.a; sourceTree = "<group>"; };
 		98F005901434BF810013B44D /* AMFeedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMFeedCell.h; sourceTree = "<group>"; };
 		98F005911434BF810013B44D /* AMFeedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AMFeedCell.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		98F005941434BFB90013B44D /* AMFeedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AMFeedCell.xib; sourceTree = "<group>"; };
@@ -400,6 +405,7 @@
 				98D62A48142B528800481EF9 /* Foundation.framework in Frameworks */,
 				98D62A4A142B528800481EF9 /* CoreGraphics.framework in Frameworks */,
 				980D315B145955B100BF255C /* libOAuth.a in Frameworks */,
+				98E2A8BB1473800F003B751F /* libFlurryAnalytics.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -622,6 +628,7 @@
 			children = (
 				98D8B060145DEB6800380261 /* Default@2x.png */,
 				98D8B05E145DEB6400380261 /* Default.png */,
+				98E2A8B81473800F003B751F /* FlurryAnalytics */,
 				981F23A5145200C00047D124 /* Social */,
 				98C89D4614324DCF000D8F27 /* Supporting Frameworks */,
 				98D62A4B142B528800481EF9 /* RSS Atom */,
@@ -711,6 +718,7 @@
 		98D62A6D142B5B3A00481EF9 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				98D008B0147D58CF005439F9 /* disclosureIconSmall.png */,
 				9817B690145DCD3D002ED89A /* reloadIconSmall.png */,
 				9804CE38145D7AF1007F8CE5 /* helpIconSmall.png */,
 				98342F56145C96C800CEF448 /* favicon.png */,
@@ -749,6 +757,15 @@
 				98D62A6E142B5B5600481EF9 /* gridIcon.png */,
 			);
 			name = Icons;
+			sourceTree = "<group>";
+		};
+		98E2A8B81473800F003B751F /* FlurryAnalytics */ = {
+			isa = PBXGroup;
+			children = (
+				98E2A8B91473800F003B751F /* FlurryAnalytics.h */,
+				98E2A8BA1473800F003B751F /* libFlurryAnalytics.a */,
+			);
+			path = FlurryAnalytics;
 			sourceTree = "<group>";
 		};
 		98F0059A1434C8420013B44D /* ElementParser */ = {
@@ -903,6 +920,7 @@
 				98D8B05D145DE8CE00380261 /* feedDB.db in Resources */,
 				98D8B05F145DEB6400380261 /* Default.png in Resources */,
 				98D8B061145DEB6900380261 /* Default@2x.png in Resources */,
+				98D008B1147D58CF005439F9 /* disclosureIconSmall.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1083,6 +1101,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Libraries & Headers\"",
+					"\"$(SRCROOT)/FlurryAnalytics\"",
 				);
 				OTHER_LDFLAGS = (
 					"-lxml2",
@@ -1114,6 +1133,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Libraries & Headers\"",
+					"\"$(SRCROOT)/FlurryAnalytics\"",
 				);
 				OTHER_LDFLAGS = (
 					"-lxml2",

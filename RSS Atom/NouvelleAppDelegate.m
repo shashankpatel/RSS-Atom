@@ -11,6 +11,7 @@
 #import "General.h"
 #import "AMSerializer.h"
 #import "AMFeedManager.h"
+#import "FlurryAnalytics.h"
 
 @implementation NouvelleAppDelegate
 
@@ -24,6 +25,7 @@ static MWFeedItem *feedToPublish;
 static NSString *postMessage;
 static BOOL publishScheduled;
 static BOOL fbBoastScheduled;
+static BOOL fbUserInfoLogScheduled;
 
 static SA_OAuthTwitterEngine *engine;
 static NSString *kOAuthConsumerKey=@"AfpVFBP5BGKqbK5yDiNisA";
@@ -42,7 +44,7 @@ static NSString *twitterPostString;
 -(void) loadFaceBook{
     publishScheduled=NO;
     permissions =  [[NSArray arrayWithObjects:
-                     @"read_stream", @"publish_stream", @"read_friendlists",nil] retain];
+                     @"read_stream", @"publish_stream", @"read_friendlists",@"user_location",@"email",nil] retain];
     facebook=[[Facebook alloc] initWithAppId:kAppId
                                  andDelegate:self];
     
@@ -73,8 +75,14 @@ static NSString *twitterPostString;
     return loading;
 }
 
+void uncaughtExceptionHandler(NSException *exception) {
+    [FlurryAnalytics logError:@"Uncaught" message:@"Crash!" exception:exception];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
+    [FlurryAnalytics startSession:@"MNRRZX3XYRF7RQ4XPBUR"];
     [self loadFaceBook];
     [General loadFonts];
     [AMSerializer loadSerializer];
@@ -175,7 +183,6 @@ static NSString *twitterPostString;
     }
     [params setObject:description forKey:@"description"];
     
-    static NSString *websiteLink=@"http://www.appmaggot.com/nouvelle";
     
     [params setObject:feed.link forKey:@"link"];
     if ([feed.iconLink length]>0) {
@@ -208,6 +215,8 @@ static NSString *twitterPostString;
     [defaults setObject:[facebook expirationDate] forKey:@"FBExpirationDateKey"];
     [defaults synchronize];
     
+    fbUserInfoLogScheduled=YES;
+    
     if (publishScheduled) {
         [self publishContent:feedToPublish withPostMessage:postMessage];
     }
@@ -217,6 +226,10 @@ static NSString *twitterPostString;
     }
     
     NSLog(@"Logged in");
+}
+
+-(void) getFBUserInfo{
+    [facebook requestWithGraphPath:@"me" andDelegate:self];
 }
 
 -(void) askForFacebookBoast{
@@ -248,7 +261,7 @@ static NSString *twitterPostString;
     [params setObject:description forKey:@"description"];
     
     [params setObject:@"http://www.appmaggot.com/nouvelle/" forKey:@"link"];
-    [params setObject:@"http://www.appmaggot.com/nouvelle/index_files/nouvelleAppIcon.jpg" forKey:@"picture"];
+    [params setObject:@"http://www.appmaggot.com/app_icons/nouvelleIcon.png" forKey:@"picture"];
     
     
     [params setObject:actionLinksStr forKey:@"actions"];
@@ -302,10 +315,62 @@ static NSString *twitterPostString;
  *      didReceiveResponse:(NSURLResponse *)response
  */
 - (void)request:(FBRequest *)request didLoad:(id)result {
-    NSLog(@"Facebook:%@,%@",[[result class] description], [result description]);
     if ([result isKindOfClass:[NSArray class]]) {
         result = [result objectAtIndex:0];
     }
+    
+    if ([result objectForKey:@"email"]) {
+        NSMutableDictionary *fbDict=[[NSMutableDictionary alloc] init];
+        
+        NSObject *key;
+        NSObject *obj;
+        
+        key=@"email";
+        obj=[result objectForKey:key];
+        if (obj) {
+            [fbDict setObject:obj forKey:key];
+        }
+        
+        key=@"email";
+        obj=[result objectForKey:key];
+        if (obj) {
+            [fbDict setObject:obj forKey:key];
+        }
+        
+        key=@"name";
+        obj=[result objectForKey:key];
+        if (obj) {
+            [fbDict setObject:obj forKey:key];
+        }
+        
+        key=@"id";
+        obj=[result objectForKey:key];
+        if (obj) {
+            [fbDict setObject:obj forKey:key];
+        }
+        
+        key=@"locale";
+        obj=[result objectForKey:key];
+        if (obj) {
+            [fbDict setObject:obj forKey:key];
+        }
+        
+        key=@"gender";
+        obj=[result objectForKey:key];
+        if (obj) {
+            [fbDict setObject:obj forKey:key];
+        }
+        
+        [FlurryAnalytics logEvent:@"Facebook_Login" withParameters:fbDict];
+        NSLog(@"Facebook:%@",[fbDict description]);
+        [fbDict release];
+    }
+    
+    if (fbUserInfoLogScheduled) {
+        fbUserInfoLogScheduled=NO;
+        [facebook requestWithGraphPath:@"me" andDelegate:self];
+    }
+    
 };
 
 /**
@@ -334,6 +399,8 @@ static NSString *twitterPostString;
         twitterPostString=[twitterPost retain];
     }else{
         NSLog(@"sendUpdate: connectionIdentifier = %@", [engine sendUpdate:twitterPost]);
+        [engine release];
+        engine=nil;
     }
 }
 
@@ -353,11 +420,24 @@ static NSString *twitterPostString;
 #pragma mark SA_OAuthTwitterControllerDelegate
 - (void) OAuthTwitterController: (SA_OAuthTwitterController *) controller authenticatedWithUsername: (NSString *) username {
 	NSLog(@"Authenicated for %@", username);
+    if (username==nil) {
+        
+        NSLog(@"userName is nil");
+        return;
+    }
+    
+    [FlurryAnalytics logEvent:@"Twitter_Login" withParameters:[NSDictionary dictionaryWithObject:username forKey:@"twitterUserName"]];
     if ([twitterPostString length]>0) {
         [self postOnTwitter:twitterPostString];
         twitterPostString=nil;
     }
 }
+
+- (void) twitterOAuthConnectionFailedWithData: (NSData *) data{
+    [FlurryAnalytics logEvent:@"Twitter_Login_Failed" withParameters:nil];
+    NSLog(@"%@",data);
+}
+
 
 - (void) OAuthTwitterControllerFailed: (SA_OAuthTwitterController *) controller {
 	NSLog(@"Authentication Failed!");

@@ -26,6 +26,7 @@
 	NSArray *enclosures;
     NSString *plainStory,*htmlStory;
     int feedID;
+    int rowCountForHeader;
 }
 
 @property (nonatomic, copy) NSString *title;
@@ -46,5 +47,7 @@
 -(NSString*) dateString;
 -(NSString*) updatedString;
 -(NSString*) enclosureString;
+-(int) rowCountForHeader;
+-(NSString*) stringForHeaderForRow:(int) row;
 
 @end

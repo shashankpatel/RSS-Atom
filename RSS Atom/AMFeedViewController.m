@@ -14,6 +14,7 @@
 #import "AMFeedManager.h"
 #import "NSString+HTML.h"
 #import "General.h"
+#import "FlurryAnalytics.h"
 
 @implementation AMFeedViewController
 
@@ -290,7 +291,7 @@ static NSString *htmlWrapper;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (tableView==table) {
-        return 3;
+        return [feed rowCountForHeader];
     }else{
         if (section==0) {
             return 2;
@@ -316,19 +317,13 @@ static NSString *htmlWrapper;
             }
             cell.selectionStyle=UITableViewCellSelectionStyleNone;
         }
-        
-        switch (indexPath.row) {
-            case 0:
-                cell.textLabel.text=feed.title;
-                break;
-            case 1:
-                cell.textLabel.text=[feed.date description];
-                break;
-            case 2:
-                cell.textLabel.text=feed.author;
-                break;
-            default:
-                break;
+        cell.textLabel.text=[feed stringForHeaderForRow:indexPath.row];
+        if (indexPath.row==0) {
+            UIImageView *iv=[[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"disclosureIconSmall.png"]] autorelease];
+            iv.frame=CGRectMake(280, 7, 20, 20);
+            cell.accessoryView=iv;
+        }else{
+            cell.accessoryView=nil;
         }
         return cell;
     }else{
@@ -395,12 +390,15 @@ static NSString *htmlWrapper;
     
     if (indexPath.section==0) {
         if (indexPath.row==0) {
+            [FlurryAnalytics logEvent:@"Boast_On_Facebook"];
             [appDelegate boastOnFacebook];
         }else{
+            [FlurryAnalytics logEvent:@"Boast_On_Twitter"];
             [appDelegate boastOnTwitter];
         }
     }else{
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.appmaggot.com/nouvelle/itunes.php"]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=471918889"]];
+        [FlurryAnalytics logEvent:@"Leave_Review_On_iTunes"];
     }
     [self hideBoastTable];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

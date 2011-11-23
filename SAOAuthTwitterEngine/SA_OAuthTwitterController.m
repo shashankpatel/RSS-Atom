@@ -126,7 +126,6 @@ static NSString* const kGGTwitterLoadingBackgroundImage = @"twitter_load.png";
 - (void) gotPin: (NSString *) pin {
 	_engine.pin = pin;
 	[_engine requestAccessToken];
-	
 	if ([_delegate respondsToSelector: @selector(OAuthTwitterController:authenticatedWithUsername:)]) [_delegate OAuthTwitterController: self authenticatedWithUsername: _engine.username];
     [self performSelector:@selector(pop) withObject:nil afterDelay:1.0];
 	//[self performSelector: @selector(dismissModalViewControllerAnimated:) withObject: (id) kCFBooleanTrue afterDelay: 1.0];

@@ -17,6 +17,13 @@
 @synthesize title, link, date, updated, summary, content, enclosures, iconLink, author, feedID;
 @synthesize plainStory,htmlStory;
 
+-(id) init{
+    if (self=[super init]) {
+        rowCountForHeader=NSNotFound;
+    }
+    return self;
+}
+
 -(NSString*) title{
     return [title length]==0 ? @"" : title;
 }
@@ -171,5 +178,39 @@
     }
     return  enclosureString;
 }
+
+-(int) rowCountForHeader{
+    if (rowCountForHeader==NSNotFound) {
+        rowCountForHeader=0;
+        if ([title length]>0) rowCountForHeader++;
+        if ([[self dateString] length]>0) rowCountForHeader++;
+        if ([author length]>0) rowCountForHeader++;
+    }
+    return rowCountForHeader;
+}
+
+static NSDateFormatter *dateFormatter;
+
+-(NSString*) stringForHeaderForRow:(int) row{
+    if (dateFormatter==nil) {
+        dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+        [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+        [dateFormatter setLocale:[NSLocale currentLocale]];
+        //[dateFormatter setDateFormat:@"dd MMM yyyy"];
+    }
+    if (row==0) {
+        if ([title length]>0)return title;
+        if (date!=nil)return [dateFormatter stringFromDate:date];
+        if ([author length]>0)return author;
+    }
+    if (row==1) {
+        if (date!=nil)return [dateFormatter stringFromDate:date];
+        if ([author length]>0)return author;
+    }
+    if ([author length]>0)return author;
+    return nil;
+}
+
 
 @end

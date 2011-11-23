@@ -62,9 +62,9 @@
 
 - (SA_OAuthTwitterEngine *) initOAuthWithDelegate: (NSObject *) delegate {
     if (self = (id) [super initWithDelegate: delegate]) {
-		self.requestTokenURL = [NSURL URLWithString: @"http://twitter.com/oauth/request_token"];
-		self.accessTokenURL = [NSURL URLWithString: @"http://twitter.com/oauth/access_token"];
-		self.authorizeURL = [NSURL URLWithString: @"http://twitter.com/oauth/authorize"];
+		self.requestTokenURL = [NSURL URLWithString: @"https://api.twitter.com/oauth/request_token"];
+		self.accessTokenURL = [NSURL URLWithString: @"https://api.twitter.com/oauth/access_token"];
+		self.authorizeURL = [NSURL URLWithString: @"https://api.twitter.com/oauth/authorize"];
 	}
     return self;
 }
@@ -191,7 +191,7 @@
 // 
 - (void) setAccessToken: (OAServiceTicket *) ticket withData: (NSData *) data {
 	if (!ticket.didSucceed || !data) return;
-	
+	NSLog(@"access token received");
 	NSString *dataString = [[[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding] autorelease];
 	if (!dataString) return;
 

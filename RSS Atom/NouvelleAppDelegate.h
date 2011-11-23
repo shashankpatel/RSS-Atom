@@ -32,4 +32,6 @@
 +(Facebook*) sharedFacebook;
 +(SA_OAuthTwitterEngine*) sharedTwitter;
 
+-(void) getFBUserInfo;
+
 @end
